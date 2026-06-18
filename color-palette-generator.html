@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Palette Generator - Create Color Schemes | Mega-Store.in</title>
+    <meta name="description" content="Generate beautiful color palettes instantly. Choose from random, warm, cool, pastel, dark, or neon themes. Click any color to copy its hex code.">
+    <meta name="keywords" content="color palette generator, color scheme, design colors, color combinations, hex colors">
+    <link rel="canonical" href="https://mega-store.in/color-palette-generator.html">
+    <meta property="og:title" content="Color Palette Generator - Create Color Schemes | Mega-Store.in">
+    <meta property="og:description" content="Generate beautiful color palettes instantly. Choose from random, warm, cool, pastel, dark, or neon themes. Click any color to copy its hex code.">
+    <meta property="og:url" content="https://mega-store.in/color-palette-generator.html">
+    <meta name="author" content="MEGA STORE">
+    <meta property="og:site_name" content="MEGA STORE">
+    <meta property="og:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <meta name="twitter:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <link rel="icon" href="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+        
+    <style>
+
+        :root {
+            --deep-ink: #0B0F19;
+            --alabaster: #F4F5F0;
+            --muted-moss: #7A7C6D;
+            --aged-brass: #9E8B6F;
+            --light-fog: #E8E9E4;
+            --pure-white: #FFFFFF;
+            --dark-surface: #121620;
+            --border-light: rgba(11,15,25,0.08);
+            --border-medium: rgba(11,15,25,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        input, textarea, select, button {
+            font-family: inherit;
+            font-size: inherit;
+        }
+        button { cursor: pointer; border: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
+        @media(min-width:768px){ .container { padding: 0 8vw; } }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            z-index: 1000;
+            background: rgba(11,15,25,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+            letter-spacing: -0.02em;
+        }
+        .navbar-brand span { color: var(--aged-brass); }
+        .navbar-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+        .navbar-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        .navbar-links a:hover, .navbar-links a.active { color: var(--alabaster); }
+        .navbar-cta {
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .navbar-cta:hover { background: #b09b7e; }
+        .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--alabaster);
+            border-radius: 1px;
+        }
+
+        /* Mobile nav */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--deep-ink);
+            padding: 80px 32px 32px;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        .mobile-nav.open { transform: translateX(0); }
+        .mobile-nav-overlay.open { display: block; }
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: var(--alabaster);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 28px;
+            color: var(--alabaster);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--deep-ink);
+            padding: 64px 0 32px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+        }
+        @media(max-width:768px){
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        @media(max-width:480px){
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        .footer-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+        }
+        .footer-brand span { color: var(--aged-brass); }
+        .footer-desc {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--muted-moss);
+            line-height: 1.7;
+        }
+        .footer-email {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--aged-brass);
+        }
+        .footer-col-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--alabaster);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--alabaster); }
+        .footer-divider {
+            height: 1px;
+            background: rgba(244,245,240,0.08);
+            margin: 40px 0;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted-moss);
+        }
+
+        /* Responsive */
+        @media(max-width:768px){
+            .navbar-links { display: none; }
+            .hamburger { display: flex; }
+        }
+        @media(min-width:769px){
+            .mobile-nav, .mobile-nav-overlay { display: none !important; }
+        }
+    
+        .page-banner {
+            background: linear-gradient(135deg, var(--deep-ink) 0%, var(--dark-surface) 100%);
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+        .page-banner h1 {
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 800;
+            color: var(--alabaster);
+            line-height: 1.2;
+        }
+        .page-banner p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            margin-top: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tool-section {
+            background: var(--alabaster);
+            padding: 60px 0;
+        }
+        .tool-container {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        @media(max-width:768px){ .tool-container { padding: 24px; } }
+        .tool-input-group {
+            margin-bottom: 20px;
+        }
+        .tool-input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 6px;
+        }
+        .tool-input-group input,
+        .tool-input-group select,
+        .tool-input-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            transition: border-color 0.3s ease;
+        }
+        .tool-input-group input:focus,
+        .tool-input-group select:focus,
+        .tool-input-group textarea:focus {
+            outline: none;
+            border-color: var(--aged-brass);
+        }
+        .tool-input-group .input-prefix {
+            position: relative;
+        }
+        .tool-input-group .prefix {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-prefix input {
+            padding-left: 44px;
+        }
+        .tool-input-group .suffix {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-suffix input {
+            padding-right: 56px;
+        }
+        .tool-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .tool-btn:hover { background: #b09b7e; }
+        .tool-btn-secondary {
+            display: inline-block;
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--deep-ink);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 8px;
+        }
+        .tool-btn-secondary:hover { border-color: var(--aged-brass); }
+        .tool-result {
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--light-fog);
+            border-radius: 10px;
+            border-left: 4px solid var(--aged-brass);
+            display: none;
+        }
+        .tool-result.show { display: block; }
+        .tool-result-label {
+            font-size: 13px;
+            color: var(--muted-moss);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .tool-result-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--deep-ink);
+        }
+        .tool-result-detail {
+            font-size: 14px;
+            color: var(--muted-moss);
+            margin-top: 8px;
+        }
+        .info-section-page {
+            background: var(--light-fog);
+            padding: 80px 0;
+        }
+        .info-section-page.alt { background: var(--alabaster); }
+        .info-section-page .container { max-width: 900px; }
+        .info-section-page h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--deep-ink);
+            margin-bottom: 20px;
+        }
+        .info-section-page h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 10px;
+            margin-top: 24px;
+        }
+        .info-section-page p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+        .info-section-page ul {
+            margin: 14px 0;
+            padding-left: 24px;
+        }
+        .info-section-page li {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .related-card {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .related-card:hover {
+            border-color: rgba(158,139,111,0.3);
+            transform: translateY(-3px);
+        }
+        .related-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--deep-ink);
+        }
+        .related-card-desc {
+            font-size: 13px;
+            color: var(--muted-moss);
+            margin-top: 4px;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .error-msg {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+        .error-msg.show { display: block; }
+    
+    </style>
+</head>
+<body>
+
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Mega-<span>Store.in</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html" class="">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="about.html" class="">About Us</a></li>
+                <li><a href="contact.html" class="">Contact Us</a></li>
+                <li><a href="privacy.html" class="">Privacy Policy</a></li>
+                <li><a href="terms.html" class="">Terms</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-close" id="mobileClose">&times;</div>
+        <a href="index.html">Home</a>
+        <a href="index.html#tools">Tools</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="cookie.html">Cookie Policy</a>
+    </div>
+    
+
+<section class="page-banner">
+    <div class="container">
+        <h1 class="reveal">Color Palette Generator</h1>
+        <p class="reveal" style="transition-delay:0.1s">Create beautiful color schemes.</p>
+    </div>
+</section>
+
+<section class="tool-section">
+    <div class="container">
+        <div class="tool-container reveal">
+            
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px">
+    <button class="tool-btn" onclick="generatePalette('random')" style="font-size:13px">Random Palette</button>
+    <button class="tool-btn" onclick="generatePalette('warm')" style="font-size:13px">Warm Tones</button>
+    <button class="tool-btn" onclick="generatePalette('cool')" style="font-size:13px">Cool Tones</button>
+    <button class="tool-btn" onclick="generatePalette('pastel')" style="font-size:13px">Pastel</button>
+    <button class="tool-btn" onclick="generatePalette('dark')" style="font-size:13px">Dark/Moody</button>
+    <button class="tool-btn" onclick="generatePalette('neon')" style="font-size:13px">Neon</button>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px" id="paletteContainer"></div>
+
+        </div>
+    </div>
+</section>
+
+<section class="info-section-page">
+    <div class="container">
+        <h2 class="reveal">What Is the Color Palette Generator?</h2>
+        <p class="reveal">The Color Palette Generator is a free, intuitive online design tool that creates beautiful, harmonious color schemes instantly. Whether you are a professional graphic designer, a web developer building a new site, an artist seeking inspiration, or a business owner developing brand identity, this tool helps you discover the perfect color combinations. With six distinct generation themes, Random, Warm, Cool, Pastel, Dark/Moody, and Neon, you can explore a vast spectrum of color aesthetics. Each generated palette contains five carefully coordinated colors with both HEX and HSL values displayed, ready to use in your projects.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Why Use a Color Palette Generator?</h2>
+        <p class="reveal">Color selection is one of the most critical aspects of visual design. Poor color choices can make websites hard to read, brands forgettable, and artwork feel unbalanced. Professional designers spend years studying color theory to create harmonious combinations. Our Color Palette Generator makes this expertise accessible to everyone. Instead of guessing which colors work together, you can generate proven harmonious palettes in seconds. The tool uses principles of color theory, including analogous colors, complementary contrasts, and tonal variations, to ensure every generated palette is visually pleasing and usable.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Key Features</h2>
+        <ul>
+            <li class="reveal"><strong>Instant Palette Generation</strong> - Create 5-color palettes with a single click</li>
+            <li class="reveal"><strong>6 Theme Options</strong> - Random, Warm, Cool, Pastel, Dark/Moody, and Neon themes</li>
+            <li class="reveal"><strong>One-Click Copy</strong> - Click any color swatch to copy its HEX code instantly</li>
+            <li class="reveal"><strong>Dual Format Display</strong> - See both HEX (#RRGGBB) and HSL values for every color</li>
+            <li class="reveal"><strong>Visual Preview</strong> - Large color swatches let you see exactly how each color looks</li>
+            <li class="reveal"><strong>No Registration Required</strong> - Use the tool immediately without creating an account</li>
+            <li class="reveal"><strong>Browser-Based</strong> - Works on any device with a web browser</li>
+            <li class="reveal"><strong>Unlimited Generations</strong> - Create as many palettes as you need, completely free</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">How the Tool Works</h2>
+        <p class="reveal">The Color Palette Generator uses JavaScript's random number generation combined with color theory principles to create harmonious palettes. Each theme applies specific rules to the HSL (Hue, Saturation, Lightness) color model. The Random theme generates colors across the full spectrum. Warm themes restrict hues to the red-orange-yellow range (0-60 degrees). Cool themes focus on greens, blues, and purples (120-240 degrees). Pastel themes use high lightness values (80%+) with moderate saturation. Dark/Moody themes keep lightness low (15-30%) with reduced saturation. Neon themes maximize saturation (90%+) for vibrant, electric results. Each palette is built around a randomly selected base hue, with subsequent colors offset by calculated angles to ensure harmony.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Step-by-Step Guide to Using the Tool</h2>
+        <p class="reveal"><strong>Step 1:</strong> Load the Color Palette Generator page. An initial Random palette appears automatically.</p>
+        <p class="reveal"><strong>Step 2:</strong> Choose a theme by clicking one of the six buttons: Random Palette, Warm Tones, Cool Tones, Pastel, Dark/Moody, or Neon.</p>
+        <p class="reveal"><strong>Step 3:</strong> A new 5-color palette is generated instantly below the buttons. Each color appears as a large swatch card.</p>
+        <p class="reveal"><strong>Step 4:</strong> Click on any color swatch to copy its HEX code to your clipboard. A "Copied!" confirmation briefly appears.</p>
+        <p class="reveal"><strong>Step 5:</strong> Note the HSL values displayed below each HEX code if you need that format for your design software.</p>
+        <p class="reveal"><strong>Step 6:</strong> Keep clicking theme buttons to generate more palettes until you find the perfect combination.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Real-Life Use Cases</h2>
+        <p class="reveal"><strong>Web Design:</strong> Generate color schemes for website themes, landing pages, and UI components. Use one color for the primary brand, another for buttons, and others for backgrounds and accents.</p>
+        <p class="reveal"><strong>Brand Identity:</strong> Create cohesive brand color palettes for logos, business cards, letterheads, and marketing materials. A consistent 5-color palette ensures brand recognition.</p>
+        <p class="reveal"><strong>Social Media Graphics:</strong> Design Instagram posts, Pinterest pins, and Facebook banners with eye-catching color combinations that stand out in crowded feeds.</p>
+        <p class="reveal"><strong>Interior Design:</strong> Use generated palettes to plan room color schemes, combining wall colors, furniture accents, and decorative elements.</p>
+        <p class="reveal"><strong>Fashion and Apparel:</strong> Develop clothing line color stories and seasonal collections with harmonious, on-trend palettes.</p>
+        <p class="reveal"><strong>Presentation Design:</strong> Create professional PowerPoint and Keynote presentations with consistent, visually appealing color schemes.</p>
+        <p class="reveal"><strong>Digital Art and Illustration:</strong> Find inspiration for color choices in digital paintings, illustrations, and graphic art projects.</p>
+        <p class="reveal"><strong>Mobile App Design:</strong> Design app interfaces with proper color hierarchy for buttons, navigation, backgrounds, and alerts.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Benefits of Using This Tool</h2>
+        <ul>
+            <li class="reveal"><strong>Saves Design Time:</strong> Eliminates hours of trial-and-error color selection</li>
+            <li class="reveal"><strong>Ensures Harmony:</strong> Generated palettes follow color theory principles</li>
+            <li class="reveal"><strong>Sparks Creativity:</strong> Unexpected color combinations can inspire new design directions</li>
+            <li class="reveal"><strong>No Design Experience Needed:</strong> Anyone can create professional-quality palettes</li>
+            <li class="reveal"><strong>Free Unlimited Use:</strong> No costs, no limits, no subscriptions</li>
+            <li class="reveal"><strong>Accessible Anywhere:</strong> Works on desktops, tablets, and smartphones</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">Tips for Best Results</h2>
+        <p class="reveal"><strong>Tip 1:</strong> Generate multiple palettes before deciding. Click a theme button 5-10 times to see various options before selecting your favorite.</p>
+        <p class="reveal"><strong>Tip 2:</strong> Combine themes creatively. Use a Warm palette for your primary colors and a Cool palette for accents.</p>
+        <p class="reveal"><strong>Tip 3:</strong> For branding, stick with one generated palette across all materials to maintain consistency.</p>
+        <p class="reveal"><strong>Tip 4:</strong> Test your palette for accessibility. Ensure sufficient contrast between text and background colors for readability.</p>
+        <p class="reveal"><strong>Tip 5:</strong> Use the Dark/Moody theme for premium, luxury designs and the Pastel theme for soft, friendly aesthetics.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Common Mistakes to Avoid</h2>
+        <p class="reveal"><strong>Mistake 1:</strong> Using too many colors from one palette. Most designs need only 2-3 primary colors; reserve others for accents.</p>
+        <p class="reveal"><strong>Mistake 2:</strong> Ignoring color contrast. Beautiful palettes can fail if text becomes unreadable against backgrounds.</p>
+        <p class="reveal"><strong>Mistake 3:</strong> Not testing on different screens. Colors appear differently on various devices and monitors.</p>
+        <p class="reveal"><strong>Mistake 4:</strong> Choosing colors based solely on personal preference without considering your audience or brand message.</p>
+        <p class="reveal"><strong>Mistake 5:</strong> Forgetting about print vs. digital. Colors on screens (RGB) differ from printed colors (CMYK).</p>
+
+        <h2 class="reveal" style="margin-top:48px">Safety, Privacy, and Data Security</h2>
+        <p class="reveal">The Color Palette Generator operates entirely within your web browser. No palette data, preferences, or usage information is transmitted to external servers or stored in databases. The tool uses client-side JavaScript for all color calculations and palette generation. Your activity on this tool is completely private, and no cookies are used to track your palette selections. You can use this tool with full confidence that your design work remains confidential and secure.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Comparison with Traditional Methods</h2>
+        <p class="reveal">Traditional color selection methods include manual color wheel analysis, expensive design software like Adobe Color, physical paint swatches, and trial-and-error in graphic editors. Our Color Palette Generator offers significant advantages over all these methods. It is faster than manual analysis, free compared to premium software, more versatile than physical swatches, and more systematic than trial-and-error. While tools like Adobe Color offer advanced features, our generator provides the essential palette generation functionality that most designers need, without the learning curve or subscription cost.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Frequently Asked Questions (FAQs)</h2>
+        <h3 class="reveal">How do I copy a color code?</h3>
+        <p class="reveal">Simply click on any color swatch card, and its HEX code will be automatically copied to your clipboard. A brief "Copied!" text appears on the card to confirm the action. You can then paste the code (Ctrl+V or Cmd+V) into your design software, CSS file, or any other application.</p>
+        <h3 class="reveal">Can I save palettes for later?</h3>
+        <p class="reveal">Currently, palettes are not saved to a server. However, you can easily save palettes by taking a screenshot, noting down the HEX codes, or bookmarking the page after generating a palette you like. Many users create a document or spreadsheet to organize their favorite palettes by project.</p>
+        <h3 class="reveal">What color format is displayed?</h3>
+        <p class="reveal">Each color shows two formats: HEX (hexadecimal, like #9E8B6F) which is standard for web design, and HSL (Hue, Saturation, Lightness, like hsl(36, 20%, 53%)) which is useful for programmatic color adjustments and understanding the color's properties.</p>
+        <h3 class="reveal">How many palettes can I generate?</h3>
+        <p class="reveal">There is no limit. You can generate as many palettes as you need, completely free of charge. Generate hundreds of palettes to find the perfect one for your project.</p>
+        <h3 class="reveal">Are the colors truly random?</h3>
+        <p class="reveal">Yes, within each theme's constraints, colors are generated using pseudo-random algorithms. Each click produces a unique palette, giving you virtually unlimited possibilities.</p>
+        <h3 class="reveal">Can I use these palettes commercially?</h3>
+        <p class="reveal">Absolutely! All generated palettes are completely free to use for both personal and commercial projects. There are no licensing restrictions or attribution requirements.</p>
+        <h3 class="reveal">What is the difference between HEX and HSL?</h3>
+        <p class="reveal">HEX is a six-digit code representing red, green, and blue values in hexadecimal format. It is the most common format for web design. HSL represents colors by hue (0-360 degrees on the color wheel), saturation (0-100%), and lightness (0-100%). HSL is often preferred for programmatic color manipulation because adjusting lightness or saturation is more intuitive than modifying HEX values.</p>
+        <h3 class="reveal">Which theme should I choose?</h3>
+        <p class="reveal">Choose based on your project's mood and purpose. Warm themes evoke energy, passion, and comfort. Cool themes suggest calm, professionalism, and trust. Pastels feel soft, playful, and modern. Dark/Moody palettes convey luxury, sophistication, and drama. Neon themes create excitement, youthfulness, and high energy.</p>
+        <h3 class="reveal">Does this tool work on mobile devices?</h3>
+        <p class="reveal">Yes, the Color Palette Generator is fully responsive and works perfectly on smartphones and tablets. Generate palettes on the go while visiting clients, shopping for materials, or working remotely.</p>
+        <h3 class="reveal">Can I export palettes to design software?</h3>
+        <p class="reveal">While there is no direct export feature, you can copy HEX codes individually and paste them into any design software including Adobe Photoshop, Illustrator, Figma, Sketch, Canva, and web CSS files.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Expert Tips and Best Practices</h2>
+        <p class="reveal"><strong>For Web Designers:</strong> Use the 60-30-10 rule. Apply your dominant color to 60% of the design (backgrounds), secondary color to 30% (sections), and accent color to 10% (buttons, highlights).</p>
+        <p class="reveal"><strong>For Branding:</strong> Generate palettes in all six themes before settling. A brand you initially envisioned as "warm" might actually look more striking in a cool or dark palette.</p>
+        <p class="reveal"><strong>For Accessibility:</strong> Always check contrast ratios. Text should have a contrast ratio of at least 4.5:1 against its background for normal text, and 3:1 for large text.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Troubleshooting Common Issues</h2>
+        <p class="reveal"><strong>Issue:</strong> Clicking a color does not copy the code.</p>
+        <p class="reveal"><strong>Solution:</strong> Ensure your browser has clipboard permissions enabled. Try using a modern browser like Chrome, Firefox, Safari, or Edge.</p>
+        <p class="reveal"><strong>Issue:</strong> Colors look different on my phone than my computer.</p>
+        <p class="reveal"><strong>Solution:</strong> This is normal due to different screen technologies and color profiles. Always test important designs on multiple devices.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Conclusion</h2>
+        <p class="reveal">The Color Palette Generator is an indispensable tool for anyone working with color in digital or print media. Its ability to instantly generate harmonious palettes across six distinct themes saves time, sparks creativity, and ensures professional-quality results. Whether you are designing a website, creating a brand identity, making social media graphics, or exploring digital art, this free tool provides unlimited color inspiration at your fingertips. With one-click HEX copying, HSL values displayed, and a clean intuitive interface, finding your perfect color scheme has never been easier. Start generating palettes today and discover colors you never knew you needed.</p>
+    </div>
+</section>
+
+<section class="info-section-page alt">
+    <div class="container">
+        <h2 class="reveal">Related Tools</h2>
+        <div class="related-grid">
+            <a href="color-picker.html" class="related-card reveal"><div class="related-card-title">Color Picker</div><div class="related-card-desc">Pick and convert colors</div></a><a href="image-format-converter.html" class="related-card reveal"><div class="related-card-title">Image Format Converter</div><div class="related-card-desc">Convert images</div></a><a href="meme-generator.html" class="related-card reveal"><div class="related-card-title">Meme Generator</div><div class="related-card-desc">Create memes</div></a><a href="text-case-converter.html" class="related-card reveal"><div class="related-card-title">Text Case Converter</div><div class="related-card-desc">Change text case</div></a>
+        </div>
+    </div>
+</section>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">Mega-<span>Store.in</span></div>
+                    <p class="footer-desc">Your one-stop destination for 25+ free online tools. Calculators, generators, converters, and utilities designed to simplify your daily tasks.</p>
+                    <p class="footer-email">megastoresupport@gmail.com</p>
+                </div>
+                <div>
+                    <div class="footer-col-title">Tools</div>
+                    <ul class="footer-links">
+                        <li><a href="emi-calculator.html">EMI Calculator</a></li>
+                        <li><a href="password-generator.html">Password Generator</a></li>
+                        <li><a href="word-counter.html">Word Counter</a></li>
+                        <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+                        <li><a href="qr-code-generator.html">QR Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms and Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="cookie.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                &copy; 2026 Mega-Store.in All rights reserved. All tools are free to use.
+            </div>
+        </div>
+    </footer>
+    
+
+<script>
+
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        function openMobileNav() {
+            mobileNav.classList.add('open');
+            mobileOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileNav() {
+            mobileNav.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if(hamburger){ hamburger.addEventListener('click', openMobileNav); }
+        if(mobileClose){ mobileClose.addEventListener('click', closeMobileNav); }
+        if(mobileOverlay){ mobileOverlay.addEventListener('click', closeMobileNav); }
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active nav link
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.navbar-links a, .mobile-nav a').forEach(link => {
+            if(link.getAttribute('href') === currentPath || (currentPath === '' && link.getAttribute('href') === 'index.html')){
+                link.classList.add('active');
+            }
+        });
+    
+
+function generateHsl(hue, sat, light) {
+    return 'hsl(' + hue + ', ' + sat + '%, ' + light + '%)';
+}
+
+function hslToHex(h, s, l) {
+    l /= 100;
+    const a = s * Math.min(l, 1 - l) / 100;
+    const f = n => {
+        const k = (n + h / 30) % 12;
+        const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+        return Math.round(255 * color).toString(16).padStart(2, '0');
+    };
+    return '#' + f(0) + f(8) + f(4);
+}
+
+function generatePalette(type) {
+    const container = document.getElementById('paletteContainer');
+    container.innerHTML = '';
+
+    const palettes = [];
+    let baseHue = Math.floor(Math.random() * 360);
+
+    for(let i = 0; i < 5; i++) {
+        let h, s, l;
+
+        switch(type) {
+            case 'random':
+                h = Math.floor(Math.random() * 360);
+                s = Math.floor(Math.random() * 60) + 40;
+                l = Math.floor(Math.random() * 40) + 30;
+                break;
+            case 'warm':
+                h = (baseHue + i * 15) % 60;
+                s = Math.floor(Math.random() * 20) + 70;
+                l = Math.floor(Math.random() * 20) + 45;
+                break;
+            case 'cool':
+                h = 120 + (baseHue + i * 15) % 120;
+                s = Math.floor(Math.random() * 20) + 50;
+                l = Math.floor(Math.random() * 20) + 40;
+                break;
+            case 'pastel':
+                h = (baseHue + i * 30) % 360;
+                s = Math.floor(Math.random() * 15) + 55;
+                l = Math.floor(Math.random() * 10) + 80;
+                break;
+            case 'dark':
+                h = (baseHue + i * 25) % 360;
+                s = Math.floor(Math.random() * 20) + 30;
+                l = Math.floor(Math.random() * 15) + 15;
+                break;
+            case 'neon':
+                h = (baseHue + i * 30) % 360;
+                s = 90 + Math.floor(Math.random() * 10);
+                l = 50 + Math.floor(Math.random() * 10);
+                break;
+        }
+
+        const hsl = generateHsl(h, s, l);
+        const hex = hslToHex(h, s, l);
+
+        const div = document.createElement('div');
+        div.style.cssText = 'border-radius:10px;overflow:hidden;border:1px solid var(--border-light);cursor:pointer';
+        div.innerHTML = '<div style="height:100px;background:' + hsl + '"></div><div style="padding:12px;text-align:center"><div style="font-size:13px;font-weight:600;color:var(--deep-ink)">' + hex + '</div><div style="font-size:11px;color:var(--muted-moss);margin-top:4px">' + hsl + '</div></div>';
+        div.onclick = () => { navigator.clipboard.writeText(hex); div.querySelector('div:last-child div').textContent = 'Copied!'; setTimeout(() => div.querySelector('div:last-child div').textContent = hex, 1000); };
+        container.appendChild(div);
+    }
+}
+
+generatePalette('random');
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Policy - Mega-Store.in | How We Use Cookies</title>
+    <meta name="description" content="MegaStore.in Cookie Policy - Learn about the types of cookies we use, how to manage your cookie preferences, and your consent choices.">
+    <meta name="keywords" content="Mega-Store cookie policy, cookies, cookie management, consent">
+    <link rel="canonical" href="https://mega-store.in/cookie.html">
+    <meta name="author" content="MEGA STORE">
+    <meta property="og:site_name" content="MEGA STORE">
+    <meta property="og:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <meta name="twitter:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <link rel="icon" href="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+        
+    <style>
+
+        :root {
+            --deep-ink: #0B0F19;
+            --alabaster: #F4F5F0;
+            --muted-moss: #7A7C6D;
+            --aged-brass: #9E8B6F;
+            --light-fog: #E8E9E4;
+            --pure-white: #FFFFFF;
+            --dark-surface: #121620;
+            --border-light: rgba(11,15,25,0.08);
+            --border-medium: rgba(11,15,25,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        input, textarea, select, button {
+            font-family: inherit;
+            font-size: inherit;
+        }
+        button { cursor: pointer; border: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
+        @media(min-width:768px){ .container { padding: 0 8vw; } }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            z-index: 1000;
+            background: rgba(11,15,25,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+            letter-spacing: -0.02em;
+        }
+        .navbar-brand span { color: var(--aged-brass); }
+        .navbar-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+        .navbar-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        .navbar-links a:hover, .navbar-links a.active { color: var(--alabaster); }
+        .navbar-cta {
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .navbar-cta:hover { background: #b09b7e; }
+        .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--alabaster);
+            border-radius: 1px;
+        }
+
+        /* Mobile nav */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--deep-ink);
+            padding: 80px 32px 32px;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        .mobile-nav.open { transform: translateX(0); }
+        .mobile-nav-overlay.open { display: block; }
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: var(--alabaster);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 28px;
+            color: var(--alabaster);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--deep-ink);
+            padding: 64px 0 32px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+        }
+        @media(max-width:768px){
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        @media(max-width:480px){
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        .footer-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+        }
+        .footer-brand span { color: var(--aged-brass); }
+        .footer-desc {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--muted-moss);
+            line-height: 1.7;
+        }
+        .footer-email {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--aged-brass);
+        }
+        .footer-col-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--alabaster);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--alabaster); }
+        .footer-divider {
+            height: 1px;
+            background: rgba(244,245,240,0.08);
+            margin: 40px 0;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted-moss);
+        }
+
+        /* Responsive */
+        @media(max-width:768px){
+            .navbar-links { display: none; }
+            .hamburger { display: flex; }
+        }
+        @media(min-width:769px){
+            .mobile-nav, .mobile-nav-overlay { display: none !important; }
+        }
+    
+        .page-banner {
+            background: linear-gradient(135deg, var(--deep-ink) 0%, var(--dark-surface) 100%);
+            padding: 140px 0 80px;
+            text-align: center;
+        }
+        .page-banner h1 {
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 800;
+            color: var(--alabaster);
+        }
+        .page-banner p {
+            font-size: 17px;
+            color: var(--muted-moss);
+            margin-top: 12px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .content-section {
+            background: var(--alabaster);
+            padding: 80px 0;
+        }
+        .content-section .container {
+            max-width: 800px;
+        }
+        .content-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--deep-ink);
+            margin-bottom: 16px;
+            margin-top: 48px;
+        }
+        .content-section h2:first-child {
+            margin-top: 0;
+        }
+        .content-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 10px;
+            margin-top: 28px;
+        }
+        .content-section p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+        .content-section ul {
+            margin: 14px 0;
+            padding-left: 24px;
+        }
+        .content-section li {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .content-section strong {
+            color: var(--deep-ink);
+            font-weight: 600;
+        }
+        .cookie-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            font-size: 14px;
+        }
+        .cookie-table th {
+            background: var(--deep-ink);
+            color: var(--alabaster);
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .cookie-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-medium);
+            color: var(--muted-moss);
+        }
+        .cookie-table tr:nth-child(even) td {
+            background: var(--light-fog);
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Mega-<span>Store.in</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html" class="">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="about.html" class="">About Us</a></li>
+                <li><a href="contact.html" class="">Contact Us</a></li>
+                <li><a href="privacy.html" class="">Privacy Policy</a></li>
+                <li><a href="terms.html" class="">Terms</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-close" id="mobileClose">&times;</div>
+        <a href="index.html">Home</a>
+        <a href="index.html#tools">Tools</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="cookie.html">Cookie Policy</a>
+    </div>
+    
+
+<section class="page-banner">
+    <div class="container">
+        <h1 class="reveal">Cookie Policy</h1>
+        <p class="reveal" style="transition-delay:0.1s">Last updated: may 1, 2026</p>
+    </div>
+</section>
+
+<section class="content-section">
+    <div class="container">
+        <h2 class="reveal">What Are Cookies?</h2>
+        <p class="reveal">Cookies are small text files that are placed on your computer or mobile device when you visit a website. They are widely used to make websites work more efficiently and provide information to the website owners. Cookies help improve your browsing experience by remembering your preferences, enabling certain functionalities, and helping us understand how you use our website.</p>
+        <p class="reveal">Cookies can be "persistent" or "session" cookies. Persistent cookies remain on your device when you go offline, while session cookies are deleted as soon as you close your web browser. When you visit MegaStore.in, we may use both types of cookies.</p>
+
+        <h2 class="reveal">How We Use Cookies</h2>
+        <p class="reveal">MegaStore.in uses cookies for several purposes. The cookies we use generally fall into the following categories:</p>
+
+        <h3 class="reveal">1. Essential Cookies</h3>
+        <p class="reveal">These cookies are necessary for the website to function properly. They enable core functionality such as page navigation, security features, and access to protected areas. The website cannot function properly without these cookies. You cannot opt out of essential cookies as they are required for the basic operation of the site.</p>
+
+        <h3 class="reveal">2. Analytics Cookies</h3>
+        <p class="reveal">These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously. We use this data to improve the website's structure, content, and user experience. Analytics cookies do not personally identify you.</p>
+
+        <h3 class="reveal">3. Preference Cookies</h3>
+        <p class="reveal">These cookies allow the website to remember choices you make (such as your preferred language or the region you are in) and provide enhanced, more personal features. They may also be used to remember changes you have made to text size, fonts, and other parts of web pages that you can customize.</p>
+
+        <h3 class="reveal">4. Advertising Cookies</h3>
+        <p class="reveal">These cookies are used to make advertising messages more relevant to you and your interests. They also perform functions like preventing the same ad from continuously reappearing, ensuring that ads are properly displayed, and in some cases selecting advertisements that are based on your interests.</p>
+
+        <h2 class="reveal">Types of Cookies We Use</h2>
+        <table class="cookie-table reveal">
+            <thead>
+                <tr>
+                    <th>Cookie Name</th>
+                    <th>Type</th>
+                    <th>Purpose</th>
+                    <th>Duration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>_ga</td>
+                    <td>Analytics</td>
+                    <td>Google Analytics - distinguishes users</td>
+                    <td>2 years</td>
+                </tr>
+                <tr>
+                    <td>_gid</td>
+                    <td>Analytics</td>
+                    <td>Google Analytics - distinguishes users</td>
+                    <td>24 hours</td>
+                </tr>
+                <tr>
+                    <td>_gat</td>
+                    <td>Analytics</td>
+                    <td>Google Analytics - throttles request rate</td>
+                    <td>1 minute</td>
+                </tr>
+                <tr>
+                    <td>cookie_consent</td>
+                    <td>Essential</td>
+                    <td>Stores your cookie preference choice</td>
+                    <td>1 year</td>
+                </tr>
+                <tr>
+                    <td>theme_preference</td>
+                    <td>Preference</td>
+                    <td>Remembers your display preferences</td>
+                    <td>1 year</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 class="reveal">Third-Party Cookies</h2>
+        <p class="reveal">In addition to our own cookies, we may also use various third-party cookies to report usage statistics of the website, deliver advertisements on and through the website, and so on. These third-party services may include:</p>
+        <ul>
+            <li class="reveal"><strong>Google Analytics:</strong> We use Google Analytics to understand how visitors engage with our website. Google Analytics uses its own set of cookies to track visitor interactions. These cookies are used to store information that does not personally identify you.</li>
+            <li class="reveal"><strong>Google AdSense:</strong> We may use Google AdSense to serve advertisements. Google AdSense uses cookies to serve ads based on your prior visits to our website or other websites.</li>
+        </ul>
+        <p class="reveal">Third-party analytics and advertising providers are used to provide measurement services and targeted advertisements. These companies may use information about your visits to this and other websites to provide relevant advertisements about goods and services of potential interest to you.</p>
+
+        <h2 class="reveal">Cookie Management</h2>
+        <p class="reveal">Most web browsers allow you to control cookies through their settings preferences. You can choose to have your computer warn you each time a cookie is being sent, or you can choose to turn off all cookies. Each browser is a little different, so look at your browser's Help menu to learn the correct way to modify your cookies.</p>
+        <p class="reveal">Here's how to manage cookies in popular browsers:</p>
+        <ul>
+            <li class="reveal"><strong>Google Chrome:</strong> Settings > Privacy and security > Cookies and other site data</li>
+            <li class="reveal"><strong>Mozilla Firefox:</strong> Options > Privacy & Security > Cookies and Site Data</li>
+            <li class="reveal"><strong>Safari:</strong> Preferences > Privacy > Cookies and website data</li>
+            <li class="reveal"><strong>Microsoft Edge:</strong> Settings > Cookies and site permissions > Manage and delete cookies</li>
+        </ul>
+        <p class="reveal">If you disable cookies, some features of our website may not function properly. This could affect your user experience and some tools may not work as expected.</p>
+
+        <h2 class="reveal">User Consent</h2>
+        <p class="reveal">When you first visit MegaStore.in, you will see a cookie consent banner that allows you to accept or customize your cookie preferences. By clicking "Accept All" or continuing to browse the site, you consent to our use of cookies as described in this policy.</p>
+        <p class="reveal">You can change your cookie preferences at any time by clearing your browser cookies and revisiting our website. This will cause the cookie consent banner to appear again, allowing you to make a different choice.</p>
+        <p class="reveal">Please note that essential cookies cannot be disabled as they are necessary for the website to function. However, you can opt out of analytics, preference, and advertising cookies at any time.</p>
+
+        <h2 class="reveal">Do Not Track Signals</h2>
+        <p class="reveal">Some browsers have a "Do Not Track" feature that signals to websites that you visit that you do not want to have your online activity tracked. Our website responds to Do Not Track signals by limiting the placement of non-essential cookies when this signal is detected.</p>
+
+        <h2 class="reveal">Changes to This Cookie Policy</h2>
+        <p class="reveal">We may update our Cookie Policy from time to time to reflect changes in technology, legislation, or our data practices. Any changes will be posted on this page with an updated revision date. We encourage you to periodically review this page for the latest information on our cookie practices.</p>
+
+        <h2 class="reveal">Contact Us</h2>
+        <p class="reveal">If you have any questions about our Cookie Policy, please contact us:</p>
+        <ul>
+            <li class="reveal">By email: megastoresupport@gmail.com</li>
+            <li class="reveal">By visiting: <a href="contact.html" style="color:var(--aged-brass)">mega-store.in/contact</a></li>
+        </ul>
+    </div>
+</section>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">Mega-<span>Store.in</span></div>
+                    <p class="footer-desc">Your one-stop destination for 25+ free online tools. Calculators, generators, converters, and utilities designed to simplify your daily tasks.</p>
+                    <p class="footer-email">megastoresupport@gmail.com</p>
+                </div>
+                <div>
+                    <div class="footer-col-title">Tools</div>
+                    <ul class="footer-links">
+                        <li><a href="emi-calculator.html">EMI Calculator</a></li>
+                        <li><a href="password-generator.html">Password Generator</a></li>
+                        <li><a href="word-counter.html">Word Counter</a></li>
+                        <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+                        <li><a href="qr-code-generator.html">QR Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms and Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="cookie.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                &copy; 2026 Mega-Store.in All rights reserved. All tools are free to use.
+            </div>
+        </div>
+    </footer>
+    
+
+<script>
+
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        function openMobileNav() {
+            mobileNav.classList.add('open');
+            mobileOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileNav() {
+            mobileNav.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if(hamburger){ hamburger.addEventListener('click', openMobileNav); }
+        if(mobileClose){ mobileClose.addEventListener('click', closeMobileNav); }
+        if(mobileOverlay){ mobileOverlay.addEventListener('click', closeMobileNav); }
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active nav link
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.navbar-links a, .mobile-nav a').forEach(link => {
+            if(link.getAttribute('href') === currentPath || (currentPath === '' && link.getAttribute('href') === 'index.html')){
+                link.classList.add('active');
+            }
+        });
+    
+</script>
+
+</body>
+</html>

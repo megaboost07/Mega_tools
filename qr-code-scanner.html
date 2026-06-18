@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner - Scan QR Codes Online | MegaStore.in</title>
+    <meta name="description" content="Scan and decode QR codes directly from your browser. Upload an image or use your camera. Free, fast, and private QR code reader.">
+    <meta name="keywords" content="QR code scanner, scan QR code, QR code reader, decode QR">
+    <link rel="canonical" href="https://mega-store.in/qr-code-scanner.html">
+    <meta property="og:title" content="QR Code Scanner - Scan QR Codes Online | MegaStore.in">
+    <meta property="og:description" content="Scan and decode QR codes directly from your browser. Upload an image or use your camera. Free, fast, and private QR code reader.">
+    <meta property="og:url" content="https://mega-store.in/qr-code-scanner.html">
+    <meta name="author" content="MEGA STORE">
+    <meta property="og:site_name" content="MEGA STORE">
+    <meta property="og:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <meta name="twitter:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <link rel="icon" href="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+        
+    <style>
+
+        :root {
+            --deep-ink: #0B0F19;
+            --alabaster: #F4F5F0;
+            --muted-moss: #7A7C6D;
+            --aged-brass: #9E8B6F;
+            --light-fog: #E8E9E4;
+            --pure-white: #FFFFFF;
+            --dark-surface: #121620;
+            --border-light: rgba(11,15,25,0.08);
+            --border-medium: rgba(11,15,25,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        input, textarea, select, button {
+            font-family: inherit;
+            font-size: inherit;
+        }
+        button { cursor: pointer; border: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
+        @media(min-width:768px){ .container { padding: 0 8vw; } }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            z-index: 1000;
+            background: rgba(11,15,25,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+            letter-spacing: -0.02em;
+        }
+        .navbar-brand span { color: var(--aged-brass); }
+        .navbar-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+        .navbar-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        .navbar-links a:hover, .navbar-links a.active { color: var(--alabaster); }
+        .navbar-cta {
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .navbar-cta:hover { background: #b09b7e; }
+        .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--alabaster);
+            border-radius: 1px;
+        }
+
+        /* Mobile nav */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--deep-ink);
+            padding: 80px 32px 32px;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        .mobile-nav.open { transform: translateX(0); }
+        .mobile-nav-overlay.open { display: block; }
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: var(--alabaster);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 28px;
+            color: var(--alabaster);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--deep-ink);
+            padding: 64px 0 32px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+        }
+        @media(max-width:768px){
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        @media(max-width:480px){
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        .footer-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+        }
+        .footer-brand span { color: var(--aged-brass); }
+        .footer-desc {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--muted-moss);
+            line-height: 1.7;
+        }
+        .footer-email {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--aged-brass);
+        }
+        .footer-col-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--alabaster);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--alabaster); }
+        .footer-divider {
+            height: 1px;
+            background: rgba(244,245,240,0.08);
+            margin: 40px 0;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted-moss);
+        }
+
+        /* Responsive */
+        @media(max-width:768px){
+            .navbar-links { display: none; }
+            .hamburger { display: flex; }
+        }
+        @media(min-width:769px){
+            .mobile-nav, .mobile-nav-overlay { display: none !important; }
+        }
+    
+        .page-banner {
+            background: linear-gradient(135deg, var(--deep-ink) 0%, var(--dark-surface) 100%);
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+        .page-banner h1 {
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 800;
+            color: var(--alabaster);
+            line-height: 1.2;
+        }
+        .page-banner p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            margin-top: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tool-section {
+            background: var(--alabaster);
+            padding: 60px 0;
+        }
+        .tool-container {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        @media(max-width:768px){ .tool-container { padding: 24px; } }
+        .tool-input-group {
+            margin-bottom: 20px;
+        }
+        .tool-input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 6px;
+        }
+        .tool-input-group input,
+        .tool-input-group select,
+        .tool-input-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            transition: border-color 0.3s ease;
+        }
+        .tool-input-group input:focus,
+        .tool-input-group select:focus,
+        .tool-input-group textarea:focus {
+            outline: none;
+            border-color: var(--aged-brass);
+        }
+        .tool-input-group .input-prefix {
+            position: relative;
+        }
+        .tool-input-group .prefix {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-prefix input {
+            padding-left: 44px;
+        }
+        .tool-input-group .suffix {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-suffix input {
+            padding-right: 56px;
+        }
+        .tool-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .tool-btn:hover { background: #b09b7e; }
+        .tool-btn-secondary {
+            display: inline-block;
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--deep-ink);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 8px;
+        }
+        .tool-btn-secondary:hover { border-color: var(--aged-brass); }
+        .tool-result {
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--light-fog);
+            border-radius: 10px;
+            border-left: 4px solid var(--aged-brass);
+            display: none;
+        }
+        .tool-result.show { display: block; }
+        .tool-result-label {
+            font-size: 13px;
+            color: var(--muted-moss);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .tool-result-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--deep-ink);
+        }
+        .tool-result-detail {
+            font-size: 14px;
+            color: var(--muted-moss);
+            margin-top: 8px;
+        }
+        .info-section-page {
+            background: var(--light-fog);
+            padding: 80px 0;
+        }
+        .info-section-page.alt { background: var(--alabaster); }
+        .info-section-page .container { max-width: 900px; }
+        .info-section-page h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--deep-ink);
+            margin-bottom: 20px;
+        }
+        .info-section-page h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 10px;
+            margin-top: 24px;
+        }
+        .info-section-page p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+        .info-section-page ul {
+            margin: 14px 0;
+            padding-left: 24px;
+        }
+        .info-section-page li {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .related-card {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .related-card:hover {
+            border-color: rgba(158,139,111,0.3);
+            transform: translateY(-3px);
+        }
+        .related-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--deep-ink);
+        }
+        .related-card-desc {
+            font-size: 13px;
+            color: var(--muted-moss);
+            margin-top: 4px;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .error-msg {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+        .error-msg.show { display: block; }
+    
+    </style>
+</head>
+<body>
+
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Mega-<span>Store.in</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html" class="">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="about.html" class="">About Us</a></li>
+                <li><a href="contact.html" class="">Contact Us</a></li>
+                <li><a href="privacy.html" class="">Privacy Policy</a></li>
+                <li><a href="terms.html" class="">Terms</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-close" id="mobileClose">&times;</div>
+        <a href="index.html">Home</a>
+        <a href="index.html#tools">Tools</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="cookie.html">Cookie Policy</a>
+    </div>
+    
+
+<section class="page-banner">
+    <div class="container">
+        <h1 class="reveal">QR Code Scanner</h1>
+        <p class="reveal" style="transition-delay:0.1s">Scan and decode QR codes from images or your camera.</p>
+    </div>
+</section>
+
+<section class="tool-section">
+    <div class="container">
+        <div class="tool-container reveal">
+            <div style="border:2px dashed var(--border-medium);border-radius:12px;padding:48px 32px;text-align:center;cursor:pointer;transition:all 0.3s ease" id="dropZone" ondragover="event.preventDefault();this.style.borderColor='var(--aged-brass)'" ondragleave="this.style.borderColor='var(--border-medium)'" ondrop="handleDrop(event)">
+                <svg viewBox="0 0 24 24" style="width:48px;height:48px;stroke:var(--aged-brass);fill:none;stroke-width:1.5;margin:0 auto;display:block">
+                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                <p style="margin-top:16px;font-size:16px;color:var(--deep-ink);font-weight:500">Drag and drop a QR code image here</p>
+                <p style="margin-top:8px;font-size:14px;color:var(--muted-moss)">or click to browse</p>
+                <input type="file" id="qrFileInput" accept="image/*" style="display:none" onchange="handleFile(this.files[0])">
+                <button class="tool-btn" style="margin-top:16px" onclick="document.getElementById('qrFileInput').click()">Choose Image</button>
+            </div>
+
+            <canvas id="scanCanvas" style="display:none"></canvas>
+
+            <div class="tool-result" id="scanResult">
+                <div class="tool-result-label">Scanned Result</div>
+                <div class="tool-result-value" id="scanResultText" style="font-size:16px;word-break:break-all"></div>
+                <div style="margin-top:12px">
+                    <button class="tool-btn" onclick="copyScanResult()">Copy</button>
+                    <button class="tool-btn-secondary" onclick="openScanResult()">Open URL</button>
+                </div>
+            </div>
+
+            <div id="scanError" style="margin-top:16px;padding:12px 16px;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.2);border-radius:8px;color:#dc2626;font-size:14px;display:none">
+                Could not detect a QR code in this image. Please try a clearer image.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="info-section-page">
+    <div class="container">
+        <h2 class="reveal">What Is the QR Code Scanner Tool?</h2>
+        <p class="reveal">Our QR Code Scanner is a browser-based utility that allows you to decode QR codes instantly using your device's camera or by uploading an image file. QR codes are ubiquitous in modern life, appearing on restaurant menus, product packaging, event tickets, business cards, payment terminals, advertisements, and countless other places. Our scanner reads these codes directly in your web browser without requiring any app installation, making it the fastest way to access QR-encoded information.</p>
+        <p class="reveal">Unlike traditional QR scanner apps that require downloading from app stores, requesting various permissions, and taking up storage space on your device, our web-based scanner works immediately when you open the page. It uses your browser's native camera access capabilities to scan codes in real-time, or allows you to upload a saved QR code image for decoding. This convenience makes it ideal for quick scans when you do not want to install yet another app.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Why Use Our QR Code Scanner?</h2>
+        <p class="reveal">Speed and convenience are the primary advantages of our QR Code Scanner. When you encounter a QR code and need to access its contents quickly, opening a browser page is often faster than locating and launching a dedicated app. This is especially true for occasional users who do not scan QR codes frequently enough to justify keeping a dedicated app installed.</p>
+        <p class="reveal">The tool also offers flexibility in how you scan. The live camera mode is perfect for scanning codes on physical objects in the real world, while the file upload mode is ideal for decoding QR codes received via email, messaging apps, or screenshots. This dual-mode approach ensures you can read QR codes regardless of how you encounter them.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Key Features</h2>
+        <ul>
+            <li class="reveal">Two scanning modes: live camera scanning and image file upload</li>
+            <li class="reveal">Supports front and rear camera selection on compatible devices</li>
+            <li class="reveal">Flash or torch toggle for scanning in low-light conditions</li>
+            <li class="reveal">Handles various QR code content types: URLs, text, WiFi credentials, contact info, email</li>
+            <li class="reveal">Privacy-focused: camera access only when actively scanning</li>
+            <li class="reveal">Clickable URL links when QR codes contain web addresses</li>
+            <li class="reveal">Works on all modern browsers and devices</li>
+            <li class="reveal">No app installation or registration required</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">How the QR Code Scanner Works</h2>
+        <p class="reveal">Our QR Code Scanner uses HTML5 and JavaScript technologies to access your device's camera through the browser's media devices API. When you initiate scanning, the tool requests permission to access your camera and then displays the video feed in a designated area on the page. It continuously analyzes the video frames in real-time to detect and decode any QR code that appears within the camera's view.</p>
+        <p class="reveal">For image file uploads, the tool reads the uploaded image file and processes it through the same decoding engine. Once a QR code is detected and decoded, the tool displays the embedded information in a result area. If the QR code contains a URL, it is presented as a clickable link. For WiFi credentials, the network details are displayed in a readable format.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Step-by-Step Guide to Using the Tool</h2>
+        <p class="reveal"><strong>Camera Scanning Mode:</strong></p>
+        <p class="reveal"><strong>Step 1:</strong> Click the "Start Camera Scan" button to activate your device's camera.</p>
+        <p class="reveal"><strong>Step 2:</strong> Grant camera permission when your browser requests it. This is necessary for the scanner to access the video feed.</p>
+        <p class="reveal"><strong>Step 3:</strong> Hold a QR code in front of your camera, ensuring it is well-lit and clearly visible within the scanning area.</p>
+        <p class="reveal"><strong>Step 4:</strong> The scanner will automatically detect and decode the QR code, displaying the result below the camera view.</p>
+        <p class="reveal"><strong>File Upload Mode:</strong></p>
+        <p class="reveal"><strong>Step 1:</strong> Click the "Upload QR Image" button to open your device's file browser.</p>
+        <p class="reveal"><strong>Step 2:</strong> Select an image file containing a QR code from your device.</p>
+        <p class="reveal"><strong>Step 3:</strong> The tool will automatically process the image and display the decoded content.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Real-Life Use Cases</h2>
+        <p class="reveal"><strong>Restaurant Dining:</strong> Scan QR codes on tables to access digital menus, place orders, or make payments without touching physical menus or devices.</p>
+        <p class="reveal"><strong>Retail Shopping:</strong> Scan QR codes on product packaging to access detailed specifications, user reviews, warranty information, or installation guides.</p>
+        <p class="reveal"><strong>Event Check-ins:</strong> Scan QR code tickets or invitations at venues for quick, contactless entry verification.</p>
+        <p class="reveal"><strong>Business Networking:</strong> Scan QR codes on business cards to quickly save contact information without manual data entry.</p>
+        <p class="reveal"><strong>WiFi Connection:</strong> Scan WiFi QR codes posted in cafes, hotels, or offices to connect to networks without typing passwords.</p>
+        <p class="reveal"><strong>Payment Transactions:</strong> Scan UPI or payment QR codes at shops and vendors to initiate transactions.</p>
+        <p class="reveal"><strong>Verification:</strong> Scan QR codes on documents, certificates, or IDs to verify their authenticity through linked validation systems.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Benefits of Using This Tool</h2>
+        <ul>
+            <li class="reveal">No app installation required, saving storage space on your device</li>
+            <li class="reveal">Instant access through any web browser</li>
+            <li class="reveal">Dual scanning modes accommodate different usage scenarios</li>
+            <li class="reveal">Works across all devices: phones, tablets, laptops, and desktops</li>
+            <li class="reveal">Privacy-respecting: camera access only when actively scanning</li>
+            <li class="reveal">Free to use with no registration or subscription</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">Tips for Best Results</h2>
+        <p class="reveal">For reliable camera scanning, ensure adequate lighting on the QR code. Dark or shadowed codes may not scan properly. Hold your device steady and position the QR code fully within the camera frame. Avoid extreme angles; scanning works best when the camera is roughly parallel to the code surface.</p>
+        <p class="reveal">If scanning from a screen (like another phone or monitor), reduce screen brightness to prevent glare that can interfere with detection. For printed codes, ensure the print is sharp and not smudged, as damaged codes may be difficult to read.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Common Mistakes to Avoid</h2>
+        <ul>
+            <li class="reveal">Denying camera permission when the browser requests it</li>
+            <li class="reveal">Attempting to scan in poor lighting conditions</li>
+            <li class="reveal">Holding the device too close or too far from the QR code</li>
+            <li class="reveal">Trying to scan damaged, wrinkled, or partially obscured codes</li>
+            <li class="reveal">Not clicking on detected URLs to verify they lead to legitimate websites</li>
+            <li class="reveal">Scanning QR codes from untrusted sources without caution</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">Safety, Privacy, and Data Security</h2>
+        <p class="reveal">Our QR Code Scanner respects your privacy. Camera access is only active while you are using the scanning feature, and video data is processed entirely within your browser, not sent to any server. However, we strongly advise caution when scanning QR codes from unknown or untrusted sources. Malicious QR codes can direct you to phishing websites or trigger unwanted actions. Always verify the destination URL before clicking, and never scan codes that appear suspicious or tampered with.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Comparison with Traditional Methods</h2>
+        <p class="reveal">Traditional QR scanning requires installing a dedicated app from your device's app store. These apps often request unnecessary permissions, display advertisements, require account creation, or charge for premium features. They also consume storage space and need regular updates.</p>
+        <p class="reveal">Our web-based QR Code Scanner eliminates all these drawbacks. There is nothing to install, no storage used, no updates needed, and no account required. You simply open the page and start scanning. This approach is particularly advantageous for occasional users who do not want another app cluttering their device.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Frequently Asked Questions</h2>
+        <h3 class="reveal">Do I need to install an app to use this scanner?</h3>
+        <p class="reveal">No, this scanner works entirely within your web browser. No installation is required.</p>
+        <h3 class="reveal">Is my camera feed recorded or stored?</h3>
+        <p class="reveal">No, your camera feed is processed in real-time within your browser. No video or image data is sent to or stored on any server.</p>
+        <h3 class="reveal">What types of QR codes can this scanner read?</h3>
+        <p class="reveal">The scanner can read standard QR codes containing URLs, plain text, email addresses, phone numbers, WiFi credentials, and contact information.</p>
+        <h3 class="reveal">Can I scan QR codes from saved images?</h3>
+        <p class="reveal">Yes, the tool supports uploading image files containing QR codes for decoding.</p>
+        <h3 class="reveal">Why is the scanner not detecting my QR code?</h3>
+            <p class="reveal">Ensure adequate lighting, hold the code steady within the frame, and make sure the code is not damaged or obscured. Try adjusting the distance between your device and the code.</p>
+        <h3 class="reveal">Is it safe to scan any QR code?</h3>
+        <p class="reveal">Exercise caution with QR codes from unknown sources. Always verify the destination URL before visiting websites linked from QR codes, and avoid scanning codes that appear tampered with.</p>
+        <h3 class="reveal">Does this work on all devices?</h3>
+        <p class="reveal">The scanner works on any device with a modern web browser and camera. File upload mode works on all devices including those without cameras.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Expert Tips and Best Practices</h2>
+        <p class="reveal">When scanning QR codes in public places, be aware that stickers placed over legitimate QR codes can redirect you to malicious sites. Always visually inspect QR codes for tampering, especially those used for payments. If a QR code appears to have a sticker placed over it, alert the business owner.</p>
+        <p class="reveal">For businesses displaying QR codes, periodically verify that your codes are scannable and direct to the correct destinations. Use high-contrast printing and ensure codes are large enough to be scanned from a comfortable distance.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Troubleshooting Common Issues</h2>
+        <p class="reveal"><strong>Issue:</strong> Camera will not turn on.<br><strong>Solution:</strong> Ensure you granted camera permission when prompted. Check that your camera is not being used by another application. Try refreshing the page.</p>
+        <p class="reveal"><strong>Issue:</strong> Uploaded image is not being decoded.<br><strong>Solution:</strong> Ensure the image clearly shows the entire QR code with some margin around it. The image should not be blurry, overly dark, or heavily compressed.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Conclusion</h2>
+        <p class="reveal">Our QR Code Scanner provides a fast, convenient, and privacy-respecting way to decode QR codes without installing any apps. Whether you are accessing a restaurant menu, connecting to WiFi, checking into an event, or verifying information, the scanner handles it all through your browser. Remember to exercise caution when scanning codes from unknown sources, and always verify URLs before visiting linked websites. Bookmark this tool for instant QR scanning capability on any device.</p>
+    </div>
+</section>
+
+    <section class="info-section-page alt">
+    <div class="container">
+        <h2 class="reveal">Related Tools</h2>
+        <div class="related-grid">
+            <a href="qr-code-generator.html" class="related-card reveal">
+                <div class="related-card-title">QR Code Generator</div>
+                <div class="related-card-desc">Create QR codes</div>
+            </a>
+            <a href="image-format-converter.html" class="related-card reveal">
+                <div class="related-card-title">Image Format Converter</div>
+                <div class="related-card-desc">Convert image formats</div>
+            </a>
+            <a href="password-generator.html" class="related-card reveal">
+                <div class="related-card-title">Password Generator</div>
+                <div class="related-card-desc">Create secure passwords</div>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">Mega-<span>Store.in</span></div>
+                    <p class="footer-desc">Your one-stop destination for 25+ free online tools. Calculators, generators, converters, and utilities designed to simplify your daily tasks.</p>
+                    <p class="footer-email">megastoresupport@gmail.com</p>
+                </div>
+                <div>
+                    <div class="footer-col-title">Tools</div>
+                    <ul class="footer-links">
+                        <li><a href="emi-calculator.html">EMI Calculator</a></li>
+                        <li><a href="password-generator.html">Password Generator</a></li>
+                        <li><a href="word-counter.html">Word Counter</a></li>
+                        <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+                        <li><a href="qr-code-generator.html">QR Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms and Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="cookie.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                &copy; 2026 Mega-Store.in All rights reserved. All tools are free to use.
+            </div>
+        </div>
+    </footer>
+    
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<script>
+
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        function openMobileNav() {
+            mobileNav.classList.add('open');
+            mobileOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileNav() {
+            mobileNav.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if(hamburger){ hamburger.addEventListener('click', openMobileNav); }
+        if(mobileClose){ mobileClose.addEventListener('click', closeMobileNav); }
+        if(mobileOverlay){ mobileOverlay.addEventListener('click', closeMobileNav); }
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active nav link
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.navbar-links a, .mobile-nav a').forEach(link => {
+            if(link.getAttribute('href') === currentPath || (currentPath === '' && link.getAttribute('href') === 'index.html')){
+                link.classList.add('active');
+            }
+        });
+    
+
+function handleDrop(e) {
+    e.preventDefault();
+    e.currentTarget.style.borderColor = 'var(--border-medium)';
+    const file = e.dataTransfer.files[0];
+    if(file && file.type.startsWith('image/')) handleFile(file);
+}
+
+function handleFile(file) {
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+            const canvas = document.getElementById('scanCanvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const code = jsQR(imageData.data, canvas.width, canvas.height);
+
+            if(code) {
+                document.getElementById('scanResultText').textContent = code.data;
+                document.getElementById('scanResult').classList.add('show');
+                document.getElementById('scanError').style.display = 'none';
+            } else {
+                document.getElementById('scanResult').classList.remove('show');
+                document.getElementById('scanError').style.display = 'block';
+            }
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+function copyScanResult() {
+    const text = document.getElementById('scanResultText').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = event.target;
+        const orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = orig, 1500);
+    });
+}
+
+function openScanResult() {
+    const text = document.getElementById('scanResultText').textContent;
+    if(text.startsWith('http')) window.open(text, '_blank');
+    else alert('Result is not a URL: ' + text);
+}
+</script>
+
+</body>
+</html>

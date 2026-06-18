@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Counter - Detailed Text Analysis | Mega-Store.in</title>
+    <meta name="description" content="Count characters with detailed breakdown: letters, digits, spaces, special characters, and line count. Includes character frequency analysis.">
+    <meta name="keywords" content="character counter, letter count, digit count, text analysis, char frequency">
+    <link rel="canonical" href="https://mega-store.in/character-counter.html">
+    <meta property="og:title" content="Character Counter - Detailed Text Analysis | Mega-Store.in">
+    <meta property="og:description" content="Count characters with detailed breakdown: letters, digits, spaces, special characters, and line count. Includes character frequency analysis.">
+    <meta property="og:url" content="https://mega-store.in/character-counter.html">
+    <meta name="author" content="MEGA STORE">
+    <meta property="og:site_name" content="MEGA STORE">
+    <meta property="og:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <meta name="twitter:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <link rel="icon" href="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+        
+    <style>
+
+        :root {
+            --deep-ink: #0B0F19;
+            --alabaster: #F4F5F0;
+            --muted-moss: #7A7C6D;
+            --aged-brass: #9E8B6F;
+            --light-fog: #E8E9E4;
+            --pure-white: #FFFFFF;
+            --dark-surface: #121620;
+            --border-light: rgba(11,15,25,0.08);
+            --border-medium: rgba(11,15,25,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        input, textarea, select, button {
+            font-family: inherit;
+            font-size: inherit;
+        }
+        button { cursor: pointer; border: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
+        @media(min-width:768px){ .container { padding: 0 8vw; } }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            z-index: 1000;
+            background: rgba(11,15,25,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+            letter-spacing: -0.02em;
+        }
+        .navbar-brand span { color: var(--aged-brass); }
+        .navbar-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+        .navbar-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        .navbar-links a:hover, .navbar-links a.active { color: var(--alabaster); }
+        .navbar-cta {
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .navbar-cta:hover { background: #b09b7e; }
+        .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--alabaster);
+            border-radius: 1px;
+        }
+
+        /* Mobile nav */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--deep-ink);
+            padding: 80px 32px 32px;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        .mobile-nav.open { transform: translateX(0); }
+        .mobile-nav-overlay.open { display: block; }
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: var(--alabaster);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 28px;
+            color: var(--alabaster);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--deep-ink);
+            padding: 64px 0 32px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+        }
+        @media(max-width:768px){
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        @media(max-width:480px){
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        .footer-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+        }
+        .footer-brand span { color: var(--aged-brass); }
+        .footer-desc {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--muted-moss);
+            line-height: 1.7;
+        }
+        .footer-email {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--aged-brass);
+        }
+        .footer-col-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--alabaster);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--alabaster); }
+        .footer-divider {
+            height: 1px;
+            background: rgba(244,245,240,0.08);
+            margin: 40px 0;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted-moss);
+        }
+
+        /* Responsive */
+        @media(max-width:768px){
+            .navbar-links { display: none; }
+            .hamburger { display: flex; }
+        }
+        @media(min-width:769px){
+            .mobile-nav, .mobile-nav-overlay { display: none !important; }
+        }
+    
+        .page-banner {
+            background: linear-gradient(135deg, var(--deep-ink) 0%, var(--dark-surface) 100%);
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+        .page-banner h1 {
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 800;
+            color: var(--alabaster);
+            line-height: 1.2;
+        }
+        .page-banner p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            margin-top: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tool-section {
+            background: var(--alabaster);
+            padding: 60px 0;
+        }
+        .tool-container {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        @media(max-width:768px){ .tool-container { padding: 24px; } }
+        .tool-input-group {
+            margin-bottom: 20px;
+        }
+        .tool-input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 6px;
+        }
+        .tool-input-group input,
+        .tool-input-group select,
+        .tool-input-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            transition: border-color 0.3s ease;
+        }
+        .tool-input-group input:focus,
+        .tool-input-group select:focus,
+        .tool-input-group textarea:focus {
+            outline: none;
+            border-color: var(--aged-brass);
+        }
+        .tool-input-group .input-prefix {
+            position: relative;
+        }
+        .tool-input-group .prefix {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-prefix input {
+            padding-left: 44px;
+        }
+        .tool-input-group .suffix {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-suffix input {
+            padding-right: 56px;
+        }
+        .tool-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .tool-btn:hover { background: #b09b7e; }
+        .tool-btn-secondary {
+            display: inline-block;
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--deep-ink);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 8px;
+        }
+        .tool-btn-secondary:hover { border-color: var(--aged-brass); }
+        .tool-result {
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--light-fog);
+            border-radius: 10px;
+            border-left: 4px solid var(--aged-brass);
+            display: none;
+        }
+        .tool-result.show { display: block; }
+        .tool-result-label {
+            font-size: 13px;
+            color: var(--muted-moss);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .tool-result-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--deep-ink);
+        }
+        .tool-result-detail {
+            font-size: 14px;
+            color: var(--muted-moss);
+            margin-top: 8px;
+        }
+        .info-section-page {
+            background: var(--light-fog);
+            padding: 80px 0;
+        }
+        .info-section-page.alt { background: var(--alabaster); }
+        .info-section-page .container { max-width: 900px; }
+        .info-section-page h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--deep-ink);
+            margin-bottom: 20px;
+        }
+        .info-section-page h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 10px;
+            margin-top: 24px;
+        }
+        .info-section-page p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+        .info-section-page ul {
+            margin: 14px 0;
+            padding-left: 24px;
+        }
+        .info-section-page li {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .related-card {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .related-card:hover {
+            border-color: rgba(158,139,111,0.3);
+            transform: translateY(-3px);
+        }
+        .related-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--deep-ink);
+        }
+        .related-card-desc {
+            font-size: 13px;
+            color: var(--muted-moss);
+            margin-top: 4px;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .error-msg {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+        .error-msg.show { display: block; }
+    
+    </style>
+</head>
+<body>
+
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Mega-<span>Store.in</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html" class="">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="about.html" class="">About Us</a></li>
+                <li><a href="contact.html" class="">Contact Us</a></li>
+                <li><a href="privacy.html" class="">Privacy Policy</a></li>
+                <li><a href="terms.html" class="">Terms</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-close" id="mobileClose">&times;</div>
+        <a href="index.html">Home</a>
+        <a href="index.html#tools">Tools</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="cookie.html">Cookie Policy</a>
+    </div>
+    
+
+<section class="page-banner">
+    <div class="container">
+        <h1 class="reveal">Character Counter</h1>
+        <p class="reveal" style="transition-delay:0.1s">Detailed character analysis and counting.</p>
+    </div>
+</section>
+
+<section class="tool-section">
+    <div class="container">
+        <div class="tool-container reveal">
+            
+<div class="tool-input-group">
+    <label for="ccText">Enter Your Text</label>
+    <textarea id="ccText" placeholder="Type or paste your text here for detailed character analysis..." style="min-height:160px;resize:vertical" oninput="countChars()"></textarea>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:20px">
+    <div style="text-align:center;padding:16px;background:var(--alabaster);border-radius:10px">
+        <div style="font-size:24px;font-weight:800;color:var(--aged-brass)" id="ccTotal">0</div>
+        <div style="font-size:11px;color:var(--muted-moss);text-transform:uppercase;letter-spacing:0.05em">Total Characters</div>
+    </div>
+    <div style="text-align:center;padding:16px;background:var(--alabaster);border-radius:10px">
+        <div style="font-size:24px;font-weight:800;color:var(--aged-brass)" id="ccLetters">0</div>
+        <div style="font-size:11px;color:var(--muted-moss);text-transform:uppercase;letter-spacing:0.05em">Letters</div>
+    </div>
+    <div style="text-align:center;padding:16px;background:var(--alabaster);border-radius:10px">
+        <div style="font-size:24px;font-weight:800;color:var(--aged-brass)" id="ccDigits">0</div>
+        <div style="font-size:11px;color:var(--muted-moss);text-transform:uppercase;letter-spacing:0.05em">Digits</div>
+    </div>
+    <div style="text-align:center;padding:16px;background:var(--alabaster);border-radius:10px">
+        <div style="font-size:24px;font-weight:800;color:var(--aged-brass)" id="ccSpaces">0</div>
+        <div style="font-size:11px;color:var(--muted-moss);text-transform:uppercase;letter-spacing:0.05em">Spaces</div>
+    </div>
+    <div style="text-align:center;padding:16px;background:var(--alabaster);border-radius:10px">
+        <div style="font-size:24px;font-weight:800;color:var(--aged-brass)" id="ccSpecial">0</div>
+        <div style="font-size:11px;color:var(--muted-moss);text-transform:uppercase;letter-spacing:0.05em">Special Chars</div>
+    </div>
+    <div style="text-align:center;padding:16px;background:var(--alabaster);border-radius:10px">
+        <div style="font-size:24px;font-weight:800;color:var(--aged-brass)" id="ccLines">0</div>
+        <div style="font-size:11px;color:var(--muted-moss);text-transform:uppercase;letter-spacing:0.05em">Lines</div>
+    </div>
+</div>
+<div style="margin-top:20px;padding:16px;background:var(--alabaster);border-radius:10px">
+    <div style="font-size:13px;font-weight:600;color:var(--deep-ink);margin-bottom:8px">Character Frequency (Top 10)</div>
+    <div id="ccFreq" style="font-size:13px;color:var(--muted-moss);line-height:2"></div>
+</div>
+
+        </div>
+    </div>
+</section>
+
+<section class="info-section-page">
+    <div class="container">
+        <h2 class="reveal">What Is the Character Counter Tool?</h2>
+        <p class="reveal">The Character Counter is a powerful, free online text analysis tool that provides a detailed breakdown of every character in your text. Unlike basic character counters that only show a total number, this tool goes deeper by categorizing characters into letters, digits, spaces, special characters, and line breaks. It also includes a character frequency analyzer that identifies the top 10 most frequently used characters in your content. Whether you are a writer checking submission limits, a developer analyzing code, a student working on assignments, or a data analyst cleaning datasets, this tool gives you the granular insights you need in real time.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Why Use This Character Counter?</h2>
+        <p class="reveal">In today's digital world, character limits are everywhere. Twitter posts, meta descriptions, SMS messages, form fields, database columns, and social media bios all impose strict limits on how many characters you can use. Knowing your exact character count is not just helpful, it is essential. Our Character Counter eliminates guesswork by providing instant, accurate counts as you type. You do not need to install any software, create an account, or pay anything. The tool works entirely in your browser, ensuring your sensitive text never leaves your device. With its detailed breakdown and frequency analysis, it is far more useful than the basic counters built into word processors.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Key Features</h2>
+        <ul>
+            <li class="reveal"><strong>Total Character Count</strong> - Get the exact number of all characters in your text instantly</li>
+            <li class="reveal"><strong>Letter Count</strong> - See how many alphabetic characters (A-Z, a-z) your text contains</li>
+            <li class="reveal"><strong>Digit Count</strong> - Know exactly how many numeric characters (0-9) are present</li>
+            <li class="reveal"><strong>Space Count</strong> - Track whitespace characters including regular spaces</li>
+            <li class="reveal"><strong>Special Character Count</strong> - Count punctuation marks, symbols, and other non-alphanumeric characters</li>
+            <li class="reveal"><strong>Line Count</strong> - See how many lines your text spans</li>
+            <li class="reveal"><strong>Character Frequency Analysis</strong> - Discover the top 10 most frequently appearing characters</li>
+            <li class="reveal"><strong>Real-Time Processing</strong> - All statistics update instantly as you type or paste</li>
+            <li class="reveal"><strong>100% Free and Private</strong> - No registration, no data storage, completely client-side processing</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">How the Tool Works</h2>
+        <p class="reveal">The Character Counter uses JavaScript to process your text directly in the browser. When you type or paste text into the input area, the tool immediately analyzes each character using regular expression patterns. Letters are identified using the pattern /[a-zA-Z]/, digits with /[0-9]/, and spaces with the whitespace matcher. Special characters are calculated by subtracting letters, digits, and spaces from the total. For frequency analysis, the tool creates a frequency map of all non-whitespace characters, sorts them by occurrence count, and displays the top 10. All of this happens locally on your device without any server communication.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Step-by-Step Guide to Using the Tool</h2>
+        <p class="reveal"><strong>Step 1:</strong> Navigate to the Character Counter page. The tool loads immediately with an empty text area ready for input.</p>
+        <p class="reveal"><strong>Step 2:</strong> Type your text directly into the text area or paste content from another source using Ctrl+V (Cmd+V on Mac).</p>
+        <p class="reveal"><strong>Step 3:</strong> Watch the statistics update in real time. Six metric cards display your total characters, letters, digits, spaces, special characters, and line count.</p>
+        <p class="reveal"><strong>Step 4:</strong> Scroll down to the Character Frequency section to see which characters appear most often in your text.</p>
+        <p class="reveal"><strong>Step 5:</strong> Edit your text as needed. All counts update automatically to reflect your changes.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Real-Life Use Cases</h2>
+        <p class="reveal"><strong>Social Media Management:</strong> Twitter has a 280-character limit, Instagram bios allow 150 characters, and SMS messages work best under 160 characters. Use this tool to craft messages that fit perfectly within platform constraints.</p>
+        <p class="reveal"><strong>SEO Optimization:</strong> Meta descriptions should be under 160 characters for optimal search engine display. Title tags work best under 60 characters. Our tool helps you stay within these critical limits.</p>
+        <p class="reveal"><strong>Academic Writing:</strong> Many assignments and applications have strict character or word limits. Use the counter to ensure your essays, abstracts, and personal statements meet requirements.</p>
+        <p class="reveal"><strong>Programming and Development:</strong> Analyze code snippets to understand character composition. Check if strings meet database field limits. Validate input lengths for forms and APIs.</p>
+        <p class="reveal"><strong>Data Cleaning:</strong> When preparing datasets for analysis, understanding character distributions helps identify formatting issues, unwanted symbols, or inconsistent data entries.</p>
+        <p class="reveal"><strong>Translation Work:</strong> Translators often need to match character counts between source and target languages, especially for subtitles, user interfaces, and marketing materials.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Benefits of Using This Tool</h2>
+        <ul>
+            <li class="reveal"><strong>Save Time:</strong> No need to manually count characters or use complicated software</li>
+            <li class="reveal"><strong>Improve Accuracy:</strong> Automated counting eliminates human error</li>
+            <li class="reveal"><strong>Detailed Insights:</strong> The character breakdown reveals patterns you might otherwise miss</li>
+            <li class="reveal"><strong>Privacy Protected:</strong> Your text never leaves your browser</li>
+            <li class="reveal"><strong>Universal Access:</strong> Works on any device with a web browser</li>
+            <li class="reveal"><strong>Zero Cost:</strong> Completely free with no hidden fees or premium tiers</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">Tips for Best Results</h2>
+        <p class="reveal"><strong>Tip 1:</strong> For the most accurate analysis, paste your final text rather than typing it live, especially for long documents.</p>
+        <p class="reveal"><strong>Tip 2:</strong> Use the frequency analysis to identify overused characters or symbols that might need attention in your writing.</p>
+        <p class="reveal"><strong>Tip 3:</strong> When working with code, note that special character count includes brackets, semicolons, operators, and all punctuation.</p>
+        <p class="reveal"><strong>Tip 4:</strong> The line count includes empty lines, so remove blank lines if you need a precise count of content lines only.</p>
+        <p class="reveal"><strong>Tip 5:</strong> For SEO meta descriptions, keep total characters under 160 to avoid truncation in search results.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Common Mistakes to Avoid</h2>
+        <p class="reveal"><strong>Mistake 1:</strong> Confusing character count with word count. Characters include every letter, space, and punctuation mark. Words are separated by spaces.</p>
+        <p class="reveal"><strong>Mistake 2:</strong> Forgetting that spaces count as characters. Many platforms count spaces toward their limit, so our tool includes them.</p>
+        <p class="reveal"><strong>Mistake 3:</strong> Not accounting for line breaks. Line breaks are characters too, and some systems count them toward limits.</p>
+        <p class="reveal"><strong>Mistake 4:</strong> Assuming all special characters are treated equally. Some platforms handle emojis as multiple characters.</p>
+        <p class="reveal"><strong>Mistake 5:</strong> Relying on word processor counts which may use different counting methods than web platforms.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Safety, Privacy, and Data Security</h2>
+        <p class="reveal">Your privacy is our top priority. The Character Counter processes all text locally within your web browser using JavaScript. No text is transmitted to any server, stored in any database, or shared with third parties. This means you can safely paste sensitive content, confidential documents, personal information, or proprietary code without any security concerns. Once you close or refresh the page, all data is cleared from memory. We do not use cookies to track your text input, and we do not require any account registration or personal information to use this tool.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Comparison with Traditional Methods</h2>
+        <p class="reveal">Before online character counters, people relied on manual counting (tedious and error-prone), Microsoft Word's character count feature (requires software installation and only shows basic totals), or guessing based on word count estimates (highly inaccurate). Our online Character Counter surpasses all these methods by being instantly accessible from any device, providing detailed breakdowns beyond just a total count, updating in real time, and requiring no software installation. Unlike Word, which counts differently depending on version and settings, our tool uses consistent, transparent counting logic every time.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Frequently Asked Questions (FAQs)</h2>
+        <h3 class="reveal">What counts as a special character?</h3>
+        <p class="reveal">Any character that is not a letter, digit, or whitespace character is counted as a special character. This includes punctuation marks like periods, commas, exclamation points, question marks, colons, and semicolons. It also includes symbols such as @, #, $, %, ^, &, *, (, ), -, +, =, [, ], {, }, |, \, /, <, >, and ~. Even emojis are counted as special characters since they fall outside the letter, digit, and whitespace categories.</p>
+        <h3 class="reveal">How does character frequency analysis work?</h3>
+        <p class="reveal">The character frequency analysis creates a tally of every non-whitespace character in your text. It then sorts these characters by how many times they appear, from highest to lowest, and displays the top 10. This feature is particularly useful for identifying which letters you use most, detecting unusual character patterns, or analyzing writing style. For example, in English text, you would typically see the letter "e" appearing most frequently, followed by "t", "a", "o", and "i".</p>
+        <h3 class="reveal">Can I use this tool for programming code?</h3>
+        <p class="reveal">Absolutely! This tool is excellent for analyzing programming code. You can check the character composition of code snippets, verify that strings meet database field length constraints, count the number of special characters like brackets and semicolons, and analyze the overall structure of your code. Many developers use it to validate JSON payload sizes, check API input limits, or ensure configuration files stay within platform restrictions.</p>
+        <h3 class="reveal">Is there a text length limit?</h3>
+        <p class="reveal">There is no hardcoded limit on the amount of text you can analyze. However, extremely large texts (hundreds of thousands of characters) may cause minor delays in browser performance. For most practical purposes, including analyzing full-length articles, code files, and documents, the tool performs instantly. If you experience slowdowns with very large texts, consider breaking the text into smaller sections.</p>
+        <h3 class="reveal">Does this tool count differently than Microsoft Word?</h3>
+        <p class="reveal">Our Character Counter uses standard JavaScript string methods to count characters, which may produce slightly different results than Microsoft Word. Word counts certain elements like footnotes, headers, and special formatting differently. Our tool counts exactly what you see in the plain text, which is the standard method used by most web platforms and social media sites. For web-based character limits, our counts are more accurate than Word's.</p>
+        <h3 class="reveal">Can I count characters in multiple languages?</h3>
+        <p class="reveal">Yes, the tool supports text in any language, including non-Latin scripts like Chinese, Japanese, Arabic, Hindi, and Cyrillic. Each character in these scripts is counted individually. Note that non-Latin characters may be classified as special characters since they do not match the standard English letter patterns (A-Z, a-z).</p>
+        <h3 class="reveal">Is my text saved or stored anywhere?</h3>
+        <p class="reveal">No. All processing happens entirely in your browser. Your text is never sent to our servers, stored in any database, or logged in any way. This makes the tool completely safe for processing confidential or sensitive information.</p>
+        <h3 class="reveal">Why does the tool count spaces separately?</h3>
+        <p class="reveal">Spaces are counted separately because many users need to know both their total character count (including spaces) and their character count without spaces. Some platforms and forms specify which count they require. By showing spaces as a separate metric, you can easily calculate the count without spaces by subtracting the space count from the total.</p>
+        <h3 class="reveal">What is the difference between this and the Word Counter tool?</h3>
+        <p class="reveal">While both tools analyze text, they serve different purposes. The Word Counter focuses on counting words, sentences, paragraphs, and estimating reading time, making it ideal for writers and editors. The Character Counter focuses on individual characters, their types (letters, digits, spaces, special), and frequency analysis, making it ideal for developers, social media managers, and anyone dealing with character limits.</p>
+        <h3 class="reveal">Can I use this tool offline?</h3>
+        <p class="reveal">Once the page is loaded, the tool will continue to work even if you lose your internet connection, since all processing is done locally. However, you will need an internet connection to initially load the page. You can also save the page to your device for fully offline use.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Expert Tips and Best Practices</h2>
+        <p class="reveal"><strong>For Social Media:</strong> Different platforms count characters differently. Twitter counts all characters including spaces and punctuation. Instagram counts everything in your bio. Always check the platform's specific rules, but our counter gives you a reliable baseline.</p>
+        <p class="reveal"><strong>For SEO:</strong> Keep title tags between 50-60 characters and meta descriptions between 150-160 characters. Going over these limits risks truncation in search results, reducing click-through rates.</p>
+        <p class="reveal"><strong>For Developers:</strong> When building forms with character limits, always validate on both client and server side. Use our tool to test your validation logic by checking what counts as characters.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Troubleshooting Common Issues</h2>
+        <p class="reveal"><strong>Issue:</strong> The counter shows different numbers than expected.</p>
+        <p class="reveal"><strong>Solution:</strong> Check for hidden characters in your text. Copying from certain applications can introduce invisible characters. Try pasting into a plain text editor first, then copying from there.</p>
+        <p class="reveal"><strong>Issue:</strong> Frequency analysis shows unusual characters I cannot see.</p>
+        <p class="reveal"><strong>Solution:</strong> These are likely invisible formatting characters from your source document. Use the find function to search for common hidden characters like zero-width spaces or non-breaking spaces.</p>
+        <p class="reveal"><strong>Issue:</strong> The tool seems slow with very large text.</p>
+        <p class="reveal"><strong>Solution:</strong> For texts over 100,000 characters, consider breaking the content into smaller sections for analysis.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Conclusion</h2>
+        <p class="reveal">The Character Counter is an essential tool for anyone who works with text in the digital age. Its detailed breakdown of letters, digits, spaces, and special characters, combined with the frequency analysis feature, makes it far more powerful than basic counters. Whether you are optimizing social media posts, refining SEO meta tags, writing academic papers, analyzing code, or cleaning data, this free tool provides the precise character insights you need. With complete privacy, real-time processing, and universal accessibility, it is a must-have addition to your digital toolkit. Bookmark this page and use it whenever you need to understand your text at the character level.</p>
+    </div>
+</section>
+
+<section class="info-section-page alt">
+    <div class="container">
+        <h2 class="reveal">Related Tools</h2>
+        <div class="related-grid">
+            <a href="word-counter.html" class="related-card reveal"><div class="related-card-title">Word Counter</div><div class="related-card-desc">Count words</div></a><a href="text-case-converter.html" class="related-card reveal"><div class="related-card-title">Text Case Converter</div><div class="related-card-desc">Change case</div></a><a href="password-generator.html" class="related-card reveal"><div class="related-card-title">Password Generator</div><div class="related-card-desc">Create passwords</div></a><a href="qr-code-generator.html" class="related-card reveal"><div class="related-card-title">QR Code Generator</div><div class="related-card-desc">Create QR codes</div></a>
+        </div>
+    </div>
+</section>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">Mega-<span>Store.in</span></div>
+                    <p class="footer-desc">Your one-stop destination for 25+ free online tools. Calculators, generators, converters, and utilities designed to simplify your daily tasks.</p>
+                    <p class="footer-email">megastoresupport@gmail.com</p>
+                </div>
+                <div>
+                    <div class="footer-col-title">Tools</div>
+                    <ul class="footer-links">
+                        <li><a href="emi-calculator.html">EMI Calculator</a></li>
+                        <li><a href="password-generator.html">Password Generator</a></li>
+                        <li><a href="word-counter.html">Word Counter</a></li>
+                        <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+                        <li><a href="qr-code-generator.html">QR Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms and Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="cookie.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                &copy; 2026 Mega-Store.in All rights reserved. All tools are free to use.
+            </div>
+        </div>
+    </footer>
+    
+
+<script>
+
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        function openMobileNav() {
+            mobileNav.classList.add('open');
+            mobileOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileNav() {
+            mobileNav.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if(hamburger){ hamburger.addEventListener('click', openMobileNav); }
+        if(mobileClose){ mobileClose.addEventListener('click', closeMobileNav); }
+        if(mobileOverlay){ mobileOverlay.addEventListener('click', closeMobileNav); }
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active nav link
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.navbar-links a, .mobile-nav a').forEach(link => {
+            if(link.getAttribute('href') === currentPath || (currentPath === '' && link.getAttribute('href') === 'index.html')){
+                link.classList.add('active');
+            }
+        });
+    
+
+function countChars() {
+    const text = document.getElementById('ccText').value;
+    const total = text.length;
+    const letters = (text.match(/[a-zA-Z]/g) || []).length;
+    const digits = (text.match(/[0-9]/g) || []).length;
+    const spaces = (text.match(/\s/g) || []).length;
+    const special = total - letters - digits - spaces;
+    const lines = text ? text.split('\n').length : 0;
+
+    document.getElementById('ccTotal').textContent = total.toLocaleString();
+    document.getElementById('ccLetters').textContent = letters.toLocaleString();
+    document.getElementById('ccDigits').textContent = digits.toLocaleString();
+    document.getElementById('ccSpaces').textContent = spaces.toLocaleString();
+    document.getElementById('ccSpecial').textContent = special.toLocaleString();
+    document.getElementById('ccLines').textContent = lines.toLocaleString();
+
+    // Frequency
+    const freq = {};
+    for(let ch of text) {
+        if(ch.trim()) freq[ch] = (freq[ch] || 0) + 1;
+    }
+    const sorted = Object.entries(freq).sort((a,b) => b[1] - a[1]).slice(0, 10);
+    document.getElementById('ccFreq').innerHTML = sorted.length 
+        ? sorted.map(([ch, count]) => '<span style="display:inline-block;margin-right:16px"><strong style="color:var(--deep-ink)">"' + ch + '"</strong>: ' + count + '</span>').join('')
+        : 'Type something to see character frequency.';
+}
+
+</script>
+
+</body>
+</html>

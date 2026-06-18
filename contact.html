@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Mega-Store.in | Get Support & Send Feedback</title>
+    <meta name="description" content="Contact Mega-Store.in for support, feedback, business inquiries, or tool suggestions. Email us at megastoresupport@gmail.com.">
+    <meta name="keywords" content="contact Mega-Store, support email, tool feedback, business inquiry">
+    <link rel="canonical" href="https://mega-store.in/contact.html">
+    <meta property="og:title" content="Contact Us - Mega-Store.in">
+    <meta property="og:description" content="Contact MegaStore.in for support, feedback, and inquiries.">
+    <meta property="og:url" content="https://mega-store.in/contact.html">
+    <meta name="author" content="MEGA STORE">
+    <meta property="og:site_name" content="MEGA STORE">
+    <meta property="og:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <meta name="twitter:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <link rel="icon" href="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+        
+    <style>
+
+        :root {
+            --deep-ink: #0B0F19;
+            --alabaster: #F4F5F0;
+            --muted-moss: #7A7C6D;
+            --aged-brass: #9E8B6F;
+            --light-fog: #E8E9E4;
+            --pure-white: #FFFFFF;
+            --dark-surface: #121620;
+            --border-light: rgba(11,15,25,0.08);
+            --border-medium: rgba(11,15,25,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        input, textarea, select, button {
+            font-family: inherit;
+            font-size: inherit;
+        }
+        button { cursor: pointer; border: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
+        @media(min-width:768px){ .container { padding: 0 8vw; } }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            z-index: 1000;
+            background: rgba(11,15,25,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+            letter-spacing: -0.02em;
+        }
+        .navbar-brand span { color: var(--aged-brass); }
+        .navbar-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+        .navbar-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        .navbar-links a:hover, .navbar-links a.active { color: var(--alabaster); }
+        .navbar-cta {
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .navbar-cta:hover { background: #b09b7e; }
+        .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--alabaster);
+            border-radius: 1px;
+        }
+
+        /* Mobile nav */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--deep-ink);
+            padding: 80px 32px 32px;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        .mobile-nav.open { transform: translateX(0); }
+        .mobile-nav-overlay.open { display: block; }
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: var(--alabaster);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 28px;
+            color: var(--alabaster);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--deep-ink);
+            padding: 64px 0 32px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+        }
+        @media(max-width:768px){
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        @media(max-width:480px){
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        .footer-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+        }
+        .footer-brand span { color: var(--aged-brass); }
+        .footer-desc {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--muted-moss);
+            line-height: 1.7;
+        }
+        .footer-email {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--aged-brass);
+        }
+        .footer-col-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--alabaster);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--alabaster); }
+        .footer-divider {
+            height: 1px;
+            background: rgba(244,245,240,0.08);
+            margin: 40px 0;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted-moss);
+        }
+
+        /* Responsive */
+        @media(max-width:768px){
+            .navbar-links { display: none; }
+            .hamburger { display: flex; }
+        }
+        @media(min-width:769px){
+            .mobile-nav, .mobile-nav-overlay { display: none !important; }
+        }
+    
+        .page-banner {
+            background: linear-gradient(135deg, var(--deep-ink) 0%, var(--dark-surface) 100%);
+            padding: 140px 0 80px;
+            text-align: center;
+        }
+        .page-banner h1 {
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 800;
+            color: var(--alabaster);
+        }
+        .page-banner p {
+            font-size: 17px;
+            color: var(--muted-moss);
+            margin-top: 12px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .contact-section {
+            background: var(--alabaster);
+            padding: 80px 0;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        @media(max-width:768px){ .contact-grid { grid-template-columns: 1fr; gap: 40px; } }
+        .contact-info h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--deep-ink);
+            margin-bottom: 20px;
+        }
+        .contact-info p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+        .contact-method {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding: 20px;
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+        }
+        .contact-method-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(158,139,111,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .contact-method-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--aged-brass);
+            fill: none;
+            stroke-width: 1.5;
+        }
+        .contact-method-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--deep-ink);
+        }
+        .contact-method-detail {
+            font-size: 14px;
+            color: var(--muted-moss);
+            margin-top: 4px;
+        }
+        .contact-form {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 40px;
+        }
+        .contact-form h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--deep-ink);
+            margin-bottom: 24px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--deep-ink);
+            margin-bottom: 6px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 15px;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--aged-brass);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .form-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .form-submit:hover { background: #b09b7e; }
+        .form-message {
+            margin-top: 16px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+        }
+        .form-message.success {
+            display: block;
+            background: rgba(34,197,94,0.1);
+            color: #16a34a;
+            border: 1px solid rgba(34,197,94,0.2);
+        }
+        .form-message.error {
+            display: block;
+            background: rgba(239,68,68,0.1);
+            color: #dc2626;
+            border: 1px solid rgba(239,68,68,0.2);
+        }
+        .help-section {
+            background: var(--light-fog);
+            padding: 80px 0;
+        }
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .help-card {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 32px;
+        }
+        .help-card h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 12px;
+        }
+        .help-card p {
+            font-size: 15px;
+            color: var(--muted-moss);
+            line-height: 1.6;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Mega-<span>Store.in</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html" class="">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="about.html" class="">About Us</a></li>
+                <li><a href="contact.html" class="active">Contact Us</a></li>
+                <li><a href="privacy.html" class="">Privacy Policy</a></li>
+                <li><a href="terms.html" class="">Terms</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-close" id="mobileClose">&times;</div>
+        <a href="index.html">Home</a>
+        <a href="index.html#tools">Tools</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="cookie.html">Cookie Policy</a>
+    </div>
+    
+
+<section class="page-banner">
+    <div class="container">
+        <h1 class="reveal">Contact Us</h1>
+        <p class="reveal" style="transition-delay:0.1s">We are here to help. Reach out for support, feedback, or business inquiries.</p>
+    </div>
+</section>
+
+<section class="contact-section">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h2 class="reveal">Get in Touch</h2>
+                <p class="reveal">Have a question, suggestion, or need assistance? We would love to hear from you. Our team is committed to responding to all inquiries within 24-48 hours.</p>
+
+                <div class="contact-method reveal">
+                    <div class="contact-method-icon">
+                        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    <div>
+                        <div class="contact-method-title">Support Email</div>
+                        <div class="contact-method-detail">megastoresupport@gmail.com</div>
+                    </div>
+                </div>
+
+                <div class="contact-method reveal">
+                    <div class="contact-method-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <div>
+                        <div class="contact-method-title">Response Time</div>
+                        <div class="contact-method-detail">Within 24-48 hours</div>
+                    </div>
+                </div>
+
+                <div class="contact-method reveal">
+                    <div class="contact-method-icon">
+                        <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                    </div>
+                    <div>
+                        <div class="contact-method-title">Business Inquiries</div>
+                        <div class="contact-method-detail">For partnerships and advertising</div>
+                    </div>
+                </div>
+
+                <h2 style="margin-top:40px" class="reveal">Send Feedback</h2>
+                <p class="reveal">Your feedback helps us improve. Found a bug? Have a feature request? Want to suggest a new tool? Let us know and we will make it happen.</p>
+
+                <h2 style="margin-top:40px" class="reveal">Help Section</h2>
+                <p class="reveal">Before reaching out, you might find answers to common questions in our <a href="index.html#faq" style="color:var(--aged-brass);text-decoration:underline">FAQ section</a>. We have compiled solutions to the most common issues and inquiries there.</p>
+            </div>
+
+            <div class="contact-form reveal" style="transition-delay:0.15s">
+                <h3>Send us a Message</h3>
+                <form id="contactForm" onsubmit="return handleContactSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Your Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a topic</option>
+                            <option value="support">Technical Support</option>
+                            <option value="feedback">Tool Feedback</option>
+                            <option value="suggestion">New Tool Suggestion</option>
+                            <option value="business">Business Inquiry</option>
+                            <option value="bug">Bug Report</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message *</label>
+                        <textarea id="message" name="message" required placeholder="Tell us how we can help you..."></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Send Message</button>
+                    <div class="form-message" id="formMessage"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="help-section">
+    <div class="container">
+        <div style="text-align:center;margin-bottom:48px">
+            <div class="section-label reveal">Help Center</div>
+            <h2 class="section-title reveal" style="margin-bottom:0">Quick Help Topics</h2>
+        </div>
+        <div class="help-grid">
+            <div class="help-card reveal">
+                <h4>Tool Not Working?</h4>
+                <p>Try refreshing the page or clearing your browser cache. All our tools work best in the latest versions of Chrome, Firefox, Safari, or Edge.</p>
+            </div>
+            <div class="help-card reveal" style="transition-delay:0.05s">
+                <h4>Found a Bug?</h4>
+                <p>Please include the tool name, what you were trying to do, and what happened. Screenshots are always helpful for faster resolution.</p>
+            </div>
+            <div class="help-card reveal" style="transition-delay:0.1s">
+                <h4>Want a New Tool?</h4>
+                <p>We love adding new tools! Describe what you need and we will prioritize based on community interest. Most requested tools get built first.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="info-section-page">
+    <div class="container">
+        <h2 class="reveal">About Contacting Mega-Store.in</h2>
+        <p class="reveal">We believe that excellent support is the foundation of a great user experience. At Mega-Store.in, we are committed to providing timely, helpful responses to every inquiry we receive. Whether you have a technical question about one of our 25+ free online tools, want to report a bug, need help understanding how a feature works, or have a business proposal, our dedicated support team is here to assist you. This page explains everything you need to know about reaching out to us, what to expect, and how we handle your communications.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Why Contact Us?</h2>
+        <p class="reveal">There are many reasons you might want to get in touch with the Mega-Store.in team. Users contact us for technical support when a tool is not working as expected, to report bugs or display issues across different browsers and devices, to suggest new tools or features that would make our platform even more useful, to provide feedback on existing tools and user experience, for business inquiries including partnerships and advertising opportunities, and to ask questions about privacy, data handling, and security practices. Every message we receive is read and considered carefully, because your feedback directly shapes the future of our platform.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Key Features of Our Support</h2>
+        <ul>
+            <li class="reveal"><strong>24-48 Hour Response Time</strong> - We respond to all inquiries within one to two business days</li>
+            <li class="reveal"><strong>Multiple Contact Topics</strong> - Choose from Technical Support, Tool Feedback, New Tool Suggestions, Business Inquiries, Bug Reports, and more</li>
+            <li class="reveal"><strong>Comprehensive Contact Form</strong> - Structured form ensures we have all the information needed to help you quickly</li>
+            <li class="reveal"><strong>Email Support</strong> - Reach us directly at megastoresupport@gmail.com for any inquiry</li>
+            <li class="reveal"><strong>No Account Required</strong> - Contact us without needing to register or create an account</li>
+            <li class="reveal"><strong>Privacy Focused</strong> - Your communications are handled confidentially and never shared with third parties</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">How the Contact Form Works</h2>
+        <p class="reveal">Our contact form is designed to collect all necessary information upfront so we can provide accurate, helpful responses without needing to ask follow-up questions. The form captures your name for personalized communication, your email address for our reply, a subject category that routes your message to the right team member, and your detailed message describing your question or feedback. When you submit the form, the data is processed and a confirmation message appears. Our team then reviews your message and responds to the email address you provided within 24-48 hours.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Step-by-Step Guide to Contacting Us</h2>
+        <p class="reveal"><strong>Step 1:</strong> Decide whether to use the contact form on this page or email us directly at megastoresupport@gmail.com.</p>
+        <p class="reveal"><strong>Step 2:</strong> If using the form, fill in your full name in the "Your Name" field.</p>
+        <p class="reveal"><strong>Step 3:</strong> Enter a valid email address where we can send our response.</p>
+        <p class="reveal"><strong>Step 4:</strong> Select the most appropriate subject from the dropdown menu.</p>
+        <p class="reveal"><strong>Step 5:</strong> Write a detailed message explaining your question, issue, or suggestion. Include specific details like which tool you are using, what you expected to happen, and what actually happened.</p>
+        <p class="reveal"><strong>Step 6:</strong> Click "Send Message" and wait for the confirmation.</p>
+        <p class="reveal"><strong>Step 7:</strong> Check your email (including spam folder) for our response within 24-48 hours.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Real-Life Use Cases for Contacting Us</h2>
+        <p class="reveal"><strong>Technical Support:</strong> A user trying to compress an image encounters an error message. They contact us with details about their browser, the image format, and the error, and we help troubleshoot the issue.</p>
+        <p class="reveal"><strong>Feature Requests:</strong> A teacher uses our Random Name Picker for classroom activities and suggests adding a "save list" feature. We consider this for our development roadmap.</p>
+        <p class="reveal"><strong>Bug Reports:</strong> A designer notices the Color Palette Generator displays differently on Safari than Chrome. They report this with screenshots, and our team investigates and fixes the issue.</p>
+        <p class="reveal"><strong>Business Partnerships:</strong> A company wants to integrate our calculators into their website and reaches out to discuss collaboration possibilities and API access.</p>
+        <p class="reveal"><strong>General Feedback:</strong> A regular user writes to tell us how our Password Generator helped them improve their online security, providing encouragement and suggestions for new features.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Benefits of Reaching Out</h2>
+        <ul>
+            <li class="reveal"><strong>Direct Access to Our Team:</strong> Your message goes straight to the people who build and maintain the tools</li>
+            <li class="reveal"><strong>Influence Development:</strong> Popular feature requests and suggestions often become real tools</li>
+            <li class="reveal"><strong>Quick Problem Resolution:</strong> Most technical issues are resolved within one email exchange</li>
+            <li class="reveal"><strong>Shape the Platform:</strong> Your feedback helps us prioritize improvements that matter most to users</li>
+            <li class="reveal"><strong>Get Updates:</strong> We occasionally share news about new tools with engaged community members</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">Tips for Getting a Faster Response</h2>
+        <p class="reveal"><strong>Tip 1:</strong> Choose the correct subject category. This ensures your message reaches the right team member immediately.</p>
+        <p class="reveal"><strong>Tip 2:</strong> Include specific details. For bug reports, tell us your browser, device, operating system, and the exact steps to reproduce the issue.</p>
+        <p class="reveal"><strong>Tip 3:</strong> Attach screenshots when reporting visual issues. A picture is worth a thousand words when describing display problems.</p>
+        <p class="reveal"><strong>Tip 4:</strong> Use a clear, descriptive subject line in direct emails. "Bug in Image Compressor on Safari" gets faster attention than "Help needed."</p>
+        <p class="reveal"><strong>Tip 5:</strong> Check the FAQ and Help sections first. Many common questions are already answered there, saving you time.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Common Mistakes to Avoid</h2>
+        <p class="reveal"><strong>Mistake 1:</strong> Providing an incorrect email address. Double-check your email before submitting, or our reply will bounce back.</p>
+        <p class="reveal"><strong>Mistake 2:</strong> Sending vague reports. "It does not work" is not helpful. Describe what you expected and what actually happened.</p>
+        <p class="reveal"><strong>Mistake 3:</strong> Not checking spam folders. Our responses sometimes end up in spam or promotions folders.</p>
+        <p class="reveal"><strong>Mistake 4:</strong> Sending multiple messages about the same issue. This clutters our queue and slows responses for everyone.</p>
+        <p class="reveal"><strong>Mistake 5:</strong> Not including which tool you are using. We have 25+ tools, so specify which one your message is about.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Safety, Privacy, and Data Security</h2>
+        <p class="reveal">Your privacy is extremely important to us. When you contact Mega-Store.in through our form or email, your personal information is handled with strict confidentiality. We do not sell, rent, or share your contact details with any third parties. Messages are stored only for as long as necessary to address your inquiry and are then securely deleted. We do not use your email address for marketing purposes unless you explicitly opt in. Our website uses secure connections (HTTPS) to encrypt all data transmitted between your browser and our servers, ensuring your communications cannot be intercepted by unauthorized parties.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Comparison with Alternative Support Methods</h2>
+        <p class="reveal">While many websites offer only email support or rely on community forums, Mega-Store.in provides a structured contact form that categorizes inquiries for faster routing. Unlike platforms that use chatbots and automated responses, every message to us is read by a real human. We do not charge for support, unlike some premium tool platforms. And unlike social media support channels where messages can get lost, our dedicated support email and form ensure your message reaches us directly and is tracked until resolution.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Frequently Asked Questions (FAQs)</h2>
+        <h3 class="reveal">How long does it take to get a response?</h3>
+        <p class="reveal">We aim to respond to all inquiries within 24-48 hours during business days. Complex technical issues may require additional time for investigation, but we always acknowledge receipt of your message within 24 hours.</p>
+        <h3 class="reveal">What should I include in a bug report?</h3>
+        <p class="reveal">A good bug report includes: which tool you were using, what browser and version you are on, what device and operating system you are using, the exact steps you took before the issue occurred, what you expected to happen, what actually happened, and any screenshots if applicable.</p>
+        <h3 class="reveal">Can I suggest a new tool?</h3>
+        <p class="reveal">Absolutely! We love hearing new tool suggestions. Select "New Tool Suggestion" from the subject dropdown and describe what you need. We regularly review suggestions and build the most requested tools first.</p>
+        <h3 class="reveal">Is my message kept private?</h3>
+        <p class="reveal">Yes, all communications are strictly confidential. We do not share your messages or contact details with anyone outside our support team. Your information is used solely to address your inquiry.</p>
+        <h3 class="reveal">Do I need an account to contact you?</h3>
+        <p class="reveal">No account is required. Our contact form is open to everyone. Just fill in your name, email, subject, and message to reach us.</p>
+        <h3 class="reveal">What if I do not receive a response?</h3>
+        <p class="reveal">If you have not heard back within 48 hours, first check your spam or junk folder. If there is still no response, try contacting us directly at megastoresupport@gmail.com with "Follow-up" in the subject line.</p>
+        <h3 class="reveal">Do you offer phone support?</h3>
+        <p class="reveal">Currently, we provide support exclusively through email and our contact form. This allows us to efficiently handle inquiries, attach resources, and keep a record of solutions for future reference.</p>
+        <h3 class="reveal">Can I advertise on Mega-Store.in?</h3>
+        <p class="reveal">For advertising and partnership inquiries, select "Business Inquiry" from the subject dropdown. We review all partnership proposals and respond with our media kit and advertising options.</p>
+        <h3 class="reveal">How do I report a security vulnerability?</h3>
+        <p class="reveal">If you discover a security issue, please email us directly at megastoresupport@gmail.com with "Security" in the subject line. We take all security reports seriously and investigate them promptly.</p>
+        <h3 class="reveal">Can I request a feature for an existing tool?</h3>
+        <p class="reveal">Yes! Select "Tool Feedback" as your subject and describe the feature you would like to see. We regularly add features based on user feedback.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Expert Tips for Effective Communication</h2>
+        <p class="reveal"><strong>For Technical Issues:</strong> Before contacting us, try clearing your browser cache and refreshing the page. If the issue persists, note your browser console errors (press F12, click Console) and include them in your message.</p>
+        <p class="reveal"><strong>For Feature Suggestions:</strong> Explain not just what you want, but why you want it. Understanding your use case helps us design better solutions.</p>
+        <p class="reveal"><strong>For Business Inquiries:</strong> Include information about your company, your goals for the partnership, and any timelines you are working with.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Troubleshooting Common Issues</h2>
+        <p class="reveal"><strong>Issue:</strong> The contact form will not submit.</p>
+        <p class="reveal"><strong>Solution:</strong> Ensure all required fields (marked with *) are filled. Check that your email address is valid. Try a different browser if the problem persists.</p>
+        <p class="reveal"><strong>Issue:</strong> Confirmation message did not appear.</p>
+        <p class="reveal"><strong>Solution:</strong> Check your internet connection. If the form submitted successfully, you should still receive an email response within 24-48 hours even without the confirmation.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Conclusion</h2>
+        <p class="reveal">Mega-Store.in is committed to providing an exceptional experience across all 25+ of our free online tools, and that includes outstanding customer support. Whether you need help with a technical issue, want to suggest a new feature, or have a business opportunity to discuss, our team is ready to listen and respond. With a 24-48 hour response commitment, privacy-focused handling of your data, and real human support, you can reach out with confidence. We value every message because your feedback is what makes Mega-Store.in better. Contact us today, we look forward to hearing from you.</p>
+    </div>
+</section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">Mega-<span>Store.in</span></div>
+                    <p class="footer-desc">Your one-stop destination for 25+ free online tools. Calculators, generators, converters, and utilities designed to simplify your daily tasks.</p>
+                    <p class="footer-email">megastoresupport@gmail.com</p>
+                </div>
+                <div>
+                    <div class="footer-col-title">Tools</div>
+                    <ul class="footer-links">
+                        <li><a href="emi-calculator.html">EMI Calculator</a></li>
+                        <li><a href="password-generator.html">Password Generator</a></li>
+                        <li><a href="word-counter.html">Word Counter</a></li>
+                        <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+                        <li><a href="qr-code-generator.html">QR Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms and Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="cookie.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                &copy; 2026 Mega-Store.in All rights reserved. All tools are free to use.
+            </div>
+        </div>
+    </footer>
+    
+
+<script>
+
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        function openMobileNav() {
+            mobileNav.classList.add('open');
+            mobileOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileNav() {
+            mobileNav.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if(hamburger){ hamburger.addEventListener('click', openMobileNav); }
+        if(mobileClose){ mobileClose.addEventListener('click', closeMobileNav); }
+        if(mobileOverlay){ mobileOverlay.addEventListener('click', closeMobileNav); }
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active nav link
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.navbar-links a, .mobile-nav a').forEach(link => {
+            if(link.getAttribute('href') === currentPath || (currentPath === '' && link.getAttribute('href') === 'index.html')){
+                link.classList.add('active');
+            }
+        });
+    
+
+function handleContactSubmit(e) {
+    e.preventDefault();
+    const msg = document.getElementById('formMessage');
+    const btn = e.target.querySelector('.form-submit');
+    const originalText = btn.textContent;
+
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+        msg.className = 'form-message success';
+        msg.textContent = 'Thank you for your message! We have received it and will get back to you within 24-48 hours.';
+        btn.textContent = originalText;
+        btn.disabled = false;
+        e.target.reset();
+    }, 1500);
+
+    return false;
+}
+</script>
+
+</body>
+</html>

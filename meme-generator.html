@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Generator - Create Memes Online | Mega-Store.in</title>
+    <meta name="description" content="Create funny memes by adding top and bottom text to any image. Adjust text size and download your meme. Free, fun, and easy to use.">
+    <meta name="keywords" content="meme generator, create meme, make memes, meme maker, funny meme creator">
+    <link rel="canonical" href="https://mega-store.in/meme-generator.html">
+    <meta property="og:title" content="Meme Generator - Create Memes Online | Mega-Store.in">
+    <meta property="og:description" content="Create funny memes by adding top and bottom text to any image. Adjust text size and download your meme. Free, fun, and easy to use.">
+    <meta property="og:url" content="https://mega-store.in/meme-generator.html">
+    <meta name="author" content="MEGA STORE">
+    <meta property="og:site_name" content="MEGA STORE">
+    <meta property="og:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <meta name="twitter:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <link rel="icon" href="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+        
+    <style>
+
+        :root {
+            --deep-ink: #0B0F19;
+            --alabaster: #F4F5F0;
+            --muted-moss: #7A7C6D;
+            --aged-brass: #9E8B6F;
+            --light-fog: #E8E9E4;
+            --pure-white: #FFFFFF;
+            --dark-surface: #121620;
+            --border-light: rgba(11,15,25,0.08);
+            --border-medium: rgba(11,15,25,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        input, textarea, select, button {
+            font-family: inherit;
+            font-size: inherit;
+        }
+        button { cursor: pointer; border: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
+        @media(min-width:768px){ .container { padding: 0 8vw; } }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            z-index: 1000;
+            background: rgba(11,15,25,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+            letter-spacing: -0.02em;
+        }
+        .navbar-brand span { color: var(--aged-brass); }
+        .navbar-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+        .navbar-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        .navbar-links a:hover, .navbar-links a.active { color: var(--alabaster); }
+        .navbar-cta {
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .navbar-cta:hover { background: #b09b7e; }
+        .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--alabaster);
+            border-radius: 1px;
+        }
+
+        /* Mobile nav */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--deep-ink);
+            padding: 80px 32px 32px;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        .mobile-nav.open { transform: translateX(0); }
+        .mobile-nav-overlay.open { display: block; }
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: var(--alabaster);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 28px;
+            color: var(--alabaster);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--deep-ink);
+            padding: 64px 0 32px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+        }
+        @media(max-width:768px){
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        @media(max-width:480px){
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        .footer-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+        }
+        .footer-brand span { color: var(--aged-brass); }
+        .footer-desc {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--muted-moss);
+            line-height: 1.7;
+        }
+        .footer-email {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--aged-brass);
+        }
+        .footer-col-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--alabaster);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--alabaster); }
+        .footer-divider {
+            height: 1px;
+            background: rgba(244,245,240,0.08);
+            margin: 40px 0;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted-moss);
+        }
+
+        /* Responsive */
+        @media(max-width:768px){
+            .navbar-links { display: none; }
+            .hamburger { display: flex; }
+        }
+        @media(min-width:769px){
+            .mobile-nav, .mobile-nav-overlay { display: none !important; }
+        }
+    
+        .page-banner {
+            background: linear-gradient(135deg, var(--deep-ink) 0%, var(--dark-surface) 100%);
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+        .page-banner h1 {
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 800;
+            color: var(--alabaster);
+            line-height: 1.2;
+        }
+        .page-banner p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            margin-top: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tool-section {
+            background: var(--alabaster);
+            padding: 60px 0;
+        }
+        .tool-container {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        @media(max-width:768px){ .tool-container { padding: 24px; } }
+        .tool-input-group {
+            margin-bottom: 20px;
+        }
+        .tool-input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 6px;
+        }
+        .tool-input-group input,
+        .tool-input-group select,
+        .tool-input-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            transition: border-color 0.3s ease;
+        }
+        .tool-input-group input:focus,
+        .tool-input-group select:focus,
+        .tool-input-group textarea:focus {
+            outline: none;
+            border-color: var(--aged-brass);
+        }
+        .tool-input-group .input-prefix {
+            position: relative;
+        }
+        .tool-input-group .prefix {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-prefix input {
+            padding-left: 44px;
+        }
+        .tool-input-group .suffix {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-suffix input {
+            padding-right: 56px;
+        }
+        .tool-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .tool-btn:hover { background: #b09b7e; }
+        .tool-btn-secondary {
+            display: inline-block;
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--deep-ink);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 8px;
+        }
+        .tool-btn-secondary:hover { border-color: var(--aged-brass); }
+        .tool-result {
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--light-fog);
+            border-radius: 10px;
+            border-left: 4px solid var(--aged-brass);
+            display: none;
+        }
+        .tool-result.show { display: block; }
+        .tool-result-label {
+            font-size: 13px;
+            color: var(--muted-moss);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .tool-result-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--deep-ink);
+        }
+        .tool-result-detail {
+            font-size: 14px;
+            color: var(--muted-moss);
+            margin-top: 8px;
+        }
+        .info-section-page {
+            background: var(--light-fog);
+            padding: 80px 0;
+        }
+        .info-section-page.alt { background: var(--alabaster); }
+        .info-section-page .container { max-width: 900px; }
+        .info-section-page h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--deep-ink);
+            margin-bottom: 20px;
+        }
+        .info-section-page h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 10px;
+            margin-top: 24px;
+        }
+        .info-section-page p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+        .info-section-page ul {
+            margin: 14px 0;
+            padding-left: 24px;
+        }
+        .info-section-page li {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .related-card {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .related-card:hover {
+            border-color: rgba(158,139,111,0.3);
+            transform: translateY(-3px);
+        }
+        .related-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--deep-ink);
+        }
+        .related-card-desc {
+            font-size: 13px;
+            color: var(--muted-moss);
+            margin-top: 4px;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .error-msg {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+        .error-msg.show { display: block; }
+    
+    </style>
+</head>
+<body>
+
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Mega-<span>Store.in</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html" class="">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="about.html" class="">About Us</a></li>
+                <li><a href="contact.html" class="">Contact Us</a></li>
+                <li><a href="privacy.html" class="">Privacy Policy</a></li>
+                <li><a href="terms.html" class="">Terms</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-close" id="mobileClose">&times;</div>
+        <a href="index.html">Home</a>
+        <a href="index.html#tools">Tools</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="cookie.html">Cookie Policy</a>
+    </div>
+    
+
+<section class="page-banner">
+    <div class="container">
+        <h1 class="reveal">Meme Generator</h1>
+        <p class="reveal" style="transition-delay:0.1s">Create fun memes from any image.</p>
+    </div>
+</section>
+
+<section class="tool-section">
+    <div class="container">
+        <div class="tool-container reveal">
+            
+<div style="border:2px dashed var(--border-medium);border-radius:12px;padding:32px 24px;text-align:center;cursor:pointer" ondragover="event.preventDefault();this.style.borderColor='var(--aged-brass)'" ondragleave="this.style.borderColor='var(--border-medium)'" ondrop="handleMemeDrop(event)">
+    <svg viewBox="0 0 24 24" style="width:40px;height:40px;stroke:var(--aged-brass);fill:none;stroke-width:1.5;margin:0 auto;display:block"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+    <p style="margin-top:10px;font-size:14px;color:var(--deep-ink);font-weight:500">Drop an image or click to browse</p>
+    <input type="file" id="memeInput" accept="image/*" style="display:none" onchange="handleMemeFile(this.files[0])">
+    <button class="tool-btn" style="margin-top:10px;font-size:13px;padding:8px 18px" onclick="document.getElementById('memeInput').click()">Choose Image</button>
+</div>
+<div id="memeEditor" style="display:none;margin-top:20px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="tool-input-group">
+            <label>Top Text</label>
+            <input type="text" id="memeTop" placeholder="TOP TEXT" oninput="drawMeme()">
+        </div>
+        <div class="tool-input-group">
+            <label>Bottom Text</label>
+            <input type="text" id="memeBottom" placeholder="BOTTOM TEXT" oninput="drawMeme()">
+        </div>
+    </div>
+    <div style="margin-top:12px">
+        <label style="font-size:13px;color:var(--muted-moss)">Text Size</label>
+        <input type="range" id="memeFontSize" min="20" max="80" value="40" oninput="drawMeme()" style="width:100%;accent-color:var(--aged-brass)">
+    </div>
+    <div style="text-align:center;margin-top:16px">
+        <canvas id="memeCanvas" style="max-width:100%;border-radius:8px;border:1px solid var(--border-light)"></canvas>
+        <div style="margin-top:12px">
+            <button class="tool-btn" onclick="downloadMeme()">Download Meme</button>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+</section>
+
+<section class="info-section-page">
+    <div class="container">
+        <h2 class="reveal">What Is the Meme Generator?</h2>
+        <p class="reveal">The Meme Generator is a fun, free online tool that lets you create classic internet memes from any image. Memes have become a universal language of the internet, used to express humor, commentary, reactions, and cultural observations across social media platforms, messaging apps, and online communities. Our Meme Generator captures the authentic meme aesthetic by using the iconic Impact font with white text and a black outline, the universally recognized style that has defined internet memes since the early 2000s. With support for both top and bottom text, adjustable font sizing, real-time preview, and instant PNG download, you can turn any photograph, screenshot, or image into a shareable meme in seconds.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Why Use a Meme Generator?</h2>
+        <p class="reveal">Memes are one of the most engaging forms of content on the internet. They generate higher engagement rates than traditional posts, are more likely to be shared, and can communicate complex ideas with humor and brevity. For content creators, marketers, community managers, and casual social media users, having the ability to quickly create custom memes is invaluable. Our Meme Generator removes all barriers to meme creation. You do not need graphic design skills, expensive software, or technical knowledge. Simply upload an image, add your text, adjust the size, and download your creation. Whether you are creating content for a brand, entertaining friends, or participating in the latest internet trend, this tool makes meme creation accessible to everyone.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Key Features</h2>
+        <ul>
+            <li class="reveal"><strong>Dual Text Support</strong> - Add separate top and bottom text to your memes</li>
+            <li class="reveal"><strong>Adjustable Font Size</strong> - Scale text from 20px to 80px using an intuitive slider</li>
+            <li class="reveal"><strong>Classic Meme Aesthetic</strong> - Authentic Impact font with white fill and black outline</li>
+            <li class="reveal"><strong>Real-Time Preview</strong> - See your meme update instantly as you type and adjust</li>
+            <li class="reveal"><strong>Any Image Upload</strong> - Works with JPG, PNG, GIF, and WebP images</li>
+            <li class="reveal"><strong>Drag and Drop Upload</strong> - Quick image loading with drag-and-drop support</li>
+            <li class="reveal"><strong>PNG Download</strong> - Export your meme as a high-quality transparent PNG</li>
+            <li class="reveal"><strong>100% Free</strong> - No registration, no watermarks, no limits</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">How the Tool Works</h2>
+        <p class="reveal">The Meme Generator uses HTML5 Canvas technology to render your meme entirely within the browser. When you upload an image, the tool reads the file and draws it onto a Canvas element. The canvas is automatically scaled to a maximum width of 600 pixels while maintaining the original aspect ratio, ensuring memes are optimized for web sharing. For text rendering, the tool uses the Impact font (or a fallback sans-serif if Impact is not available) with a bold weight of 900. The text is centered horizontally and automatically converted to uppercase. The classic meme look is achieved by first drawing the text with a black stroke (outline) and then overlaying white filled text. The stroke width dynamically adjusts based on the font size. All rendering happens in real time as you type or adjust the slider.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Step-by-Step Guide to Using the Tool</h2>
+        <p class="reveal"><strong>Step 1:</strong> Navigate to the Meme Generator page and locate the upload area.</p>
+        <p class="reveal"><strong>Step 2:</strong> Upload your image by dragging and dropping it onto the drop zone, or click "Choose Image" to browse your files.</p>
+        <p class="reveal"><strong>Step 3:</strong> The meme editor appears automatically after upload. Enter your top text in the "Top Text" field.</p>
+        <p class="reveal"><strong>Step 4:</strong> Enter your bottom text in the "Bottom Text" field.</p>
+        <p class="reveal"><strong>Step 5:</strong> Adjust the text size slider to fit your image. Larger images may need larger text (50-60px), while smaller images work better with 30-40px.</p>
+        <p class="reveal"><strong>Step 6:</strong> Review the live preview of your meme on the canvas below.</p>
+        <p class="reveal"><strong>Step 7:</strong> Click "Download Meme" to save your creation as a PNG file.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Real-Life Use Cases</h2>
+        <p class="reveal"><strong>Social Media Content:</strong> Create engaging meme content for Instagram, Facebook, Twitter, Reddit, and TikTok. Memes consistently outperform other content types in terms of engagement, comments, and shares.</p>
+        <p class="reveal"><strong>Marketing and Branding:</strong> Savvy brands use memes to connect with younger audiences in an authentic, relatable way. Create branded memes that align with your brand voice and current internet trends.</p>
+        <p class="reveal"><strong>Community Management:</strong> Moderators and community managers use custom memes to welcome new members, celebrate milestones, enforce rules humorously, and build community culture.</p>
+        <p class="reveal"><strong>Personal Entertainment:</strong> Turn personal photos into hilarious memes to share with friends and family. Birthday photos, pet pictures, vacation snapshots, and candid moments all make great meme material.</p>
+        <p class="reveal"><strong>Reaction Images:</strong> Create custom reaction memes using your own facial expressions or photos. These become personalized emojis for your friend group or team.</p>
+        <p class="reveal"><strong>Educational Content:</strong> Teachers and educators create meme-based educational content to make learning more engaging. Historical figures, scientific concepts, and literary references can all be presented through memes.</p>
+        <p class="reveal"><strong>Workplace Communication:</strong> Lighten up Slack channels, Teams chats, and email threads with work-appropriate memes that colleagues can relate to.</p>
+        <p class="reveal"><strong>Event Promotion:</strong> Create meme-based promotional content for parties, gatherings, webinars, and online events that stands out from traditional promotional graphics.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Benefits of Using This Tool</h2>
+        <ul>
+            <li class="reveal"><strong>Instant Creation</strong> - Make a meme in under 30 seconds</li>
+            <li class="reveal"><strong>No Design Skills Required</strong> - Simple interface anyone can use</li>
+            <li class="reveal"><strong>Authentic Meme Style</strong> - Uses the classic Impact font recognized worldwide</li>
+            <li class="reveal"><strong>Customizable Text Size</strong> - Fit text perfectly to any image dimensions</li>
+            <li class="reveal"><strong>High-Quality Output</strong> - PNG format preserves image clarity</li>
+            <li class="reveal"><strong>Completely Free</strong> - No watermarks, no limits, no registration</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">Tips for Best Results</h2>
+        <p class="reveal"><strong>Tip 1:</strong> Choose images with clear focal points. Memes work best when the subject is obvious and the text complements what is happening in the image.</p>
+        <p class="reveal"><strong>Tip 2:</strong> Keep text concise. The best memes use short, punchy phrases. Long sentences become hard to read and lose impact.</p>
+        <p class="reveal"><strong>Tip 3:</strong> Use contrasting images. A calm image with dramatic text, or a chaotic image with understated text, creates comedic contrast.</p>
+        <p class="reveal"><strong>Tip 4:</strong> Test different font sizes. The slider lets you preview in real time, so experiment until the text is prominent but not overwhelming.</p>
+        <p class="reveal"><strong>Tip 5:</strong> Consider your audience. Memes that reference shared experiences, inside jokes, or current events tend to perform better than generic humor.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Common Mistakes to Avoid</h2>
+        <p class="reveal"><strong>Mistake 1:</strong> Using images that are too small. Low-resolution images produce blurry memes that look unprofessional. Start with images at least 600 pixels wide.</p>
+        <p class="reveal"><strong>Mistake 2:</strong> Overwriting the important parts of the image. Position your subject so that text does not cover crucial visual elements.</p>
+        <p class="reveal"><strong>Mistake 3:</strong> Making text too long. Memes are most effective with brief, impactful text. If you need paragraphs, consider a different format.</p>
+        <p class="reveal"><strong>Mistake 4:</strong> Using copyrighted images without permission. While memes fall under fair use in many contexts, commercial use of copyrighted images can create legal issues.</p>
+        <p class="reveal"><strong>Mistake 5:</strong> Forgetting to capitalize. Our tool auto-capitalizes text, but if you are editing the downloaded image later, remember that uppercase is the meme standard.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Safety, Privacy, and Data Security</h2>
+        <p class="reveal">Your privacy is fully protected when using the Meme Generator. All image processing happens locally within your web browser using HTML5 Canvas technology. Your uploaded images are never transmitted to any server, stored in any database, or shared with third parties. The meme is created entirely on your device and downloaded directly to your computer. This means you can safely use personal photos, screenshots, and private images without worrying about them being exposed online. Once you close the browser tab, all image data is cleared from memory.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Comparison with Traditional Methods</h2>
+        <p class="reveal">Traditional meme creation methods include using Photoshop (expensive, steep learning curve), mobile apps (often add watermarks or require subscriptions), online meme makers that upload to servers (privacy risk), and basic image editors that lack the classic meme font styling. Our Meme Generator combines the best qualities of these alternatives: it is free unlike Photoshop, watermark-free unlike many apps, privacy-safe unlike server-based tools, and purpose-built with authentic meme styling unlike generic editors. For quick, authentic meme creation, no tool offers a better balance of simplicity, quality, and privacy.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Frequently Asked Questions (FAQs)</h2>
+        <h3 class="reveal">Can I use any image to create a meme?</h3>
+        <p class="reveal">Yes, you can upload any JPG, PNG, GIF, or WebP image. This includes photographs, screenshots, digital art, and downloaded images. For best results, use images that are at least 600 pixels wide. The tool automatically scales larger images down to a maximum width of 600 pixels while maintaining aspect ratio.</p>
+        <h3 class="reveal">Is the text always converted to uppercase?</h3>
+        <p class="reveal">Yes, meme text is automatically converted to uppercase to maintain the classic internet meme aesthetic that has been popular since the early days of meme culture. This uppercase styling, combined with the Impact font and black outline, creates the instantly recognizable meme look that works across all platforms.</p>
+        <h3 class="reveal">Can I change the font to something other than Impact?</h3>
+        <p class="reveal">The generator uses Impact as the primary font because it is the industry-standard typeface for classic memes. If Impact is not available on your system, it falls back to a similar bold sans-serif font. The Impact font was chosen specifically because it is bold, readable at small sizes, and universally associated with internet memes.</p>
+        <h3 class="reveal">What is the ideal text size for most memes?</h3>
+        <p class="reveal">For the default 600px canvas width, text sizes between 35px and 50px work well for most images. Smaller images or memes with longer text may need 25-35px. Large, simple images with short text can handle 55-70px. The real-time preview lets you experiment to find the perfect size.</p>
+        <h3 class="reveal">Can I create memes on my phone?</h3>
+        <p class="reveal">Yes, the Meme Generator works on smartphones and tablets. You can upload photos from your camera roll and create memes on the go. The interface is fully responsive and optimized for touch interaction.</p>
+        <h3 class="reveal">Is there a watermark on downloaded memes?</h3>
+        <p class="reveal">No. Downloaded memes contain no watermarks, branding, or attribution requirements. They are completely clean and ready to share anywhere.</p>
+        <h3 class="reveal">Can I use these memes commercially?</h3>
+        <p class="reveal">While our tool is free to use, you are responsible for ensuring you have the right to use the underlying images. Memes you create from your own photos can be used commercially. Memes using images found online may be subject to copyright restrictions for commercial use.</p>
+        <h3 class="reveal">Why is the output limited to 600px width?</h3>
+        <p class="reveal">The 600px maximum width ensures memes are optimized for web sharing. Most social platforms display images at this scale or smaller. This also keeps file sizes manageable for quick uploading and sharing.</p>
+        <h3 class="reveal">Can I add more than two lines of text?</h3>
+        <p class="reveal">Currently, the tool supports one top text line and one bottom text line, which is the standard format for classic memes. For more complex layouts, you could create the basic meme here and then edit it further in an image editor.</p>
+        <h3 class="reveal">Does the tool support GIF memes?</h3>
+        <p class="reveal">You can upload GIF images as static frames, but the output will be a static PNG image. Animated GIF meme creation is not currently supported.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Expert Tips and Best Practices</h2>
+        <p class="reveal"><strong>For Social Media Managers:</strong> Create a library of meme templates using consistent brand imagery. When a trending format emerges, you can quickly add new text and participate in the conversation.</p>
+        <p class="reveal"><strong>For Maximum Engagement:</strong> Time your memes to current events, holidays, and trending topics. Memes that reference shared cultural moments tend to spread the furthest.</p>
+        <p class="reveal"><strong>For Clean Text:</strong> Choose images with relatively uniform top and bottom areas. Busy backgrounds behind text reduce readability and meme impact.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Troubleshooting Common Issues</h2>
+        <p class="reveal"><strong>Issue:</strong> Uploaded image does not appear.</p>
+        <p class="reveal"><strong>Solution:</strong> Ensure the file is a valid image format (JPG, PNG, GIF, WebP). Try a different browser if the issue persists.</p>
+        <p class="reveal"><strong>Issue:</strong> Text is difficult to read.</p>
+        <p class="reveal"><strong>Solution:</strong> The image background behind the text may be too busy. Try a different image, or adjust the text size to be larger.</p>
+        <p class="reveal"><strong>Issue:</strong> Downloaded meme looks different from the preview.</p>
+        <p class="reveal"><strong>Solution:</strong> Some image viewers display images at different scales. Open the downloaded PNG in a web browser to see the true rendering.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Conclusion</h2>
+        <p class="reveal">The Meme Generator is the perfect tool for anyone who wants to participate in internet culture, create engaging social media content, or simply have fun with their photos. Its authentic use of the classic Impact font, intuitive real-time editing, and privacy-first approach set it apart from other meme creation tools. Whether you are a marketer looking to boost engagement, a community builder fostering connections, a content creator entertaining an audience, or just someone who wants to make their friends laugh, this free tool gives you everything you need to create professional-quality memes in seconds. Upload an image, add your text, and join the conversation.</p>
+    </div>
+</section>
+
+<section class="info-section-page alt">
+    <div class="container">
+        <h2 class="reveal">Related Tools</h2>
+        <div class="related-grid">
+            <a href="image-format-converter.html" class="related-card reveal"><div class="related-card-title">Image Format Converter</div><div class="related-card-desc">Convert formats</div></a><a href="image-compressor.html" class="related-card reveal"><div class="related-card-title">Image Compressor</div><div class="related-card-desc">Compress images</div></a><a href="color-palette-generator.html" class="related-card reveal"><div class="related-card-title">Color Palette Generator</div><div class="related-card-desc">Color schemes</div></a><a href="qr-code-generator.html" class="related-card reveal"><div class="related-card-title">QR Code Generator</div><div class="related-card-desc">Create QR codes</div></a>
+        </div>
+    </div>
+</section>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">Mega-<span>Store.in</span></div>
+                    <p class="footer-desc">Your one-stop destination for 25+ free online tools. Calculators, generators, converters, and utilities designed to simplify your daily tasks.</p>
+                    <p class="footer-email">megastoresupport@gmail.com</p>
+                </div>
+                <div>
+                    <div class="footer-col-title">Tools</div>
+                    <ul class="footer-links">
+                        <li><a href="emi-calculator.html">EMI Calculator</a></li>
+                        <li><a href="password-generator.html">Password Generator</a></li>
+                        <li><a href="word-counter.html">Word Counter</a></li>
+                        <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+                        <li><a href="qr-code-generator.html">QR Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms and Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="cookie.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                &copy; 2026 Mega-Store.in All rights reserved. All tools are free to use.
+            </div>
+        </div>
+    </footer>
+    
+
+<script>
+
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        function openMobileNav() {
+            mobileNav.classList.add('open');
+            mobileOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileNav() {
+            mobileNav.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if(hamburger){ hamburger.addEventListener('click', openMobileNav); }
+        if(mobileClose){ mobileClose.addEventListener('click', closeMobileNav); }
+        if(mobileOverlay){ mobileOverlay.addEventListener('click', closeMobileNav); }
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active nav link
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.navbar-links a, .mobile-nav a').forEach(link => {
+            if(link.getAttribute('href') === currentPath || (currentPath === '' && link.getAttribute('href') === 'index.html')){
+                link.classList.add('active');
+            }
+        });
+    
+
+let memeImg = null;
+function handleMemeDrop(e){ e.preventDefault(); e.currentTarget.style.borderColor='var(--border-medium)'; const f=e.dataTransfer.files[0]; if(f&&f.type.startsWith('image/')) handleMemeFile(f); }
+function handleMemeFile(file){ if(!file) return; const r=new FileReader(); r.onload=function(e){ const img=new Image(); img.onload=function(){ memeImg=img; document.getElementById('memeEditor').style.display='block'; drawMeme(); }; img.src=e.target.result; }; r.readAsDataURL(file); }
+
+function drawMeme(){
+    if(!memeImg) return;
+    const c=document.getElementById('memeCanvas');
+    const maxW=600;
+    let w=memeImg.width, h=memeImg.height;
+    if(w>maxW){ h=h*(maxW/w); w=maxW; }
+    c.width=w; c.height=h;
+    const ctx=c.getContext('2d');
+    ctx.drawImage(memeImg,0,0,w,h);
+
+    const topText=document.getElementById('memeTop').value.toUpperCase();
+    const bottomText=document.getElementById('memeBottom').value.toUpperCase();
+    const fontSize=parseInt(document.getElementById('memeFontSize').value);
+
+    ctx.fillStyle='white';
+    ctx.strokeStyle='black';
+    ctx.lineWidth=fontSize/8;
+    ctx.textAlign='center';
+    ctx.font='900 ' + fontSize + 'px Impact, sans-serif';
+
+    if(topText){ ctx.strokeText(topText,w/2,fontSize+10); ctx.fillText(topText,w/2,fontSize+10); }
+    if(bottomText){ ctx.strokeText(bottomText,w/2,h-20); ctx.fillText(bottomText,w/2,h-20); }
+}
+
+function downloadMeme(){
+    const c=document.getElementById('memeCanvas');
+    const link=document.createElement('a');
+    link.download='meme.png';
+    link.href=c.toDataURL('image/png');
+    link.click();
+}
+
+</script>
+
+</body>
+</html>

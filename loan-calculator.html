@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Calculator - Calculate Interest & Payments | Mega-Store.in</title>
+    <meta name="description" content="Calculate loan payments, total interest, and total payable amount for any loan. Supports home loans, car loans, and personal loans.">
+    <meta name="keywords" content="loan calculator, interest calculator, loan payment, personal loan, car loan">
+    <link rel="canonical" href="https://mega-store.in/loan-calculator.html">
+    <meta property="og:title" content="Loan Calculator - Calculate Interest & Payments | Mega-Store.in">
+    <meta property="og:description" content="Calculate loan payments, total interest, and total payable amount for any loan. Supports home loans, car loans, and personal loans.">
+    <meta property="og:url" content="https://mega-store.in/loan-calculator.html">
+    <meta name="author" content="MEGA STORE">
+    <meta property="og:site_name" content="MEGA STORE">
+    <meta property="og:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <meta name="twitter:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <link rel="icon" href="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+         
+   <style>
+
+        :root {
+            --deep-ink: #0B0F19;
+            --alabaster: #F4F5F0;
+            --muted-moss: #7A7C6D;
+            --aged-brass: #9E8B6F;
+            --light-fog: #E8E9E4;
+            --pure-white: #FFFFFF;
+            --dark-surface: #121620;
+            --border-light: rgba(11,15,25,0.08);
+            --border-medium: rgba(11,15,25,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        input, textarea, select, button {
+            font-family: inherit;
+            font-size: inherit;
+        }
+        button { cursor: pointer; border: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
+        @media(min-width:768px){ .container { padding: 0 8vw; } }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            z-index: 1000;
+            background: rgba(11,15,25,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+            letter-spacing: -0.02em;
+        }
+        .navbar-brand span { color: var(--aged-brass); }
+        .navbar-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+        .navbar-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        .navbar-links a:hover, .navbar-links a.active { color: var(--alabaster); }
+        .navbar-cta {
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .navbar-cta:hover { background: #b09b7e; }
+        .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--alabaster);
+            border-radius: 1px;
+        }
+
+        /* Mobile nav */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--deep-ink);
+            padding: 80px 32px 32px;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        .mobile-nav.open { transform: translateX(0); }
+        .mobile-nav-overlay.open { display: block; }
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: var(--alabaster);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 28px;
+            color: var(--alabaster);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--deep-ink);
+            padding: 64px 0 32px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+        }
+        @media(max-width:768px){
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        @media(max-width:480px){
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        .footer-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+        }
+        .footer-brand span { color: var(--aged-brass); }
+        .footer-desc {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--muted-moss);
+            line-height: 1.7;
+        }
+        .footer-email {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--aged-brass);
+        }
+        .footer-col-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--alabaster);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--alabaster); }
+        .footer-divider {
+            height: 1px;
+            background: rgba(244,245,240,0.08);
+            margin: 40px 0;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted-moss);
+        }
+
+        /* Responsive */
+        @media(max-width:768px){
+            .navbar-links { display: none; }
+            .hamburger { display: flex; }
+        }
+        @media(min-width:769px){
+            .mobile-nav, .mobile-nav-overlay { display: none !important; }
+        }
+    
+        .page-banner {
+            background: linear-gradient(135deg, var(--deep-ink) 0%, var(--dark-surface) 100%);
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+        .page-banner h1 {
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 800;
+            color: var(--alabaster);
+            line-height: 1.2;
+        }
+        .page-banner p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            margin-top: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tool-section {
+            background: var(--alabaster);
+            padding: 60px 0;
+        }
+        .tool-container {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        @media(max-width:768px){ .tool-container { padding: 24px; } }
+        .tool-input-group {
+            margin-bottom: 20px;
+        }
+        .tool-input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 6px;
+        }
+        .tool-input-group input,
+        .tool-input-group select,
+        .tool-input-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            transition: border-color 0.3s ease;
+        }
+        .tool-input-group input:focus,
+        .tool-input-group select:focus,
+        .tool-input-group textarea:focus {
+            outline: none;
+            border-color: var(--aged-brass);
+        }
+        .tool-input-group .input-prefix {
+            position: relative;
+        }
+        .tool-input-group .prefix {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-prefix input {
+            padding-left: 44px;
+        }
+        .tool-input-group .suffix {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-suffix input {
+            padding-right: 56px;
+        }
+        .tool-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .tool-btn:hover { background: #b09b7e; }
+        .tool-btn-secondary {
+            display: inline-block;
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--deep-ink);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 8px;
+        }
+        .tool-btn-secondary:hover { border-color: var(--aged-brass); }
+        .tool-result {
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--light-fog);
+            border-radius: 10px;
+            border-left: 4px solid var(--aged-brass);
+            display: none;
+        }
+        .tool-result.show { display: block; }
+        .tool-result-label {
+            font-size: 13px;
+            color: var(--muted-moss);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .tool-result-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--deep-ink);
+        }
+        .tool-result-detail {
+            font-size: 14px;
+            color: var(--muted-moss);
+            margin-top: 8px;
+        }
+        .info-section-page {
+            background: var(--light-fog);
+            padding: 80px 0;
+        }
+        .info-section-page.alt { background: var(--alabaster); }
+        .info-section-page .container { max-width: 900px; }
+        .info-section-page h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--deep-ink);
+            margin-bottom: 20px;
+        }
+        .info-section-page h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 10px;
+            margin-top: 24px;
+        }
+        .info-section-page p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+        .info-section-page ul {
+            margin: 14px 0;
+            padding-left: 24px;
+        }
+        .info-section-page li {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .related-card {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .related-card:hover {
+            border-color: rgba(158,139,111,0.3);
+            transform: translateY(-3px);
+        }
+        .related-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--deep-ink);
+        }
+        .related-card-desc {
+            font-size: 13px;
+            color: var(--muted-moss);
+            margin-top: 4px;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .error-msg {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+        .error-msg.show { display: block; }
+    
+    </style>
+</head>
+<body>
+
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Mega-<span>Store.in</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html" class="">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="about.html" class="">About Us</a></li>
+                <li><a href="contact.html" class="">Contact Us</a></li>
+                <li><a href="privacy.html" class="">Privacy Policy</a></li>
+                <li><a href="terms.html" class="">Terms</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-close" id="mobileClose">&times;</div>
+        <a href="index.html">Home</a>
+        <a href="index.html#tools">Tools</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="cookie.html">Cookie Policy</a>
+    </div>
+    
+
+<section class="page-banner">
+    <div class="container">
+        <h1 class="reveal">Loan Calculator</h1>
+        <p class="reveal" style="transition-delay:0.1s">Calculate loan payments and interest costs.</p>
+    </div>
+</section>
+
+<section class="tool-section">
+    <div class="container">
+        <div class="tool-container reveal">
+            
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
+    <div class="tool-input-group">
+        <label for="loanPrincipal">Loan Amount</label>
+        <div class="input-prefix"><span class="prefix">&#8377;</span><input type="number" id="loanPrincipal" placeholder="500000" min="1"></div>
+    </div>
+    <div class="tool-input-group">
+        <label for="loanIntRate">Interest Rate (p.a.)</label>
+        <div class="input-suffix"><input type="number" id="loanIntRate" placeholder="10" step="0.01" min="0.1"><span class="suffix">%</span></div>
+    </div>
+    <div class="tool-input-group">
+        <label for="loanTerm">Loan Term</label>
+        <div class="input-suffix"><input type="number" id="loanTerm" placeholder="5" min="1" max="30"><span class="suffix">Yrs</span></div>
+    </div>
+</div>
+<button class="tool-btn" onclick="calculateLoan()" style="margin-top:12px">Calculate Loan</button>
+<div class="error-msg" id="loanError">Please fill in all fields with valid values.</div>
+<div class="tool-result" id="loanResult">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px">
+        <div style="text-align:center;padding:16px;background:rgba(255,255,255,0.5);border-radius:10px">
+            <div class="tool-result-label">Monthly Payment</div>
+            <div class="tool-result-value" id="loanMonthly" style="font-size:20px"></div>
+        </div>
+        <div style="text-align:center;padding:16px;background:rgba(255,255,255,0.5);border-radius:10px">
+            <div class="tool-result-label">Total Interest</div>
+            <div class="tool-result-value" id="loanTotalInt" style="font-size:20px;color:var(--muted-moss)"></div>
+        </div>
+        <div style="text-align:center;padding:16px;background:rgba(255,255,255,0.5);border-radius:10px">
+            <div class="tool-result-label">Total Payable</div>
+            <div class="tool-result-value" id="loanTotalPay" style="font-size:20px"></div>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+</section>
+
+<section class="info-section-page">
+    <div class="container">
+        <h2 class="reveal">What Is the Loan Calculator Tool?</h2>
+        <p class="reveal">Our Loan Calculator is a comprehensive financial planning instrument that helps you understand the complete cost structure of any loan before you commit to borrowing. By entering the loan principal, annual interest rate, and loan term, you receive an instant breakdown of your monthly payment, total interest payable over the loan duration, and the total amount you will repay. This transparency is essential for responsible borrowing and long-term financial health.</p>
+        <p class="reveal">Loans are among the most significant financial commitments individuals and families undertake. A home loan typically spans 15 to 30 years, a car loan 3 to 7 years, and personal loans 1 to 5 years. Over these extended periods, the interest component can substantially exceed the original borrowed amount. Our Loan Calculator reveals this total cost upfront, helping you make fully informed decisions about whether a loan is affordable and how to structure it optimally.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Why Use Our Loan Calculator?</h2>
+        <p class="reveal">Many borrowers focus solely on whether they can afford the monthly payment, without fully grasping the total interest burden they will carry over the loan term. Our calculator addresses this blind spot by showing three critical numbers: your monthly payment (for budgeting), total interest (the true cost of borrowing), and total repayment (the full amount you will pay). This complete picture enables smarter financial planning.</p>
+        <p class="reveal">The tool also helps you compare different loan scenarios side by side. You can test how a lower interest rate affects your payments, see the impact of a larger down payment, or understand how extending or shortening the loan term changes your total cost. This analytical capability gives you negotiating power when speaking with lenders and helps you choose the loan structure that best fits your financial situation.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Key Features</h2>
+        <ul>
+            <li class="reveal">Calculate monthly loan payments using the standard reducing balance method</li>
+            <li class="reveal">View total interest payable over the complete loan term</li>
+            <li class="reveal">See the total repayment amount including principal and interest</li>
+            <li class="reveal">Supports all loan types: home loans, vehicle loans, personal loans, education loans</li>
+            <li class="reveal">Loan term flexibility from 1 to 30 years</li>
+            <li class="reveal">Instant results with no page reload required</li>
+            <li class="reveal">Results formatted in Indian Rupees for easy comprehension</li>
+            <li class="reveal">Completely free and private with no data collection</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">How the Loan Calculator Works</h2>
+        <p class="reveal">The calculator uses the standard loan amortization formula employed by banks worldwide: Monthly Payment = [P x r x (1+r)^n] / [(1+r)^n - 1], where P is the principal loan amount, r is the monthly interest rate (annual rate divided by 12 and then by 100), and n is the total number of monthly payments (loan term in years multiplied by 12).</p>
+        <p class="reveal">This formula implements the reducing balance method, where interest is calculated on the outstanding principal each month. As you make payments, the outstanding balance decreases, which means the interest portion of each payment gradually decreases while the principal portion increases. This method is universally used by banks and financial institutions because it is fair to both lender and borrower.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Step-by-Step Guide to Using the Tool</h2>
+        <p class="reveal"><strong>Step 1:</strong> Enter the loan amount you wish to borrow in the "Loan Amount" field. For a home loan of 40 lakhs, enter 4000000. For a car loan of 5 lakhs, enter 500000.</p>
+        <p class="reveal"><strong>Step 2:</strong> Enter the annual interest rate offered by your lender in percentage form. If your bank offers 9.5% per annum, simply enter 9.5.</p>
+        <p class="reveal"><strong>Step 3:</strong> Enter the loan term in years. Home loans typically range from 10 to 30 years, car loans from 3 to 7 years, and personal loans from 1 to 5 years.</p>
+        <p class="reveal"><strong>Step 4:</strong> Click the "Calculate Loan" button to see your monthly payment, total interest, and total repayment amount instantly.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Real-Life Use Cases</h2>
+        <p class="reveal"><strong>Home Purchase Planning:</strong> Prospective homebuyers use the calculator to determine affordable loan amounts based on their income. Financial advisors recommend that EMI payments should not exceed 40-50% of monthly income. The calculator helps identify the maximum loan you can comfortably service.</p>
+        <p class="reveal"><strong>Car Loan Comparison:</strong> When comparing car loan offers from dealerships, banks, and NBFCs, the calculator reveals the true cost difference between offers. A 1% difference in interest rate can mean thousands of rupees in savings over the loan term.</p>
+        <p class="reveal"><strong>Education Loan Evaluation:</strong> Students and parents use the calculator to plan repayment after graduation, considering expected starting salaries and the moratorium period during which only simple interest accrues.</p>
+        <p class="reveal"><strong>Debt Consolidation Analysis:</strong> Individuals with multiple loans use the calculator to evaluate whether consolidating debts into a single loan with a lower rate would reduce their total monthly outflow and overall interest cost.</p>
+        <p class="reveal"><strong>Business Loan Assessment:</strong> Entrepreneurs use the calculator to project loan servicing costs against expected business cash flows, ensuring the business can sustain the debt obligations.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Benefits of Using This Tool</h2>
+        <ul>
+            <li class="reveal">Prevents over-borrowing by showing the true long-term cost of any loan</li>
+            <li class="reveal">Enables apples-to-apples comparison of loan offers from different lenders</li>
+            <li class="reveal">Helps optimize loan tenure to balance EMI affordability with interest savings</li>
+            <li class="reveal">Supports family budget planning with clear monthly payment figures</li>
+            <li class="reveal">Builds financial literacy by illustrating how interest compounds over time</li>
+            <li class="reveal">Provides negotiation leverage when discussing terms with lenders</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">Tips for Best Results</h2>
+        <p class="reveal">Run multiple scenarios with different combinations of loan amount, interest rate, and tenure to understand the sensitivity of your monthly payment and total interest to each variable. This analysis will help you identify the optimal loan structure for your situation.</p>
+        <p class="reveal">Consider making prepayments whenever you have surplus funds, as reducing the principal early in the loan term significantly decreases the total interest paid. Even small additional payments can lead to substantial savings over a long loan tenure.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Common Mistakes to Avoid</h2>
+        <ul>
+            <li class="reveal">Focusing only on EMI affordability while ignoring the total interest burden</li>
+            <li class="reveal">Choosing the maximum eligible loan amount rather than what you actually need</li>
+            <li class="reveal">Extending loan tenure excessively to reduce EMI, which dramatically increases total interest</li>
+            <li class="reveal">Not accounting for additional costs like processing fees, insurance, and documentation charges</li>
+            <li class="reveal">Ignoring the impact of interest rate fluctuations on floating-rate loans</li>
+            <li class="reveal">Failing to compare offers from multiple lenders before committing</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">Safety, Privacy, and Data Security</h2>
+        <p class="reveal">All loan calculations are performed entirely within your web browser. The loan amount, interest rate, and term you enter are not transmitted to any server, stored in any database, or shared with any third party. Your financial information remains completely private and secure.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Comparison with Traditional Methods</h2>
+        <p class="reveal">Before online calculators, borrowers relied on bank representatives to provide payment quotes, which required visiting branches, making phone calls, or waiting for email responses. This process was time-consuming, limited borrowers to a few institutions, and created pressure to commit. Manual calculation using the amortization formula requires comfort with exponents and precise arithmetic, which most people find challenging.</p>
+        <p class="reveal">Our online Loan Calculator eliminates all these barriers. You can explore unlimited scenarios instantly, compare different options at your own pace, and arrive at decisions without any external pressure. The accuracy is guaranteed since the tool uses the same formula that all banks use.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Frequently Asked Questions</h2>
+        <h3 class="reveal">What is the reducing balance method?</h3>
+        <p class="reveal">The reducing balance method calculates interest on the outstanding loan amount each month. As you pay down the principal, the interest portion decreases. This is the standard method used by all reputable lenders and is more favorable to borrowers than flat-rate interest calculation.</p>
+        <h3 class="reveal">Can I use this calculator for any type of loan?</h3>
+        <p class="reveal">Yes, this calculator works for all loan types including home loans, car loans, personal loans, education loans, and business loans, as long as they use the reducing balance method.</p>
+        <h3 class="reveal">Does this include processing fees and other charges?</h3>
+        <p class="reveal">No, this calculator shows only the principal and interest components. Processing fees, documentation charges, insurance premiums, and other fees are separate and vary by lender.</p>
+        <h3 class="reveal">How accurate are the results?</h3>
+        <p class="reveal">The results are mathematically accurate based on the standard reducing balance formula. Minor differences from your lender's calculation may occur due to rounding methods or additional charges.</p>
+        <h3 class="reveal">What is the maximum loan term supported?</h3>
+        <p class="reveal">The calculator supports loan terms up to 30 years, which covers virtually all home loans and other loan types.</p>
+        <h3 class="reveal">Is my data safe?</h3>
+        <p class="reveal">Yes, all processing happens in your browser. No loan information is sent to or stored on any server.</p>
+        <h3 class="reveal">Can I calculate the impact of prepayments?</h3>
+        <p class="reveal">This calculator shows the standard amortization schedule. For prepayment impact analysis, reduce the principal amount accordingly and recalculate with the remaining term.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Expert Tips and Best Practices</h2>
+        <p class="reveal">Before finalizing any loan, verify whether the lender uses monthly or annual reducing balance calculations. Monthly reducing balance is more favorable as interest is recalculated more frequently. Also check for prepayment penalties, as some lenders charge fees for early repayment, which can negate the interest savings from prepayments.</p>
+        <p class="reveal">Maintain an emergency fund covering at least 6 months of loan EMIs before taking on significant debt. This buffer protects you against income disruptions and prevents default, which severely damages your credit score and financial standing.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Troubleshooting Common Issues</h2>
+        <p class="reveal"><strong>Issue:</strong> Error message appears.<br><strong>Solution:</strong> Ensure all fields contain valid positive numbers. Loan amount must be greater than zero, interest rate must be positive, and term must be between 1 and 30 years.</p>
+        <p class="reveal"><strong>Issue:</strong> Results differ from bank's calculation.<br><<strong>Solution:</strong> Confirm the exact principal, rate, and tenure with your lender. Some banks use daily reducing balance or include additional charges in the EMI.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Conclusion</h2>
+        <p class="reveal">Our Loan Calculator is an essential financial planning tool that brings complete transparency to the borrowing process. By clearly showing your monthly payment, total interest, and total repayment, it empowers you to make informed loan decisions that align with your financial capabilities and long-term goals. Before signing any loan agreement, use this calculator to understand the true cost of borrowing, compare multiple offers, and negotiate better terms. Responsible borrowing starts with complete information, and our calculator provides exactly that.</p>
+    </div>
+</section>
+
+    <section class="info-section-page alt">
+    <div class="container">
+        <h2 class="reveal">Related Tools</h2>
+        <div class="related-grid">
+            <a href="emi-calculator.html" class="related-card reveal"><div class="related-card-title">EMI Calculator</div><div class="related-card-desc">Calculate EMI</div></a><a href="sip-calculator.html" class="related-card reveal"><div class="related-card-title">SIP Calculator</div><div class="related-card-desc">Investment returns</div></a><a href="gst-calculator.html" class="related-card reveal"><div class="related-card-title">GST Calculator</div><div class="related-card-desc">Tax calculations</div></a><a href="percentage-calculator.html" class="related-card reveal"><div class="related-card-title">Percentage Calculator</div><div class="related-card-desc">Percent calculations</div></a>
+        </div>
+    </div>
+</section>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">Mega-<span>Store.in</span></div>
+                    <p class="footer-desc">Your one-stop destination for 25+ free online tools. Calculators, generators, converters, and utilities designed to simplify your daily tasks.</p>
+                    <p class="footer-email">megastoresupport@gmail.com</p>
+                </div>
+                <div>
+                    <div class="footer-col-title">Tools</div>
+                    <ul class="footer-links">
+                        <li><a href="emi-calculator.html">EMI Calculator</a></li>
+                        <li><a href="password-generator.html">Password Generator</a></li>
+                        <li><a href="word-counter.html">Word Counter</a></li>
+                        <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+                        <li><a href="qr-code-generator.html">QR Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms and Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="cookie.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                &copy; 2026 Mega-Store.in All rights reserved. All tools are free to use.
+            </div>
+        </div>
+    </footer>
+    
+
+<script>
+
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        function openMobileNav() {
+            mobileNav.classList.add('open');
+            mobileOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileNav() {
+            mobileNav.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if(hamburger){ hamburger.addEventListener('click', openMobileNav); }
+        if(mobileClose){ mobileClose.addEventListener('click', closeMobileNav); }
+        if(mobileOverlay){ mobileOverlay.addEventListener('click', closeMobileNav); }
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active nav link
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.navbar-links a, .mobile-nav a').forEach(link => {
+            if(link.getAttribute('href') === currentPath || (currentPath === '' && link.getAttribute('href') === 'index.html')){
+                link.classList.add('active');
+            }
+        });
+    
+
+function calculateLoan() {
+    const P = parseFloat(document.getElementById('loanPrincipal').value);
+    const rate = parseFloat(document.getElementById('loanIntRate').value);
+    const years = parseFloat(document.getElementById('loanTerm').value);
+    const err = document.getElementById('loanError');
+
+    if(!P || !rate || !years || P <= 0 || rate <= 0 || years <= 0) {
+        err.classList.add('show'); return;
+    }
+    err.classList.remove('show');
+
+    const r = rate / 12 / 100;
+    const n = years * 12;
+    const emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+    const totalPay = emi * n;
+    const totalInt = totalPay - P;
+
+    document.getElementById('loanMonthly').textContent = '₹' + Math.round(emi).toLocaleString('en-IN');
+    document.getElementById('loanTotalInt').textContent = '₹' + Math.round(totalInt).toLocaleString('en-IN');
+    document.getElementById('loanTotalPay').textContent = '₹' + Math.round(totalPay).toLocaleString('en-IN');
+    document.getElementById('loanResult').classList.add('show');
+}
+
+</script>
+
+</body>
+</html>

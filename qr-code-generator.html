@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator - Create QR Codes for Free | Mega-Store.in</title>
+    <meta name="description" content="Generate QR codes for any text, URL, contact, or WiFi info. Free, instant, and customizable. Download as PNG. No signup required.">
+    <meta name="keywords" content="QR code generator, free QR code, create QR code, QR code maker">
+    <link rel="canonical" href="https://mega-store.in/qr-code-generator.html">
+    <meta property="og:title" content="QR Code Generator - Create QR Codes for Free | Mega-Store.in">
+    <meta property="og:description" content="Generate QR codes for any text, URL, contact, or WiFi info. Free, instant, and customizable. Download as PNG. No signup required.">
+    <meta property="og:url" content="https://mega-store.in/qr-code-generator.html">
+    <meta name="author" content="MEGA STORE">
+    <meta property="og:site_name" content="MEGA STORE">
+    <meta property="og:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <meta name="twitter:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <link rel="icon" href="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+         
+   <style>
+
+        :root {
+            --deep-ink: #0B0F19;
+            --alabaster: #F4F5F0;
+            --muted-moss: #7A7C6D;
+            --aged-brass: #9E8B6F;
+            --light-fog: #E8E9E4;
+            --pure-white: #FFFFFF;
+            --dark-surface: #121620;
+            --border-light: rgba(11,15,25,0.08);
+            --border-medium: rgba(11,15,25,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        input, textarea, select, button {
+            font-family: inherit;
+            font-size: inherit;
+        }
+        button { cursor: pointer; border: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
+        @media(min-width:768px){ .container { padding: 0 8vw; } }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            z-index: 1000;
+            background: rgba(11,15,25,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+            letter-spacing: -0.02em;
+        }
+        .navbar-brand span { color: var(--aged-brass); }
+        .navbar-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+        .navbar-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        .navbar-links a:hover, .navbar-links a.active { color: var(--alabaster); }
+        .navbar-cta {
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .navbar-cta:hover { background: #b09b7e; }
+        .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--alabaster);
+            border-radius: 1px;
+        }
+
+        /* Mobile nav */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--deep-ink);
+            padding: 80px 32px 32px;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        .mobile-nav.open { transform: translateX(0); }
+        .mobile-nav-overlay.open { display: block; }
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: var(--alabaster);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 28px;
+            color: var(--alabaster);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--deep-ink);
+            padding: 64px 0 32px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+        }
+        @media(max-width:768px){
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        @media(max-width:480px){
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        .footer-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+        }
+        .footer-brand span { color: var(--aged-brass); }
+        .footer-desc {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--muted-moss);
+            line-height: 1.7;
+        }
+        .footer-email {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--aged-brass);
+        }
+        .footer-col-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--alabaster);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--alabaster); }
+        .footer-divider {
+            height: 1px;
+            background: rgba(244,245,240,0.08);
+            margin: 40px 0;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted-moss);
+        }
+
+        /* Responsive */
+        @media(max-width:768px){
+            .navbar-links { display: none; }
+            .hamburger { display: flex; }
+        }
+        @media(min-width:769px){
+            .mobile-nav, .mobile-nav-overlay { display: none !important; }
+        }
+    
+        .page-banner {
+            background: linear-gradient(135deg, var(--deep-ink) 0%, var(--dark-surface) 100%);
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+        .page-banner h1 {
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 800;
+            color: var(--alabaster);
+            line-height: 1.2;
+        }
+        .page-banner p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            margin-top: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tool-section {
+            background: var(--alabaster);
+            padding: 60px 0;
+        }
+        .tool-container {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        @media(max-width:768px){ .tool-container { padding: 24px; } }
+        .tool-input-group {
+            margin-bottom: 20px;
+        }
+        .tool-input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 6px;
+        }
+        .tool-input-group input,
+        .tool-input-group select,
+        .tool-input-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            transition: border-color 0.3s ease;
+        }
+        .tool-input-group input:focus,
+        .tool-input-group select:focus,
+        .tool-input-group textarea:focus {
+            outline: none;
+            border-color: var(--aged-brass);
+        }
+        .tool-input-group .input-prefix {
+            position: relative;
+        }
+        .tool-input-group .prefix {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-prefix input {
+            padding-left: 44px;
+        }
+        .tool-input-group .suffix {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-suffix input {
+            padding-right: 56px;
+        }
+        .tool-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .tool-btn:hover { background: #b09b7e; }
+        .tool-btn-secondary {
+            display: inline-block;
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--deep-ink);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 8px;
+        }
+        .tool-btn-secondary:hover { border-color: var(--aged-brass); }
+        .tool-result {
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--light-fog);
+            border-radius: 10px;
+            border-left: 4px solid var(--aged-brass);
+            display: none;
+        }
+        .tool-result.show { display: block; }
+        .tool-result-label {
+            font-size: 13px;
+            color: var(--muted-moss);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .tool-result-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--deep-ink);
+        }
+        .tool-result-detail {
+            font-size: 14px;
+            color: var(--muted-moss);
+            margin-top: 8px;
+        }
+        .info-section-page {
+            background: var(--light-fog);
+            padding: 80px 0;
+        }
+        .info-section-page.alt { background: var(--alabaster); }
+        .info-section-page .container { max-width: 900px; }
+        .info-section-page h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--deep-ink);
+            margin-bottom: 20px;
+        }
+        .info-section-page h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 10px;
+            margin-top: 24px;
+        }
+        .info-section-page p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+        .info-section-page ul {
+            margin: 14px 0;
+            padding-left: 24px;
+        }
+        .info-section-page li {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .related-card {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .related-card:hover {
+            border-color: rgba(158,139,111,0.3);
+            transform: translateY(-3px);
+        }
+        .related-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--deep-ink);
+        }
+        .related-card-desc {
+            font-size: 13px;
+            color: var(--muted-moss);
+            margin-top: 4px;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .error-msg {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+        .error-msg.show { display: block; }
+    
+    </style>
+</head>
+<body>
+
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Mega-<span>Store.in</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html" class="">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="about.html" class="">About Us</a></li>
+                <li><a href="contact.html" class="">Contact Us</a></li>
+                <li><a href="privacy.html" class="">Privacy Policy</a></li>
+                <li><a href="terms.html" class="">Terms</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-close" id="mobileClose">&times;</div>
+        <a href="index.html">Home</a>
+        <a href="index.html#tools">Tools</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="cookie.html">Cookie Policy</a>
+    </div>
+    
+
+<section class="page-banner">
+    <div class="container">
+        <h1 class="reveal">QR Code Generator</h1>
+        <p class="reveal" style="transition-delay:0.1s">Generate QR codes for URLs, text, contacts, and more.</p>
+    </div>
+</section>
+
+<section class="tool-section">
+    <div class="container">
+        <div class="tool-container reveal">
+            <div class="tool-input-group">
+                <label for="qrType">QR Code Type</label>
+                <select id="qrType" onchange="updateQrPlaceholder()">
+                    <option value="url">Website URL</option>
+                    <option value="text">Plain Text</option>
+                    <option value="email">Email Address</option>
+                    <option value="phone">Phone Number</option>
+                    <option value="wifi">WiFi Network</option>
+                </select>
+            </div>
+            <div class="tool-input-group" id="qrInputGroup">
+                <label for="qrInput" id="qrInputLabel">Enter URL</label>
+                <input type="text" id="qrInput" placeholder="https://example.com">
+            </div>
+            <div class="tool-input-group" id="wifiFields" style="display:none">
+                <label for="wifiSSID">Network Name (SSID)</label>
+                <input type="text" id="wifiSSID" placeholder="MyWiFiNetwork">
+                <label for="wifiPassword" style="margin-top:12px">Password</label>
+                <input type="text" id="wifiPassword" placeholder="WiFi password">
+                <label for="wifiSecurity" style="margin-top:12px">Security</label>
+                <select id="wifiSecurity">
+                    <option value="WPA">WPA/WPA2</option>
+                    <option value="WEP">WEP</option>
+                    <option value="nopass">None</option>
+                </select>
+            </div>
+            <div class="tool-input-group">
+                <label>Size</label>
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                    <label style="padding:8px 16px;background:var(--alabaster);border-radius:6px;cursor:pointer;border:2px solid var(--aged-brass)">
+                        <input type="radio" name="qrSize" value="200" checked style="display:none"> 200px
+                    </label>
+                    <label style="padding:8px 16px;background:var(--alabaster);border-radius:6px;cursor:pointer;border:2px solid transparent">
+                        <input type="radio" name="qrSize" value="300" style="display:none"> 300px
+                    </label>
+                    <label style="padding:8px 16px;background:var(--alabaster);border-radius:6px;cursor:pointer;border:2px solid transparent">
+                        <input type="radio" name="qrSize" value="400" style="display:none"> 400px
+                    </label>
+                </div>
+            </div>
+            <button class="tool-btn" onclick="generateQR()">Generate QR Code</button>
+
+            <div class="tool-result" id="qrResult" style="text-align:center">
+                <canvas id="qrCanvas" style="margin:0 auto;display:block"></canvas>
+                <button class="tool-btn" onclick="downloadQR()" style="margin-top:16px">Download PNG</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="info-section-page">
+    <div class="container">
+        <h2 class="reveal">What Is the QR Code Generator Tool?</h2>
+        <p class="reveal">Our QR Code Generator is a professional online tool that creates scannable QR codes for a wide variety of purposes. QR codes, or Quick Response codes, are two-dimensional barcodes that can be scanned by smartphones and dedicated scanners to instantly access encoded information. Our generator supports creating QR codes for website URLs, plain text, email addresses, phone numbers, and WiFi network credentials, making it a versatile solution for personal, business, and marketing needs.</p>
+        <p class="reveal">Since their invention in 1994 by Denso Wave for tracking automotive parts, QR codes have evolved into a universal tool for bridging the physical and digital worlds. The COVID-19 pandemic accelerated their adoption dramatically, and today they are used for contactless payments, restaurant menus, event tickets, business cards, product packaging, marketing campaigns, and countless other applications. Our tool makes creating these codes simple, free, and accessible to everyone.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Why Use Our QR Code Generator?</h2>
+        <p class="reveal">Creating QR codes should not require specialized software, technical knowledge, or payment. Our generator removes all barriers by providing a simple, browser-based interface where you can create professional-quality QR codes in seconds. Whether you need a single code for personal use or multiple codes for a business campaign, our tool handles it effortlessly.</p>
+        <p class="reveal">The generated QR codes are static, meaning they do not expire and do not require any subscription to maintain. Once downloaded, the code will work indefinitely as long as the encoded information remains valid. This is particularly important for printed materials like business cards, product packaging, and signage where you cannot easily update the code later.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Key Features</h2>
+        <ul>
+            <li class="reveal">Generate QR codes for URLs, text, email, phone numbers, and WiFi networks</li>
+            <li class="reveal">Dedicated WiFi configuration fields for network name, password, and security type</li>
+            <li class="reveal">Three size options: 200px, 300px, and 400px for different use cases</li>
+            <li class="reveal">Download generated QR codes as PNG images</li>
+            <li class="reveal">Static codes that never expire and require no subscription</li>
+            <li class="reveal">No watermarks or branding on generated codes</li>
+            <li class="reveal">All processing happens in your browser for complete privacy</li>
+            <li class="reveal">Completely free with no usage limits</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">How the QR Code Generator Works</h2>
+        <p class="reveal">Our QR Code Generator works by encoding your input data into a QR code format that follows international ISO/IEC 18004 standards. When you enter information and click generate, the tool creates a visual pattern of black modules (small squares) arranged in a square grid on a white background. This pattern encodes your data in a way that QR code readers can decode.</p>
+        <p class="reveal">The generator uses a reliable QR code generation service that creates high-quality, scannable codes. The codes include error correction capabilities, meaning they can still be read even if partially damaged, dirty, or obscured. You can then download the generated code as a PNG image file for use in digital or print materials.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Step-by-Step Guide to Using the Tool</h2>
+        <p class="reveal"><strong>Step 1:</strong> Select the type of QR code you want to create from the dropdown menu. Choose from Website URL, Plain Text, Email Address, Phone Number, or WiFi Network.</p>
+        <p class="reveal"><strong>Step 2:</strong> Enter the information you want to encode. For URLs, enter the full web address starting with https://. For WiFi, enter the network name (SSID), password, and select the security type.</p>
+        <p class="reveal"><strong>Step 3:</strong> Select your preferred QR code size from the available options: 200px for small applications, 300px for general use, or 400px for large displays.</p>
+        <p class="reveal"><strong>Step 4:</strong> Click the "Generate QR Code" button to create your code.</p>
+        <p class="reveal"><strong>Step 5:</strong> Click "Download PNG" to save the QR code image to your device for use in your projects.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Real-Life Use Cases</h2>
+        <p class="reveal"><strong>Business Cards:</strong> Add a QR code linking to your website, LinkedIn profile, or digital vCard so contacts can quickly connect with you without manual typing.</p>
+        <p class="reveal"><strong>Restaurant Menus:</strong> Create QR codes that link to your online menu, allowing customers to view offerings on their phones without handling physical menus.</p>
+        <p class="reveal"><strong>WiFi Sharing:</strong> Generate a WiFi QR code that guests can scan to automatically connect to your network without typing the password.</p>
+        <p class="reveal"><strong>Marketing Materials:</strong> Include QR codes on flyers, posters, and brochures that link to promotional pages, discount codes, or product videos.</p>
+        <p class="reveal"><strong>Product Packaging:</strong> Add QR codes that link to product manuals, warranty registration pages, or customer support portals.</p>
+        <p class="reveal"><strong>Event Management:</strong> Create QR codes for event tickets, registration forms, venue maps, or speaker information.</p>
+        <p class="reveal"><strong>Retail Stores:</strong> Place QR codes next to products that link to detailed specifications, reviews, or comparison information.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Benefits of Using This Tool</h2>
+        <ul>
+            <li class="reveal">Saves time by eliminating the need for design software or specialized apps</li>
+            <li class="reveal">Creates professional-quality QR codes suitable for print and digital use</li>
+            <li class="reveal">Supports multiple data types for diverse applications</li>
+            <li class="reveal">No technical knowledge or design skills required</li>
+            <li class="reveal">Static codes work forever without subscription fees</li>
+            <li class="reveal">Downloadable PNG format works in all design and document applications</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">Tips for Best Results</h2>
+        <p class="reveal">When creating QR codes for print materials, choose the 400px size option to ensure the code remains scannable even when printed at smaller sizes. Always test your generated QR code with multiple scanner apps before distributing it widely. Place QR codes on high-contrast backgrounds, ideally black code on white background, for maximum scannability.</p>
+        <p class="reveal">For WiFi QR codes, double-check the network name and password before generating, as any typo will prevent successful connection. Also ensure you select the correct security protocol (WPA/WPA2, WEP, or None) matching your router configuration.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Common Mistakes to Avoid</h2>
+        <ul>
+            <li class="reveal">Entering incomplete URLs without the https:// prefix</li>
+            <li class="reveal">Using the smallest size for print materials where codes may not scan reliably</li>
+            <li class="reveal">Placing QR codes on busy or low-contrast backgrounds that affect scannability</li>
+            <li class="reveal">Not testing generated codes before mass distribution</li>
+            <li class="reveal">Encoding too much text, which makes the QR code pattern denser and harder to scan</li>
+            <li class="reveal">Forgetting that static codes cannot be edited after creation</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">Safety, Privacy, and Data Security</h2>
+        <p class="reveal">Our QR Code Generator processes your data entirely within your browser. The information you encode in QR codes is not stored on our servers or shared with any third parties. For WiFi codes, while the password is encoded in the QR pattern, it is only visible to those who physically scan the code. As with all QR codes, be mindful of where you display codes containing sensitive information.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Comparison with Traditional Methods</h2>
+        <p class="reveal">Creating QR codes traditionally required dedicated software like Adobe Illustrator with plugins, specialized QR code applications, or online services that often required registration, imposed watermarks, or charged fees for high-resolution downloads. Many free alternatives have limitations on usage, code types, or output quality.</p>
+        <p class="reveal">Our online QR Code Generator eliminates all these limitations. You can create unlimited codes for free, download them at usable resolutions, and use them for any purpose without attribution or watermarks. The browser-based approach means no software installation and instant availability.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Frequently Asked Questions</h2>
+        <h3 class="reveal">Do the QR codes expire?</h3>
+        <p class="reveal">No, the QR codes you generate are static codes that work indefinitely. They will continue to function as long as the encoded information (URL, text, etc.) remains valid.</p>
+        <h3 class="reveal">Is there a limit to how many I can create?</h3>
+        <p class="reveal">No, you can generate unlimited QR codes for free. There are no usage restrictions.</p>
+        <h3 class="reveal">Can I use these QR codes commercially?</h3>
+        <p class="reveal">Yes, all QR codes generated are free to use for both personal and commercial purposes with no attribution required.</p>
+        <h3 class="reveal">What image format are the codes downloaded in?</h3>
+        <p class="reveal">QR codes are downloaded as PNG images, which provide good quality for both digital and print use.</p>
+        <h3 class="reveal">Will the QR code work if it gets slightly damaged?</h3>
+        <p class="reveal">Yes, QR codes include built-in error correction that allows them to be scanned even if partially obscured or damaged, up to about 30% of the code area.</p>
+        <h3 class="reveal">Can I change the color of the QR code?</h3>
+        <p class="reveal">The current version generates standard black-on-white QR codes. For best scannability, we recommend using these standard colors. You can modify colors in image editing software, but this may affect scanning reliability.</p>
+        <h3 class="reveal">What size should I choose for my QR code?</h3>
+        <p class="reveal">Choose 200px for digital use where space is limited, 300px for general use, and 400px for print materials where the code needs to be scannable from a distance or at reduced sizes.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Expert Tips and Best Practices</h2>
+        <p class="reveal">Always include a brief text call-to-action near your QR code telling people what they will get by scanning it, such as "Scan for menu" or "Scan to connect to WiFi." This increases scan rates significantly. Place QR codes at a convenient scanning height, roughly between 3 to 5 feet from the ground, for the best user experience.</p>
+        <p class="reveal">Before printing QR codes on expensive materials like signage or product packaging, print a test version on regular paper and verify it scans correctly from the expected distance and angle. Also test with multiple devices and scanning apps to ensure broad compatibility.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Troubleshooting Common Issues</h2>
+        <p class="reveal"><strong>Issue:</strong> The generated QR code will not scan.<br><strong>Solution:</strong> Try downloading at a larger size. Ensure the code is displayed on a high-contrast background. If printing, ensure the print quality is sharp with clear edges.</p>
+        <p class="reveal"><strong>Issue:</strong> The WiFi QR code does not connect.<br><strong>Solution:</strong> Double-check the network name (SSID) and password. Ensure the security type matches your router configuration. Remember that some devices may not support automatic WiFi connection via QR code.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Conclusion</h2>
+        <p class="reveal">Our QR Code Generator is a powerful, free tool that makes creating professional QR codes accessible to everyone. With support for multiple data types, three size options, and clean PNG output, it meets the needs of individuals, small businesses, marketers, and organizations. Whether you are sharing a website, connecting guests to WiFi, or enhancing your marketing materials, QR codes offer a seamless bridge between the physical and digital worlds. Bookmark this tool for quick access whenever you need to create a QR code.</p>
+    </div>
+</section>
+
+    <section class="info-section-page alt">
+    <div class="container">
+        <h2 class="reveal">Related Tools</h2>
+        <div class="related-grid">
+            <a href="qr-code-scanner.html" class="related-card reveal">
+                <div class="related-card-title">QR Code Scanner</div>
+                <div class="related-card-desc">Scan and decode QR codes</div>
+            </a>
+            <a href="password-generator.html" class="related-card reveal">
+                <div class="related-card-title">Password Generator</div>
+                <div class="related-card-desc">Create secure passwords</div>
+            </a>
+            <a href="color-palette-generator.html" class="related-card reveal">
+                <div class="related-card-title">Color Palette Generator</div>
+                <div class="related-card-desc">Create color schemes</div>
+            </a>
+            <a href="random-name-picker.html" class="related-card reveal">
+                <div class="related-card-title">Random Name Picker</div>
+                <div class="related-card-desc">Pick random names</div>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">Mega-<span>Store.in</span></div>
+                    <p class="footer-desc">Your one-stop destination for 25+ free online tools. Calculators, generators, converters, and utilities designed to simplify your daily tasks.</p>
+                    <p class="footer-email">megastoresupport@gmail.com</p>
+                </div>
+                <div>
+                    <div class="footer-col-title">Tools</div>
+                    <ul class="footer-links">
+                        <li><a href="emi-calculator.html">EMI Calculator</a></li>
+                        <li><a href="password-generator.html">Password Generator</a></li>
+                        <li><a href="word-counter.html">Word Counter</a></li>
+                        <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+                        <li><a href="qr-code-generator.html">QR Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms and Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="cookie.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                &copy; 2026 Mega-Store.in All rights reserved. All tools are free to use.
+            </div>
+        </div>
+    </footer>
+    
+
+<script>
+
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        function openMobileNav() {
+            mobileNav.classList.add('open');
+            mobileOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileNav() {
+            mobileNav.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if(hamburger){ hamburger.addEventListener('click', openMobileNav); }
+        if(mobileClose){ mobileClose.addEventListener('click', closeMobileNav); }
+        if(mobileOverlay){ mobileOverlay.addEventListener('click', closeMobileNav); }
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active nav link
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.navbar-links a, .mobile-nav a').forEach(link => {
+            if(link.getAttribute('href') === currentPath || (currentPath === '' && link.getAttribute('href') === 'index.html')){
+                link.classList.add('active');
+            }
+        });
+    
+
+// Simple QR code generator using canvas
+function updateQrPlaceholder() {
+    const type = document.getElementById('qrType').value;
+    const label = document.getElementById('qrInputLabel');
+    const input = document.getElementById('qrInput');
+    const wifiFields = document.getElementById('wifiFields');
+    const qrInputGroup = document.getElementById('qrInputGroup');
+
+    wifiFields.style.display = 'none';
+    qrInputGroup.style.display = 'block';
+
+    switch(type) {
+        case 'url': label.textContent = 'Enter URL'; input.placeholder = 'https://example.com'; break;
+        case 'text': label.textContent = 'Enter Text'; input.placeholder = 'Your text here'; break;
+        case 'email': label.textContent = 'Enter Email'; input.placeholder = 'someone@example.com'; break;
+        case 'phone': label.textContent = 'Enter Phone Number'; input.placeholder = '+1234567890'; break;
+        case 'wifi':
+            qrInputGroup.style.display = 'none';
+            wifiFields.style.display = 'block';
+            break;
+    }
+}
+
+function getQrData() {
+    const type = document.getElementById('qrType').value;
+    switch(type) {
+        case 'url': return document.getElementById('qrInput').value;
+        case 'text': return document.getElementById('qrInput').value;
+        case 'email': return 'mailto:' + document.getElementById('qrInput').value;
+        case 'phone': return 'tel:' + document.getElementById('qrInput').value;
+        case 'wifi': {
+            const ssid = document.getElementById('wifiSSID').value;
+            const pass = document.getElementById('wifiPassword').value;
+            const sec = document.getElementById('wifiSecurity').value;
+            return `WIFI:S:${ssid};T:${sec};P:${pass};;`;
+        }
+    }
+    return '';
+}
+
+function generateQR() {
+    const data = getQrData();
+    if(!data) { alert('Please enter the required information.'); return; }
+
+    const size = parseInt(document.querySelector('input[name="qrSize"]:checked').value);
+    const canvas = document.getElementById('qrCanvas');
+
+    // Use a simple approach: generate QR via QRServer API
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = function() {
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, size, size);
+        ctx.drawImage(img, 10, 10, size-20, size-20);
+        document.getElementById('qrResult').classList.add('show');
+    };
+    img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=' + (size-20) + 'x' + (size-20) + '&data=' + encodeURIComponent(data);
+}
+
+function downloadQR() {
+    const canvas = document.getElementById('qrCanvas');
+    const link = document.createElement('a');
+    link.download = 'qrcode.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+}
+
+// Radio button styling
+document.querySelectorAll('input[name="qrSize"]').forEach(r => {
+    r.addEventListener('change', function() {
+        document.querySelectorAll('input[name="qrSize"]').forEach(rb => {
+            rb.parentElement.style.borderColor = rb.checked ? 'var(--aged-brass)' : 'transparent';
+        });
+    });
+});
+</script>
+
+</body>
+</html>

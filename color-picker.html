@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Picker - HEX, RGB, HSL, CMYK Converter | MegaStore.in</title>
+    <meta name="description" content="Pick any color and instantly see its HEX, RGB, HSL, and CMYK values. Includes color preview and one-click copy. Essential for designers.">
+    <meta name="keywords" content="color picker, hex color, RGB converter, HSL color, CMYK converter">
+    <link rel="canonical" href="https://mega-store.in/color-picker.html">
+    <meta property="og:title" content="Color Picker - HEX, RGB, HSL, CMYK Converter | MegaStore.in">
+    <meta property="og:description" content="Pick any color and instantly see its HEX, RGB, HSL, and CMYK values. Includes color preview and one-click copy. Essential for designers.">
+    <meta property="og:url" content="https://mega-store.in/color-picker.html">
+    <meta name="author" content="MEGA STORE">
+    <meta property="og:site_name" content="MEGA STORE">
+    <meta property="og:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <meta name="twitter:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <link rel="icon" href="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+           
+ <style>
+
+        :root {
+            --deep-ink: #0B0F19;
+            --alabaster: #F4F5F0;
+            --muted-moss: #7A7C6D;
+            --aged-brass: #9E8B6F;
+            --light-fog: #E8E9E4;
+            --pure-white: #FFFFFF;
+            --dark-surface: #121620;
+            --border-light: rgba(11,15,25,0.08);
+            --border-medium: rgba(11,15,25,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        input, textarea, select, button {
+            font-family: inherit;
+            font-size: inherit;
+        }
+        button { cursor: pointer; border: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
+        @media(min-width:768px){ .container { padding: 0 8vw; } }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            z-index: 1000;
+            background: rgba(11,15,25,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+            letter-spacing: -0.02em;
+        }
+        .navbar-brand span { color: var(--aged-brass); }
+        .navbar-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+        .navbar-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        .navbar-links a:hover, .navbar-links a.active { color: var(--alabaster); }
+        .navbar-cta {
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .navbar-cta:hover { background: #b09b7e; }
+        .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--alabaster);
+            border-radius: 1px;
+        }
+
+        /* Mobile nav */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--deep-ink);
+            padding: 80px 32px 32px;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        .mobile-nav.open { transform: translateX(0); }
+        .mobile-nav-overlay.open { display: block; }
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: var(--alabaster);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 28px;
+            color: var(--alabaster);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--deep-ink);
+            padding: 64px 0 32px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+        }
+        @media(max-width:768px){
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        @media(max-width:480px){
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        .footer-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+        }
+        .footer-brand span { color: var(--aged-brass); }
+        .footer-desc {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--muted-moss);
+            line-height: 1.7;
+        }
+        .footer-email {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--aged-brass);
+        }
+        .footer-col-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--alabaster);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--alabaster); }
+        .footer-divider {
+            height: 1px;
+            background: rgba(244,245,240,0.08);
+            margin: 40px 0;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted-moss);
+        }
+
+        /* Responsive */
+        @media(max-width:768px){
+            .navbar-links { display: none; }
+            .hamburger { display: flex; }
+        }
+        @media(min-width:769px){
+            .mobile-nav, .mobile-nav-overlay { display: none !important; }
+        }
+    
+        .page-banner {
+            background: linear-gradient(135deg, var(--deep-ink) 0%, var(--dark-surface) 100%);
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+        .page-banner h1 {
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 800;
+            color: var(--alabaster);
+            line-height: 1.2;
+        }
+        .page-banner p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            margin-top: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tool-section {
+            background: var(--alabaster);
+            padding: 60px 0;
+        }
+        .tool-container {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        @media(max-width:768px){ .tool-container { padding: 24px; } }
+        .tool-input-group {
+            margin-bottom: 20px;
+        }
+        .tool-input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 6px;
+        }
+        .tool-input-group input,
+        .tool-input-group select,
+        .tool-input-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            transition: border-color 0.3s ease;
+        }
+        .tool-input-group input:focus,
+        .tool-input-group select:focus,
+        .tool-input-group textarea:focus {
+            outline: none;
+            border-color: var(--aged-brass);
+        }
+        .tool-input-group .input-prefix {
+            position: relative;
+        }
+        .tool-input-group .prefix {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-prefix input {
+            padding-left: 44px;
+        }
+        .tool-input-group .suffix {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-suffix input {
+            padding-right: 56px;
+        }
+        .tool-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .tool-btn:hover { background: #b09b7e; }
+        .tool-btn-secondary {
+            display: inline-block;
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--deep-ink);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 8px;
+        }
+        .tool-btn-secondary:hover { border-color: var(--aged-brass); }
+        .tool-result {
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--light-fog);
+            border-radius: 10px;
+            border-left: 4px solid var(--aged-brass);
+            display: none;
+        }
+        .tool-result.show { display: block; }
+        .tool-result-label {
+            font-size: 13px;
+            color: var(--muted-moss);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .tool-result-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--deep-ink);
+        }
+        .tool-result-detail {
+            font-size: 14px;
+            color: var(--muted-moss);
+            margin-top: 8px;
+        }
+        .info-section-page {
+            background: var(--light-fog);
+            padding: 80px 0;
+        }
+        .info-section-page.alt { background: var(--alabaster); }
+        .info-section-page .container { max-width: 900px; }
+        .info-section-page h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--deep-ink);
+            margin-bottom: 20px;
+        }
+        .info-section-page h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 10px;
+            margin-top: 24px;
+        }
+        .info-section-page p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+        .info-section-page ul {
+            margin: 14px 0;
+            padding-left: 24px;
+        }
+        .info-section-page li {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .related-card {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .related-card:hover {
+            border-color: rgba(158,139,111,0.3);
+            transform: translateY(-3px);
+        }
+        .related-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--deep-ink);
+        }
+        .related-card-desc {
+            font-size: 13px;
+            color: var(--muted-moss);
+            margin-top: 4px;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .error-msg {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+        .error-msg.show { display: block; }
+    
+    </style>
+</head>
+<body>
+
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Mega-<span>Store.in</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html" class="">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="about.html" class="">About Us</a></li>
+                <li><a href="contact.html" class="">Contact Us</a></li>
+                <li><a href="privacy.html" class="">Privacy Policy</a></li>
+                <li><a href="terms.html" class="">Terms</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-close" id="mobileClose">&times;</div>
+        <a href="index.html">Home</a>
+        <a href="index.html#tools">Tools</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="cookie.html">Cookie Policy</a>
+    </div>
+    
+
+<section class="page-banner">
+    <div class="container">
+        <h1 class="reveal">Color Picker</h1>
+        <p class="reveal" style="transition-delay:0.1s">Pick colors and convert between formats.</p>
+    </div>
+</section>
+
+<section class="tool-section">
+    <div class="container">
+        <div class="tool-container reveal">
+            
+<div style="display:flex;flex-direction:column;align-items:center;gap:24px">
+    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:center">
+        <input type="color" id="colorPicker" value="#9E8B6F" style="width:80px;height:80px;border:none;border-radius:12px;cursor:pointer" oninput="updateColor()">
+        <div>
+            <div id="colorPreview" style="width:80px;height:80px;border-radius:12px;background:#9E8B6F;border:2px solid var(--border-medium)"></div>
+        </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;max-width:400px">
+        <div class="tool-input-group">
+            <label>HEX</label>
+            <input type="text" id="colorHex" value="#9E8B6F" oninput="fromHex(this.value)">
+        </div>
+        <div class="tool-input-group">
+            <label>RGB</label>
+            <input type="text" id="colorRgb" value="rgb(158, 139, 111)" readonly style="background:#f8f8f6">
+        </div>
+        <div class="tool-input-group">
+            <label>HSL</label>
+            <input type="text" id="colorHsl" value="hsl(36, 20%, 53%)" readonly style="background:#f8f8f6">
+        </div>
+        <div class="tool-input-group">
+            <label>CMYK</label>
+            <input type="text" id="colorCmyk" value="cmyk(0%, 12%, 30%, 38%)" readonly style="background:#f8f8f6">
+        </div>
+    </div>
+    <button class="tool-btn-secondary" onclick="copyColorHex()">Copy HEX</button>
+</div>
+
+        </div>
+    </div>
+</section>
+
+<section class="info-section-page">
+    <div class="container">
+        <h2 class="reveal">What Is the Color Picker Tool?</h2>
+        <p class="reveal">The Color Picker is a comprehensive, free online color conversion tool designed for designers, developers, artists, and anyone who works with colors professionally or recreationally. This versatile utility allows you to select any color using a visual color selector and instantly see its values in four major color formats: HEX, RGB, HSL, and CMYK. Whether you need to match a color from a design mockup, convert brand colors between formats for different media, or simply explore the color spectrum, this tool provides precise, instant results. The built-in color preview box shows exactly how your selected color appears, and the one-click copy feature makes it effortless to grab the exact code you need.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Why Use This Color Picker?</h2>
+        <p class="reveal">Colors are fundamental to visual communication, and different industries use different color formats. Web designers primarily use HEX codes. Digital artists and photographers work with RGB values. CSS developers increasingly prefer HSL for its intuitive adjustments. Print professionals require CMYK values for accurate reproduction. Manually converting between these formats requires complex mathematical formulas and can lead to errors. Our Color Picker eliminates this complexity by handling all conversions automatically with mathematically precise algorithms. Instead of searching for conversion formulas or using multiple tools, you get all four color formats in one clean interface, saving time and ensuring accuracy.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Key Features</h2>
+        <ul>
+            <li class="reveal"><strong>Visual Color Selector</strong> - Native HTML5 color input for intuitive color picking from the full spectrum</li>
+            <li class="reveal"><strong>Four-Format Conversion</strong> - Instantly see HEX, RGB, HSL, and CMYK values for any color</li>
+            <li class="reveal"><strong>Live Preview Box</strong> - Dedicated color preview area showing exactly how your color appears</li>
+            <li class="reveal"><strong>Manual HEX Input</strong> - Type any valid hex code to see all other format conversions</li>
+            <li class="reveal"><strong>One-Click Copy</strong> - Copy the HEX code to clipboard with a single button click</li>
+            <li class="reveal"><strong>Accurate Mathematics</strong> - All conversions use standard color space algorithms</li>
+            <li class="reveal"><strong>Responsive Design</strong> - Works perfectly on desktops, tablets, and mobile devices</li>
+            <li class="reveal"><strong>Completely Free</strong> - No registration, no fees, no limitations</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">How the Tool Works</h2>
+        <p class="reveal">The Color Picker uses JavaScript to perform real-time color conversions based on established color space mathematics. When you select a color, the tool extracts the red, green, and blue components from the HEX value. For RGB conversion, these values are formatted as an RGB triplet. For HSL conversion, the tool calculates hue by finding the dominant color channel, saturation by comparing the difference between maximum and minimum channels, and lightness by averaging the maximum and minimum values. For CMYK conversion, the tool first normalizes RGB values to a 0-1 range, calculates the key (black) component as 1 minus the maximum normalized value, then derives cyan, magenta, and yellow components using standard subtractive color formulas. All calculations happen instantly in your browser.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Step-by-Step Guide to Using the Tool</h2>
+        <p class="reveal"><strong>Step 1:</strong> Load the Color Picker page. You will see a color selector input and a preview box displaying a default color.</p>
+        <p class="reveal"><strong>Step 2:</strong> Click the color selector square to open your browser's native color picker and choose any color from the spectrum.</p>
+        <p class="reveal"><strong>Step 3:</strong> Alternatively, type a hex code directly into the HEX input field (for example, #FF5733 for coral orange).</p>
+        <p class="reveal"><strong>Step 4:</strong> Watch all four format fields update automatically: HEX, RGB, HSL, and CMYK.</p>
+        <p class="reveal"><strong>Step 5:</strong> Check the preview box to confirm the color matches your expectation.</p>
+        <p class="reveal"><strong>Step 6:</strong> Click the "Copy HEX" button to copy the hex code to your clipboard for use in your project.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Real-Life Use Cases</h2>
+        <p class="reveal"><strong>Web Development:</strong> Convert design mockup colors to CSS-friendly HEX or HSL values. When a designer gives you a color in one format, quickly get all formats needed for your stylesheet.</p>
+        <p class="reveal"><strong>Brand Consistency:</strong> A brand color specified in RGB for digital use needs to be converted to CMYK for print materials like business cards and brochures. This tool handles that conversion instantly.</p>
+        <p class="reveal"><strong>Digital Art:</strong> When working between different art programs that use different default color formats, quickly convert colors to maintain consistency across your workflow.</p>
+        <p class="reveal"><strong>Print Design:</strong> Graphic designers preparing files for offset printing need exact CMYK values. Start with any HEX or RGB color and get precise CMYK conversion.</p>
+        <p class="reveal"><strong>Home Decoration:</strong> Found a color online you want to use for painting? Convert the digital color to a format paint stores can match, or compare it against paint brand color libraries.</p>
+        <p class="reveal"><strong>Photography Editing:</strong> Match post-processing color grades by precisely identifying and converting colors between editing software that uses different formats.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Benefits of Using This Tool</h2>
+        <ul>
+            <li class="reveal"><strong>Multi-Format Output:</strong> One selection gives you four different color code formats</li>
+            <li class="reveal"><strong>Mathematical Precision:</strong> Conversions follow established color space standards</li>
+            <li class="reveal"><strong>Dual Input Methods:</strong> Pick visually or type exact codes depending on your workflow</li>
+            <li class="reveal"><strong>Time Savings:</strong> Eliminates manual calculation and multiple tool usage</li>
+            <li class="reveal"><strong>Cross-Platform:</strong> Access from any device with a web browser</li>
+            <li class="reveal"><strong>Privacy Protected:</strong> All processing happens locally in your browser</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">Tips for Best Results</h2>
+        <p class="reveal"><strong>Tip 1:</strong> When converting for print, remember that screen colors (RGB) and printed colors (CMYK) can look different due to different color gamuts. Always request a proof from your printer.</p>
+        <p class="reveal"><strong>Tip 2:</strong> In CSS, HSL is often preferred over HEX because it is more human-readable. hsl(120, 50%, 50%) clearly means a medium-saturated, medium-light green, while #40BF40 is less intuitive.</p>
+        <p class="reveal"><strong>Tip 3:</strong> For web accessibility, use the picked color to check contrast ratios against background colors. WCAG guidelines recommend a minimum 4.5:1 contrast ratio for normal text.</p>
+        <p class="reveal"><strong>Tip 4:</strong> When matching colors from images, use a browser extension eyedropper to get the HEX code, then paste it into our tool for format conversion.</p>
+        <p class="reveal"><strong>Tip 5:</strong> Bookmark this page for quick access during design and development work. It is faster than opening heavy design software for simple color checks.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Common Mistakes to Avoid</h2>
+        <p class="reveal"><strong>Mistake 1:</strong> Assuming HEX and RGB conversions are identical across all tools. Our tool uses standard algorithms, but some software may round differently.</p>
+        <p class="reveal"><strong>Mistake 2:</strong> Using RGB values for print without converting to CMYK first. RGB colors outside the CMYK gamut cannot be accurately reproduced in print.</p>
+        <p class="reveal"><strong>Mistake 3:</strong> Entering invalid hex codes. Always include the # prefix and exactly 6 hexadecimal digits (0-9, A-F).</p>
+        <p class="reveal"><strong>Mistake 4:</strong> Not accounting for color profile differences. Colors may render differently depending on your monitor's color profile and calibration.</p>
+        <p class="reveal"><strong>Mistake 5:</strong> Expecting exact matches between digital colors and physical materials. Always view physical samples before finalizing paint, fabric, or ink colors.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Safety, Privacy, and Data Security</h2>
+        <p class="reveal">The Color Picker processes all color conversions entirely within your web browser using JavaScript. No color selections, conversions, or usage data is transmitted to external servers or stored in any database. Your design work and color choices remain completely private. The tool does not require any account creation, personal information, or permissions beyond basic browser functionality. You can confidently use this tool for proprietary and confidential design projects.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Comparison with Traditional Methods</h2>
+        <p class="reveal">Traditional color conversion methods include manual calculation using formulas (time-consuming and error-prone), using expensive design software like Adobe Photoshop or Illustrator (overkill for simple conversions), searching online for individual conversion tools (fragmented workflow), or approximating colors by eye (inaccurate). Our Color Picker consolidates all major color formats into one free, accessible tool that requires no installation or training. For quick conversions during web development or design work, it is significantly faster than launching heavy applications.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Frequently Asked Questions (FAQs)</h2>
+        <h3 class="reveal">What color formats are supported?</h3>
+        <p class="reveal">The Color Picker supports four major color formats simultaneously: HEX (hexadecimal, like #9E8B6F), RGB (red-green-blue, like rgb(158, 139, 111)), HSL (hue-saturation-lightness, like hsl(36, 20%, 53%)), and CMYK (cyan-magenta-yellow-key/black, like cmyk(0%, 12%, 30%, 38%)). All four formats update in real time when you change the selected color.</p>
+        <h3 class="reveal">Can I enter a hex code manually?</h3>
+        <p class="reveal">Yes, you can type any valid hex color code directly into the HEX input field. The code must start with a # symbol followed by exactly 6 hexadecimal characters (0-9 and A-F). As soon as you enter a valid code, the color picker, preview box, and all other format fields update automatically to reflect the new color.</p>
+        <h3 class="reveal">Are the conversions mathematically accurate?</h3>
+        <p class="reveal">Yes, all conversions use standard, well-established color space mathematics. The RGB to HSL conversion follows the W3C specification, and the RGB to CMYK conversion uses the industry-standard formula. Results are accurate to within rounding of integer values, which is sufficient for virtually all design and development purposes.</p>
+        <h3 class="reveal">Can I copy formats other than HEX?</h3>
+        <p class="reveal">Currently, the Copy button copies the HEX code. To copy RGB, HSL, or CMYK values, simply click on the respective input field and use Ctrl+A to select all, then Ctrl+C to copy. These fields are standard text inputs that can be selected and copied like any other text.</p>
+        <h3 class="reveal">What browsers are supported?</h3>
+        <p class="reveal">The Color Picker works in all modern browsers including Google Chrome, Mozilla Firefox, Apple Safari, Microsoft Edge, and Opera. The color picker input uses the browser's native color selector, so the interface may vary slightly between browsers.</p>
+        <h3 class="reveal">Is there a mobile version?</h3>
+        <p class="reveal">Yes, the tool is fully responsive and works on smartphones and tablets. On mobile devices, tapping the color selector opens your device's native color picker interface, which is optimized for touch screens.</p>
+        <h3 class="reveal">Can I convert CMYK back to RGB or HEX?</h3>
+        <p class="reveal">The tool converts from HEX (which is based on RGB) to CMYK. The reverse conversion from CMYK to RGB is not directly supported as an input method because CMYK is a subtractive color model with a smaller gamut than RGB, meaning some RGB colors cannot be represented in CMYK.</p>
+        <h3 class="reveal">Why do CMYK values sometimes look different on screen?</h3>
+        <p class="reveal">CMYK is designed for physical printing using ink, while screens display colors using light (RGB). When CMYK values are shown on a screen, they must be converted back to RGB for display, which can cause slight color shifts. For accurate CMYK preview, view a physical proof from your printer.</p>
+        <h3 class="reveal">Is this tool free for commercial use?</h3>
+        <p class="reveal">Yes, the Color Picker is completely free for both personal and commercial use. There are no restrictions, attribution requirements, or usage limits.</p>
+        <h3 class="reveal">How do I save frequently used colors?</h3>
+        <p class="reveal">While the tool does not have a built-in save feature, you can bookmark the page after selecting a color, note down the HEX codes, or use our Color Palette Generator to create and save palette collections for your projects.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Expert Tips and Best Practices</h2>
+        <p class="reveal"><strong>For CSS Developers:</strong> Consider using HSL in your stylesheets instead of HEX. HSL makes it much easier to create color variations by adjusting the lightness percentage for hover states and emphasis levels.</p>
+        <p class="reveal"><strong>For Print Designers:</strong> Always convert RGB/HEX colors to CMYK early in your workflow. Colors that look vibrant on screen may become dull in print if they fall outside the CMYK gamut.</p>
+        <p class="reveal"><strong>For Brand Managers:</strong> Document brand colors in all four formats. Different vendors and platforms may request different formats, and having all four ready prevents delays and color inconsistencies.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Troubleshooting Common Issues</h2>
+        <p class="reveal"><strong>Issue:</strong> Entered hex code is not being recognized.</p>
+        <p class="reveal"><strong>Solution:</strong> Ensure your hex code starts with # and contains exactly 6 valid hexadecimal characters (0-9, A-F, a-f). Codes like #FFF or #12345 will not work.</p>
+        <p class="reveal"><strong>Issue:</strong> Copied color does not paste correctly.</p>
+        <p class="reveal"><strong>Solution:</strong> Make sure the destination application supports the color format you are pasting. Some programs may require RGB values instead of HEX.</p>
+        <p class="reveal"><strong>Issue:</strong> Color picker does not open.</p>
+        <p class="reveal"><strong>Solution:</strong> Update your browser to the latest version. Very old browsers may not support the HTML5 color input element.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Conclusion</h2>
+        <p class="reveal">The Color Picker is an essential tool for anyone who works with color across digital and print media. Its ability to instantly convert between HEX, RGB, HSL, and CMYK formats eliminates the friction of working across different color systems. Whether you are a web developer needing quick CSS color values, a graphic designer preparing files for print, or an artist exploring the color spectrum, this free tool provides precise, reliable conversions in a clean, intuitive interface. With visual color selection, manual hex input, live preview, and one-click copying, it streamlines your color workflow so you can focus on creating. Bookmark it today and make color conversion the easiest part of your design process.</p>
+    </div>
+</section>
+
+<section class="info-section-page alt">
+    <div class="container">
+        <h2 class="reveal">Related Tools</h2>
+        <div class="related-grid">
+            <a href="color-palette-generator.html" class="related-card reveal"><div class="related-card-title">Color Palette Generator</div><div class="related-card-desc">Color schemes</div></a><a href="image-format-converter.html" class="related-card reveal"><div class="related-card-title">Image Format Converter</div><div class="related-card-desc">Convert images</div></a><a href="meme-generator.html" class="related-card reveal"><div class="related-card-title">Meme Generator</div><div class="related-card-desc">Create memes</div></a><a href="text-case-converter.html" class="related-card reveal"><div class="related-card-title">Text Case Converter</div><div class="related-card-desc">Change text case</div></a>
+        </div>
+    </div>
+</section>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">Mega-<span>Store.in</span></div>
+                    <p class="footer-desc">Your one-stop destination for 25+ free online tools. Calculators, generators, converters, and utilities designed to simplify your daily tasks.</p>
+                    <p class="footer-email">megastoresupport@gmail.com</p>
+                </div>
+                <div>
+                    <div class="footer-col-title">Tools</div>
+                    <ul class="footer-links">
+                        <li><a href="emi-calculator.html">EMI Calculator</a></li>
+                        <li><a href="password-generator.html">Password Generator</a></li>
+                        <li><a href="word-counter.html">Word Counter</a></li>
+                        <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+                        <li><a href="qr-code-generator.html">QR Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms and Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="cookie.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                &copy; 2026 Mega-Store.in All rights reserved. All tools are free to use.
+            </div>
+        </div>
+    </footer>
+    
+
+<script>
+
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        function openMobileNav() {
+            mobileNav.classList.add('open');
+            mobileOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileNav() {
+            mobileNav.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if(hamburger){ hamburger.addEventListener('click', openMobileNav); }
+        if(mobileClose){ mobileClose.addEventListener('click', closeMobileNav); }
+        if(mobileOverlay){ mobileOverlay.addEventListener('click', closeMobileNav); }
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active nav link
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.navbar-links a, .mobile-nav a').forEach(link => {
+            if(link.getAttribute('href') === currentPath || (currentPath === '' && link.getAttribute('href') === 'index.html')){
+                link.classList.add('active');
+            }
+        });
+    
+
+function updateColor() {
+    const color = document.getElementById('colorPicker').value;
+    const r = parseInt(color.slice(1,3), 16);
+    const g = parseInt(color.slice(3,5), 16);
+    const b = parseInt(color.slice(5,7), 16);
+
+    document.getElementById('colorPreview').style.background = color;
+    document.getElementById('colorHex').value = color.toUpperCase();
+    document.getElementById('colorRgb').value = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+
+    // HSL
+    const rr = r/255, gg = g/255, bb = b/255;
+    const max = Math.max(rr, gg, bb), min = Math.min(rr, gg, bb);
+    let h, s, l = (max + min) / 2;
+    if(max === min) { h = s = 0; }
+    else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch(max) {
+            case rr: h = ((gg - bb) / d + (gg < bb ? 6 : 0)) / 6; break;
+            case gg: h = ((bb - rr) / d + 2) / 6; break;
+            case bb: h = ((rr - gg) / d + 4) / 6; break;
+        }
+    }
+    document.getElementById('colorHsl').value = 'hsl(' + Math.round(h*360) + ', ' + Math.round(s*100) + '%, ' + Math.round(l*100) + '%)';
+
+    // CMYK
+    const k = 1 - Math.max(rr, gg, bb);
+    const c = k === 1 ? 0 : (1 - rr - k) / (1 - k);
+    const m = k === 1 ? 0 : (1 - gg - k) / (1 - k);
+    const y = k === 1 ? 0 : (1 - bb - k) / (1 - k);
+    document.getElementById('colorCmyk').value = 'cmyk(' + Math.round(c*100) + '%, ' + Math.round(m*100) + '%, ' + Math.round(y*100) + '%, ' + Math.round(k*100) + '%)';
+}
+
+function fromHex(hex) {
+    if(!/^#[0-9A-Fa-f]{6}$/.test(hex)) return;
+    document.getElementById('colorPicker').value = hex.toLowerCase();
+    updateColor();
+}
+
+function copyColorHex() {
+    const hex = document.getElementById('colorHex').value;
+    navigator.clipboard.writeText(hex);
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = orig, 1500);
+}
+
+updateColor();
+
+</script>
+
+</body>
+</html>

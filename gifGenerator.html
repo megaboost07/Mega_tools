@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIF Generator - Create Animated GIFs from Photos | Mega-Store.in</title>
+    <meta name="description" content="Create stunning animated GIFs from unlimited photos with our free online GIF Generator. Customize speed, size, and quality. No signup required - works entirely in your browser.">
+    <meta name="keywords" content="GIF generator, animated GIF maker, photo to GIF, create GIF online, free GIF creator, image to GIF converter, unlimited photos GIF">
+    <link rel="canonical" href="https://mega-store.in/gifGenerator.html">
+    <meta property="og:title" content="GIF Generator - Create Animated GIFs from Photos | Mega-Store.in">
+    <meta property="og:description" content="Upload unlimited photos and create beautiful animated GIFs instantly. Customize frame delay, dimensions, and quality.">
+    <meta property="og:url" content="https://mega-store.in/gifGenerator.html">
+    <meta name="author" content="MEGA STORE">
+    <meta property="og:site_name" content="MEGA STORE">
+    <meta property="og:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <meta name="twitter:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <link rel="icon" href="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <script src="https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.js"></script>
+    <style>
+        :root {
+            --deep-ink: #0B0F19;
+            --alabaster: #F4F5F0;
+            --muted-moss: #7A7C6D;
+            --aged-brass: #9E8B6F;
+            --light-fog: #E8E9E4;
+            --pure-white: #FFFFFF;
+            --dark-surface: #121620;
+            --border-light: rgba(11,15,25,0.08);
+            --border-medium: rgba(11,15,25,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        input, textarea, select, button {
+            font-family: inherit;
+            font-size: inherit;
+        }
+        button { cursor: pointer; border: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
+        @media(min-width:768px){ .container { padding: 0 8vw; } }
+
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            z-index: 1000;
+            background: rgba(11,15,25,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+            letter-spacing: -0.02em;
+        }
+        .navbar-brand span { color: var(--aged-brass); }
+        .navbar-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+        .navbar-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        .navbar-links a:hover, .navbar-links a.active { color: var(--alabaster); }
+        .navbar-cta {
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .navbar-cta:hover { background: #b09b7e; }
+        .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--alabaster);
+            border-radius: 1px;
+        }
+
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--deep-ink);
+            padding: 80px 32px 32px;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        .mobile-nav.open { transform: translateX(0); }
+        .mobile-nav-overlay.open { display: block; }
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: var(--alabaster);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 28px;
+            color: var(--alabaster);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .site-footer {
+            background: var(--deep-ink);
+            padding: 64px 0 32px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+        }
+        @media(max-width:768px){
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        @media(max-width:480px){
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        .footer-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+        }
+        .footer-brand span { color: var(--aged-brass); }
+        .footer-desc {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--muted-moss);
+            line-height: 1.7;
+        }
+        .footer-email {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--aged-brass);
+        }
+        .footer-col-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--alabaster);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--alabaster); }
+        .footer-divider {
+            height: 1px;
+            background: rgba(244,245,240,0.08);
+            margin: 40px 0;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted-moss);
+        }
+
+        @media(max-width:768px){
+            .navbar-links { display: none; }
+            .hamburger { display: flex; }
+        }
+        @media(min-width:769px){
+            .mobile-nav, .mobile-nav-overlay { display: none !important; }
+        }
+
+        .page-banner {
+            background: linear-gradient(135deg, var(--deep-ink) 0%, var(--dark-surface) 100%);
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+        .page-banner h1 {
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 800;
+            color: var(--alabaster);
+            line-height: 1.2;
+        }
+        .page-banner p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            margin-top: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tool-section {
+            background: var(--alabaster);
+            padding: 60px 0;
+        }
+        .tool-container {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        @media(max-width:768px){ .tool-container { padding: 24px; } }
+
+        /* GIF Generator Specific Styles */
+        .upload-zone {
+            border: 2px dashed var(--border-medium);
+            border-radius: 12px;
+            padding: 48px 24px;
+            text-align: center;
+            background: var(--alabaster);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .upload-zone:hover {
+            border-color: var(--aged-brass);
+            background: rgba(158,139,111,0.05);
+        }
+        .upload-zone.dragover {
+            border-color: var(--aged-brass);
+            background: rgba(158,139,111,0.1);
+        }
+        .upload-zone svg {
+            width: 56px;
+            height: 56px;
+            stroke: var(--aged-brass);
+            fill: none;
+            stroke-width: 1.5;
+            margin: 0 auto 16px;
+        }
+        .upload-zone h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 8px;
+        }
+        .upload-zone p {
+            font-size: 14px;
+            color: var(--muted-moss);
+        }
+        .upload-zone input[type="file"] {
+            display: none;
+        }
+
+        .photos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .photo-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid var(--border-light);
+            aspect-ratio: 1;
+            cursor: move;
+        }
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .photo-item .photo-num {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .photo-item .photo-remove {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(220,38,38,0.9);
+            color: white;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .photo-item .photo-remove:hover {
+            background: #dc2626;
+        }
+        .photo-item.dragging {
+            opacity: 0.5;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+        .tool-input-group {
+            margin-bottom: 20px;
+        }
+        .tool-input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 6px;
+        }
+        .tool-input-group input,
+        .tool-input-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            transition: border-color 0.3s ease;
+        }
+        .tool-input-group input:focus,
+        .tool-input-group select:focus {
+            outline: none;
+            border-color: var(--aged-brass);
+        }
+        .tool-input-group .input-suffix {
+            position: relative;
+        }
+        .tool-input-group .suffix {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-suffix input {
+            padding-right: 56px;
+        }
+
+        .tool-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .tool-btn:hover { background: #b09b7e; }
+        .tool-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .tool-btn-secondary {
+            display: inline-block;
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--deep-ink);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 8px;
+        }
+        .tool-btn-secondary:hover { border-color: var(--aged-brass); }
+
+        .tool-result {
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--light-fog);
+            border-radius: 10px;
+            border-left: 4px solid var(--aged-brass);
+            display: none;
+        }
+        .tool-result.show { display: block; }
+        .tool-result-label {
+            font-size: 13px;
+            color: var(--muted-moss);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .tool-result-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--deep-ink);
+        }
+
+        .gif-preview {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border-light);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 16px 0;
+            display: none;
+        }
+        .progress-bar.show { display: block; }
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--aged-brass);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .photo-counter {
+            font-size: 14px;
+            color: var(--muted-moss);
+            margin-top: 12px;
+        }
+        .photo-counter strong {
+            color: var(--aged-brass);
+        }
+
+        .error-msg {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+        .error-msg.show { display: block; }
+
+        .info-section-page {
+            background: var(--light-fog);
+            padding: 80px 0;
+        }
+        .info-section-page.alt { background: var(--alabaster); }
+        .info-section-page .container { max-width: 900px; }
+        .info-section-page h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--deep-ink);
+            margin-bottom: 20px;
+        }
+        .info-section-page h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 10px;
+            margin-top: 24px;
+        }
+        .info-section-page p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+        .info-section-page ul {
+            margin: 14px 0;
+            padding-left: 24px;
+        }
+        .info-section-page li {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .info-section-page strong {
+            color: var(--deep-ink);
+            font-weight: 600;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .related-card {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .related-card:hover {
+            border-color: rgba(158,139,111,0.3);
+            transform: translateY(-3px);
+        }
+        .related-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--deep-ink);
+        }
+        .related-card-desc {
+            font-size: 13px;
+            color: var(--muted-moss);
+            margin-top: 4px;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-box {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 24px;
+            margin-bottom: 16px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--deep-ink);
+            color: var(--alabaster);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .step-content h4 {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 6px;
+        }
+        .step-content p {
+            font-size: 15px;
+            color: var(--muted-moss);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .clear-all-btn {
+            font-size: 13px;
+            color: #dc2626;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-top: 8px;
+            text-decoration: underline;
+        }
+        .clear-all-btn:hover {
+            color: #b91c1c;
+        }
+
+        .quality-options {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .quality-option {
+            padding: 8px 16px;
+            border: 1px solid var(--border-medium);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        .quality-option:hover {
+            border-color: var(--aged-brass);
+        }
+        .quality-option.selected {
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            border-color: var(--aged-brass);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Mega-<span>Store.in</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="terms.html">Terms</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-close" id="mobileClose">&times;</div>
+        <a href="index.html">Home</a>
+        <a href="index.html#tools">Tools</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="cookie.html">Cookie Policy</a>
+    </div>
+
+    <section class="page-banner">
+        <div class="container">
+            <h1 class="reveal">GIF Generator</h1>
+            <p class="reveal" style="transition-delay:0.1s">Upload unlimited photos and create stunning animated GIFs instantly. Completely free and private.</p>
+        </div>
+    </section>
+
+    <section class="tool-section">
+        <div class="container">
+            <div class="tool-container reveal">
+                <!-- Upload Zone -->
+                <div class="upload-zone" id="uploadZone">
+                    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    <h3>Drag & Drop Your Photos Here</h3>
+                    <p>or click to browse - upload as many photos as you want</p>
+                    <p style="font-size:12px;margin-top:8px">Supports: JPG, PNG, WebP, GIF | Max 10MB per image</p>
+                    <input type="file" id="photoInput" multiple accept="image/*">
+                </div>
+
+                <!-- Photo Counter -->
+                <div class="photo-counter" id="photoCounter" style="display:none">
+                    <strong id="photoCount">0</strong> photos uploaded
+                    <button class="clear-all-btn" id="clearAllBtn" onclick="clearAllPhotos()">Clear All</button>
+                </div>
+
+                <!-- Photos Grid -->
+                <div class="photos-grid" id="photosGrid"></div>
+
+                <!-- Settings -->
+                <div id="settingsSection" style="display:none;margin-top:24px;padding-top:24px;border-top:1px solid var(--border-light)">
+                    <h3 style="font-size:18px;font-weight:600;margin-bottom:16px">GIF Settings</h3>
+                    <div class="settings-grid">
+                        <div class="tool-input-group">
+                            <label for="frameDelay">Frame Delay (ms)</label>
+                            <div class="input-suffix">
+                                <input type="number" id="frameDelay" value="500" min="50" max="5000" step="50">
+                                <span class="suffix">ms</span>
+                            </div>
+                            <p style="font-size:12px;color:var(--muted-moss);margin-top:4px">Time between frames (50ms = fast, 1000ms = slow)</p>
+                        </div>
+                        <div class="tool-input-group">
+                            <label for="gifWidth">GIF Width</label>
+                            <div class="input-suffix">
+                                <input type="number" id="gifWidth" value="480" min="100" max="1200" step="10">
+                                <span class="suffix">px</span>
+                            </div>
+                            <p style="font-size:12px;color:var(--muted-moss);margin-top:4px">Height adjusts automatically</p>
+                        </div>
+                        <div class="tool-input-group">
+                            <label>Quality</label>
+                            <div class="quality-options">
+                                <div class="quality-option" data-quality="1" onclick="selectQuality(this)">Low</div>
+                                <div class="quality-option selected" data-quality="5" onclick="selectQuality(this)">Medium</div>
+                                <div class="quality-option" data-quality="10" onclick="selectQuality(this)">High</div>
+                                <div class="quality-option" data-quality="20" onclick="selectQuality(this)">Best</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:20px">
+                        <button class="tool-btn" id="generateBtn" onclick="generateGIF()">
+                            <span id="btnText">Generate GIF</span>
+                        </button>
+                        <button class="tool-btn-secondary" onclick="clearAllPhotos()">Reset</button>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress-bar-fill" id="progressBarFill"></div>
+                    </div>
+                    <p id="progressText" style="font-size:13px;color:var(--muted-moss);text-align:center;display:none"></p>
+                </div>
+
+                <!-- Result -->
+                <div class="tool-result" id="gifResult">
+                    <div class="tool-result-label">Your Animated GIF</div>
+                    <img id="gifPreview" class="gif-preview" alt="Generated GIF">
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
+                        <a id="downloadLink" class="tool-btn" download="animated.gif" style="text-decoration:none">Download GIF</a>
+                        <button class="tool-btn-secondary" onclick="generateGIF()">Regenerate</button>
+                    </div>
+                </div>
+
+                <div class="error-msg" id="gifError">Please upload at least 2 photos to generate a GIF.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed How to Use Section -->
+    <section class="info-section-page">
+        <div class="container">
+            <h2 class="reveal">How to Create Your Animated GIF - Step by Step Guide</h2>
+            <p class="reveal">Follow these simple steps to transform your photos into a beautiful animated GIF. Our tool is completely free, works entirely in your browser, and supports unlimited photo uploads.</p>
+
+            <div class="step-box reveal">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>Upload Your Photos</h4>
+                    <p>Click on the upload area or drag and drop your photos directly onto it. You can upload as many photos as you want - there is absolutely no limit. Supported formats include JPG, PNG, WebP, and GIF. Each image can be up to 10MB in size. The photos will appear in a grid where you can see all your uploaded images at a glance.</p>
+                </div>
+            </div>
+
+            <div class="step-box reveal">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>Arrange the Photo Order</h4>
+                    <p>Drag and drop the photos in the grid to reorder them. The order in which they appear from left to right, top to bottom determines the animation sequence. Each photo displays a number badge showing its position in the sequence. You can rearrange photos anytime before generating the GIF.</p>
+                </div>
+            </div>
+
+            <div class="step-box reveal">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4>Remove Unwanted Photos</h4>
+                    <p>Each uploaded photo has a small red remove button (X) in the top-right corner. Click it to remove any photo you do not want in your GIF. If you want to start over completely, click the "Clear All" button to remove all photos at once and begin fresh.</p>
+                </div>
+            </div>
+
+            <div class="step-box reveal">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h4>Configure GIF Settings</h4>
+                    <p>Customize your GIF with these powerful settings: <strong>Frame Delay</strong> controls how long each photo appears - lower values (50-200ms) create fast animations while higher values (500-1000ms) create slower, more viewable animations. <strong>GIF Width</strong> sets the output width in pixels - the height adjusts automatically to maintain aspect ratio. <strong>Quality</strong> determines the color detail - Low creates smaller files, Best creates the highest quality output.</p>
+                </div>
+            </div>
+
+            <div class="step-box reveal">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h4>Generate Your GIF</h4>
+                    <p>Click the "Generate GIF" button to start the creation process. A progress bar will show you the status as each frame is processed. All processing happens locally in your browser - your photos are never uploaded to any server, ensuring complete privacy and security.</p>
+                </div>
+            </div>
+
+            <div class="step-box reveal">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <h4>Preview and Download</h4>
+                    <p>Once generation is complete, your animated GIF will appear in the preview area. You can watch the animation loop to see how it looks. If you are satisfied, click "Download GIF" to save the file to your device. If not, adjust the settings and click "Regenerate" to create a new version.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="info-section-page alt">
+        <div class="container">
+            <h2 class="reveal">Features of Our GIF Generator Tool</h2>
+            <p class="reveal">Our GIF Generator is packed with powerful features that make creating animated GIFs incredibly easy and flexible. Here is what makes our tool stand out from the rest:</p>
+
+            <h3 class="reveal">Unlimited Photo Uploads</h3>
+            <p class="reveal">Unlike many other GIF makers that limit you to a small number of photos, our tool allows you to upload unlimited images. Create long, detailed animations with dozens or even hundreds of frames. Whether you are making a simple 3-frame animation or a complex photo slideshow GIF, our tool handles it all with ease.</p>
+
+            <h3 class="reveal">Drag and Drop Reordering</h3>
+            <p class="reveal">Easily rearrange your photos by simply dragging and dropping them into the desired order. The intuitive visual grid shows you exactly how your GIF will be sequenced. Each photo displays its frame number so you always know the exact order.</p>
+
+            <h3 class="reveal">Customizable Frame Speed</h3>
+            <p class="reveal">Control the animation speed with millisecond precision. Set the frame delay anywhere from 50 milliseconds (very fast, 20 frames per second) to 5000 milliseconds (5 seconds per frame). This gives you complete creative control over the pacing of your animation.</p>
+
+            <h3 class="reveal">Adjustable Output Dimensions</h3>
+            <p class="reveal">Set the GIF width anywhere from 100 to 1200 pixels. The height automatically adjusts to maintain the original aspect ratio of your photos. This ensures your GIF looks great whether you are sharing it on social media, embedding it on a website, or using it in a presentation.</p>
+
+            <h3 class="reveal">Four Quality Levels</h3>
+            <p class="reveal">Choose from Low, Medium, High, or Best quality settings. Lower quality produces smaller file sizes perfect for web use and quick sharing. Higher quality settings produce richer colors and smoother gradients, ideal when file size is not a concern.</p>
+
+            <h3 class="reveal">100% Browser-Based Processing</h3>
+            <p class="reveal">All GIF generation happens entirely within your web browser using JavaScript. Your photos are never uploaded to any external server, making this tool completely private and secure. You can even use it offline after the page has loaded.</p>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="info-section-page">
+        <div class="container">
+            <h2 class="reveal">Benefits of Using Our GIF Generator</h2>
+            <ul>
+                <li class="reveal"><strong>Completely Free:</strong> No hidden charges, no subscription fees, no premium plans. Use the tool as many times as you want without ever paying a single rupee.</li>
+                <li class="reveal"><strong>No Registration Required:</strong> Start creating GIFs instantly without creating an account, providing an email address, or logging in.</li>
+                <li class="reveal"><strong>Privacy Guaranteed:</strong> Your photos never leave your device. All processing happens locally in your browser, ensuring your images remain completely private.</li>
+                <li class="reveal"><strong>Fast Processing:</strong> Our optimized JavaScript engine generates GIFs quickly, even with dozens of high-resolution photos.</li>
+                <li class="reveal"><strong>Works on All Devices:</strong> Use our GIF Generator on desktop computers, laptops, tablets, and smartphones. The responsive design adapts to any screen size.</li>
+                <li class="reveal"><strong>No Watermarks:</strong> Your downloaded GIFs are completely clean with no watermarks, branding, or advertisements embedded.</li>
+                <li class="reveal"><strong>High Compatibility:</strong> Generated GIFs work everywhere - social media platforms, messaging apps, websites, email, and presentations.</li>
+                <li class="reveal"><strong>Unlimited Usage:</strong> Create as many GIFs as you want, as often as you want. There are no daily limits or usage caps.</li>
+            </ul>
+
+            <h2 class="reveal" style="margin-top:48px">Creative Uses for Your GIFs</h2>
+            <ul>
+                <li class="reveal">Create engaging social media content for Instagram, Facebook, Twitter, and WhatsApp</li>
+                <li class="reveal">Make eye-catching banner ads and website animations</li>
+                <li class="reveal">Convert photo bursts from your camera into smooth animations</li>
+                <li class="reveal">Create before-and-after comparison animations for projects</li>
+                <li class="reveal">Make fun animated memes and reaction GIFs to share with friends</li>
+                <li class="reveal">Create product showcase animations for e-commerce stores</li>
+                <li class="reveal">Document progress over time with time-lapse style animations</li>
+                <li class="reveal">Make personalized greeting cards and birthday wishes</li>
+                <li class="reveal">Create tutorial and how-to animations for blogs and presentations</li>
+                <li class="reveal">Animate scanned drawings and artwork for portfolio displays</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="info-section-page alt">
+        <div class="container">
+            <h2 class="reveal">Frequently Asked Questions About GIF Generation</h2>
+
+            <h3 class="reveal">How many photos can I upload?</h3>
+            <p class="reveal">You can upload unlimited photos. There is absolutely no limit on the number of images you can include in your GIF. However, keep in mind that more photos will result in a larger file size and longer generation time.</p>
+
+            <h3 class="reveal">What image formats are supported?</h3>
+            <p class="reveal">Our GIF Generator supports JPG, JPEG, PNG, WebP, and GIF input formats. The output is always a standard animated GIF file that works on all platforms and devices.</p>
+
+            <h3 class="reveal">Is there a file size limit for uploads?</h3>
+            <p class="reveal">Each individual image can be up to 10MB in size. Since all processing happens in your browser, the actual limit depends on your device's available memory. For best results, we recommend using images under 5MB each.</p>
+
+            <h3 class="reveal">Are my photos uploaded to a server?</h3>
+            <p class="reveal">No, absolutely not. All processing happens entirely within your web browser using JavaScript. Your photos are never transmitted to any external server, making this tool completely private and secure.</p>
+
+            <h3 class="reveal">Why is the GIF generation taking long?</h3>
+            <p class="reveal">GIF generation time depends on several factors: the number of photos, the dimensions you selected, the quality setting, and your device's processing power. Higher quality and more photos take longer. Using the Medium quality setting with a width of 480px provides the best balance of quality and speed.</p>
+
+            <h3 class="reveal">Can I adjust the animation speed?</h3>
+            <p class="reveal">Yes! Use the "Frame Delay" setting to control how long each frame displays. Values between 100-300ms create smooth animations, while 500-1000ms create slower, more deliberate animations. Experiment to find the perfect speed for your content.</p>
+
+            <h3 class="reveal">Will my GIF have a watermark?</h3>
+            <p class="reveal">No, all GIFs created with our tool are completely clean and watermark-free. You own your content completely and can use it anywhere without any attribution.</p>
+
+            <h3 class="reveal">Why does my GIF look different from my original photos?</h3>
+            <p class="reveal">The GIF format supports a maximum of 256 colors per frame, which means some color detail may be lost compared to the original full-color images. Higher quality settings preserve more colors but create larger files. The tool automatically optimizes the color palette for the best possible appearance.</p>
+
+            <h3 class="reveal">Can I use this tool on my phone?</h3>
+            <p class="reveal">Yes, our GIF Generator is fully responsive and works on all smartphones and tablets. You can upload photos directly from your camera roll and create GIFs on the go.</p>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section class="info-section-page">
+        <div class="container">
+            <h2 class="reveal">Pro Tips for Creating Amazing GIFs</h2>
+            <ul>
+                <li class="reveal"><strong>Use consistent dimensions:</strong> Photos with similar aspect ratios produce the best-looking GIFs since all frames will be scaled uniformly.</li>
+                <li class="reveal"><strong>Optimize your source images:</strong> Resize large photos to around 800-1000px width before uploading for faster processing without noticeable quality loss.</li>
+                <li class="reveal"><strong>Choose the right speed:</strong> For product showcases, use 500-800ms delay. For smooth animations, use 100-200ms. For slideshows, use 1000-2000ms.</li>
+                <li class="reveal"><strong>Keep file size in mind:</strong> If you need to share on platforms with file size limits (like Twitter's 5MB), use fewer photos or lower quality settings.</li>
+                <li class="reveal"><strong>Use 10-30 photos for best results:</strong> While unlimited uploads are supported, GIFs with 10-30 well-chosen photos often have the best visual impact.</li>
+                <li class="reveal"><strong>Plan your sequence:</strong> Arrange photos in a logical order - chronological, by color gradient, or by scene progression - for the most engaging animation.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section class="info-section-page alt">
+        <div class="container">
+            <h2 class="reveal">Related Tools You Might Find Useful</h2>
+            <div class="related-grid">
+                <a href="image-compressor.html" class="related-card reveal">
+                    <div class="related-card-title">Image Compressor</div>
+                    <div class="related-card-desc">Reduce file size before uploading</div>
+                </a>
+                <a href="image-resizer.html" class="related-card reveal">
+                    <div class="related-card-title">Image Resizer</div>
+                    <div class="related-card-desc">Resize photos to consistent dimensions</div>
+                </a>
+                <a href="image-format-converter.html" class="related-card reveal">
+                    <div class="related-card-title">Image Format Converter</div>
+                    <div class="related-card-desc">Convert between JPG, PNG, WebP</div>
+                </a>
+                <a href="meme-generator.html" class="related-card reveal">
+                    <div class="related-card-title">Meme Generator</div>
+                    <div class="related-card-desc">Create fun memes from your images</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">Mega-<span>Store.in</span></div>
+                    <p class="footer-desc">Your one-stop destination for 26+ free online tools. Calculators, generators, converters, and utilities designed to simplify your daily tasks.</p>
+                    <p class="footer-email">megastoresupport@gmail.com</p>
+                </div>
+                <div>
+                    <div class="footer-col-title">Tools</div>
+                    <ul class="footer-links">
+                        <li><a href="emi-calculator.html">EMI Calculator</a></li>
+                        <li><a href="password-generator.html">Password Generator</a></li>
+                        <li><a href="word-counter.html">Word Counter</a></li>
+                        <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+                        <li><a href="qr-code-generator.html">QR Generator</a></li>
+                        <li><a href="gifGenerator.html">GIF Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms and Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="cookie.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                &copy; 2026 Mega-Store.in All rights reserved. All tools are free to use.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        function openMobileNav() {
+            mobileNav.classList.add('open');
+            mobileOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileNav() {
+            mobileNav.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if(hamburger){ hamburger.addEventListener('click', openMobileNav); }
+        if(mobileClose){ mobileClose.addEventListener('click', closeMobileNav); }
+        if(mobileOverlay){ mobileOverlay.addEventListener('click', closeMobileNav); }
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active nav link
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.navbar-links a, .mobile-nav a').forEach(link => {
+            if(link.getAttribute('href') === currentPath || (currentPath === '' && link.getAttribute('href') === 'index.html')){
+                link.classList.add('active');
+            }
+        });
+
+
+        // ==================== GIF GENERATOR LOGIC ====================
+        let uploadedPhotos = [];
+        let selectedQuality = 5;
+        let dragSrcEl = null;
+
+        const uploadZone = document.getElementById('uploadZone');
+        const photoInput = document.getElementById('photoInput');
+        const photosGrid = document.getElementById('photosGrid');
+        const photoCounter = document.getElementById('photoCounter');
+        const photoCount = document.getElementById('photoCount');
+        const settingsSection = document.getElementById('settingsSection');
+        const gifResult = document.getElementById('gifResult');
+        const gifError = document.getElementById('gifError');
+        const progressBar = document.getElementById('progressBar');
+        const progressBarFill = document.getElementById('progressBarFill');
+        const progressText = document.getElementById('progressText');
+        const generateBtn = document.getElementById('generateBtn');
+        const btnText = document.getElementById('btnText');
+
+        // Upload zone click
+        uploadZone.addEventListener('click', () => photoInput.click());
+
+        // File input change
+        photoInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        // Drag and drop
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('dragover');
+        });
+
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('dragover');
+        });
+
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        function handleFiles(files) {
+            const validFiles = Array.from(files).filter(f => f.type.startsWith('image/'));
+            if (validFiles.length === 0) return;
+
+            validFiles.forEach(file => {
+                if (file.size > 10 * 1024 * 1024) return; // Skip files > 10MB
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    uploadedPhotos.push({
+                        src: e.target.result,
+                        name: file.name
+                    });
+                    updateUI();
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function updateUI() {
+            // Update counter
+            photoCount.textContent = uploadedPhotos.length;
+            photoCounter.style.display = uploadedPhotos.length > 0 ? 'block' : 'none';
+
+            // Update grid
+            photosGrid.innerHTML = '';
+            uploadedPhotos.forEach((photo, index) => {
+                const item = document.createElement('div');
+                item.className = 'photo-item';
+                item.draggable = true;
+                item.dataset.index = index;
+                item.innerHTML = `
+                    <div class="photo-num">${index + 1}</div>
+                    <button class="photo-remove" onclick="removePhoto(${index})" title="Remove">&times;</button>
+                    <img src="${photo.src}" alt="Photo ${index + 1}">
+                `;
+
+                // Drag events
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragover', handleDragOver);
+                item.addEventListener('drop', handleDrop);
+                item.addEventListener('dragend', handleDragEnd);
+
+                photosGrid.appendChild(item);
+            });
+
+            // Show/hide settings
+            settingsSection.style.display = uploadedPhotos.length >= 2 ? 'block' : 'none';
+
+            // Hide result if photos changed
+            gifResult.classList.remove('show');
+            gifError.classList.remove('show');
+        }
+
+        function removePhoto(index) {
+            uploadedPhotos.splice(index, 1);
+            updateUI();
+        }
+
+        function clearAllPhotos() {
+            uploadedPhotos = [];
+            updateUI();
+            gifResult.classList.remove('show');
+        }
+
+        // Drag and drop reordering
+        function handleDragStart(e) {
+            dragSrcEl = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            if (dragSrcEl === this) return;
+
+            const srcIndex = parseInt(dragSrcEl.dataset.index);
+            const dstIndex = parseInt(this.dataset.index);
+
+            const item = uploadedPhotos.splice(srcIndex, 1)[0];
+            uploadedPhotos.splice(dstIndex, 0, item);
+
+            updateUI();
+        }
+
+        function handleDragEnd() {
+            this.classList.remove('dragging');
+        }
+
+        // Quality selection
+        function selectQuality(el) {
+            document.querySelectorAll('.quality-option').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedQuality = parseInt(el.dataset.quality);
+        }
+
+        // Generate GIF
+        function generateGIF() {
+            if (uploadedPhotos.length < 2) {
+                gifError.classList.add('show');
+                return;
+            }
+            gifError.classList.remove('show');
+
+            const frameDelay = parseInt(document.getElementById('frameDelay').value) || 500;
+            const gifWidth = parseInt(document.getElementById('gifWidth').value) || 480;
+
+            // Show progress
+            progressBar.classList.add('show');
+            progressText.style.display = 'block';
+            progressText.textContent = 'Loading images...';
+            progressBarFill.style.width = '10%';
+            generateBtn.disabled = true;
+            btnText.textContent = 'Generating...';
+
+            const gif = new GIF({
+                workers: 2,
+                quality: selectedQuality,
+                width: gifWidth,
+                height: 0, // auto
+                workerScript: 'https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.worker.js'
+            });
+
+            let imagesLoaded = 0;
+            const totalImages = uploadedPhotos.length;
+
+            gif.on('progress', (p) => {
+                const pct = Math.round(10 + p * 80);
+                progressBarFill.style.width = pct + '%';
+                progressText.textContent = 'Rendering frame ' + Math.round(p * totalImages) + ' of ' + totalImages + '...';
+            });
+
+            gif.on('finished', (blob) => {
+                progressBarFill.style.width = '100%';
+                progressText.textContent = 'Done!';
+                generateBtn.disabled = false;
+                btnText.textContent = 'Generate GIF';
+
+                const url = URL.createObjectURL(blob);
+                document.getElementById('gifPreview').src = url;
+                document.getElementById('downloadLink').href = url;
+                gifResult.classList.add('show');
+
+                // Scroll to result
+                gifResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+
+            // Load and add images
+            uploadedPhotos.forEach((photo, i) => {
+                const img = new Image();
+                // FIX: Removed img.crossOrigin = 'anonymous'; - this was causing SecurityError with data URLs
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const aspectRatio = img.height / img.width;
+                    canvas.width = gifWidth;
+                    canvas.height = Math.round(gifWidth * aspectRatio);
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    gif.addFrame(canvas, { delay: frameDelay, copy: true });
+
+                    imagesLoaded++;
+                    progressBarFill.style.width = (10 + (imagesLoaded / totalImages) * 10) + '%';
+                    progressText.textContent = 'Loading image ' + imagesLoaded + ' of ' + totalImages + '...';
+
+                    if (imagesLoaded === totalImages) {
+                        progressText.textContent = 'Rendering GIF...';
+                        gif.render();
+                    }
+                };
+                img.src = photo.src;
+            });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Name Picker - Pick Random Names | MegaStore.in</title>
+    <meta name="description" content="Pick random names from a list. Perfect for contests, giveaways, team selection, and classroom picks. Select one or multiple winners.">
+    <meta name="keywords" content="random name picker, pick random name, name selector, contest picker">
+    <link rel="canonical" href="https://mega-store.in/random-name-picker.html">
+    <meta property="og:title" content="Random Name Picker - Pick Random Names | MegaStore.in">
+    <meta property="og:description" content="Pick random names from a list. Perfect for contests, giveaways, team selection, and classroom picks. Select one or multiple winners.">
+    <meta property="og:url" content="https://mega-store.in/random-name-picker.html">
+    <meta name="author" content="MEGA STORE">
+    <meta property="og:site_name" content="MEGA STORE">
+    <meta property="og:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <meta name="twitter:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <link rel="icon" href="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+        
+    <style>
+
+        :root {
+            --deep-ink: #0B0F19;
+            --alabaster: #F4F5F0;
+            --muted-moss: #7A7C6D;
+            --aged-brass: #9E8B6F;
+            --light-fog: #E8E9E4;
+            --pure-white: #FFFFFF;
+            --dark-surface: #121620;
+            --border-light: rgba(11,15,25,0.08);
+            --border-medium: rgba(11,15,25,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        input, textarea, select, button {
+            font-family: inherit;
+            font-size: inherit;
+        }
+        button { cursor: pointer; border: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
+        @media(min-width:768px){ .container { padding: 0 8vw; } }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            z-index: 1000;
+            background: rgba(11,15,25,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+            letter-spacing: -0.02em;
+        }
+        .navbar-brand span { color: var(--aged-brass); }
+        .navbar-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+        .navbar-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        .navbar-links a:hover, .navbar-links a.active { color: var(--alabaster); }
+        .navbar-cta {
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .navbar-cta:hover { background: #b09b7e; }
+        .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--alabaster);
+            border-radius: 1px;
+        }
+
+        /* Mobile nav */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--deep-ink);
+            padding: 80px 32px 32px;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        .mobile-nav.open { transform: translateX(0); }
+        .mobile-nav-overlay.open { display: block; }
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: var(--alabaster);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 28px;
+            color: var(--alabaster);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--deep-ink);
+            padding: 64px 0 32px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+        }
+        @media(max-width:768px){
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        @media(max-width:480px){
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        .footer-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+        }
+        .footer-brand span { color: var(--aged-brass); }
+        .footer-desc {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--muted-moss);
+            line-height: 1.7;
+        }
+        .footer-email {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--aged-brass);
+        }
+        .footer-col-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--alabaster);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--alabaster); }
+        .footer-divider {
+            height: 1px;
+            background: rgba(244,245,240,0.08);
+            margin: 40px 0;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted-moss);
+        }
+
+        /* Responsive */
+        @media(max-width:768px){
+            .navbar-links { display: none; }
+            .hamburger { display: flex; }
+        }
+        @media(min-width:769px){
+            .mobile-nav, .mobile-nav-overlay { display: none !important; }
+        }
+    
+        .page-banner {
+            background: linear-gradient(135deg, var(--deep-ink) 0%, var(--dark-surface) 100%);
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+        .page-banner h1 {
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 800;
+            color: var(--alabaster);
+            line-height: 1.2;
+        }
+        .page-banner p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            margin-top: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tool-section {
+            background: var(--alabaster);
+            padding: 60px 0;
+        }
+        .tool-container {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        @media(max-width:768px){ .tool-container { padding: 24px; } }
+        .tool-input-group {
+            margin-bottom: 20px;
+        }
+        .tool-input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 6px;
+        }
+        .tool-input-group input,
+        .tool-input-group select,
+        .tool-input-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            transition: border-color 0.3s ease;
+        }
+        .tool-input-group input:focus,
+        .tool-input-group select:focus,
+        .tool-input-group textarea:focus {
+            outline: none;
+            border-color: var(--aged-brass);
+        }
+        .tool-input-group .input-prefix {
+            position: relative;
+        }
+        .tool-input-group .prefix {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-prefix input {
+            padding-left: 44px;
+        }
+        .tool-input-group .suffix {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-suffix input {
+            padding-right: 56px;
+        }
+        .tool-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .tool-btn:hover { background: #b09b7e; }
+        .tool-btn-secondary {
+            display: inline-block;
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--deep-ink);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 8px;
+        }
+        .tool-btn-secondary:hover { border-color: var(--aged-brass); }
+        .tool-result {
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--light-fog);
+            border-radius: 10px;
+            border-left: 4px solid var(--aged-brass);
+            display: none;
+        }
+        .tool-result.show { display: block; }
+        .tool-result-label {
+            font-size: 13px;
+            color: var(--muted-moss);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .tool-result-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--deep-ink);
+        }
+        .tool-result-detail {
+            font-size: 14px;
+            color: var(--muted-moss);
+            margin-top: 8px;
+        }
+        .info-section-page {
+            background: var(--light-fog);
+            padding: 80px 0;
+        }
+        .info-section-page.alt { background: var(--alabaster); }
+        .info-section-page .container { max-width: 900px; }
+        .info-section-page h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--deep-ink);
+            margin-bottom: 20px;
+        }
+        .info-section-page h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 10px;
+            margin-top: 24px;
+        }
+        .info-section-page p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+        .info-section-page ul {
+            margin: 14px 0;
+            padding-left: 24px;
+        }
+        .info-section-page li {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .related-card {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .related-card:hover {
+            border-color: rgba(158,139,111,0.3);
+            transform: translateY(-3px);
+        }
+        .related-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--deep-ink);
+        }
+        .related-card-desc {
+            font-size: 13px;
+            color: var(--muted-moss);
+            margin-top: 4px;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .error-msg {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+        .error-msg.show { display: block; }
+    
+    </style>
+</head>
+<body>
+
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Mega-<span>Store.in</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html" class="">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="about.html" class="">About Us</a></li>
+                <li><a href="contact.html" class="">Contact Us</a></li>
+                <li><a href="privacy.html" class="">Privacy Policy</a></li>
+                <li><a href="terms.html" class="">Terms</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-close" id="mobileClose">&times;</div>
+        <a href="index.html">Home</a>
+        <a href="index.html#tools">Tools</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="cookie.html">Cookie Policy</a>
+    </div>
+    
+
+<section class="page-banner">
+    <div class="container">
+        <h1 class="reveal">Random Name Picker</h1>
+        <p class="reveal" style="transition-delay:0.1s">Pick random names from your list.</p>
+    </div>
+</section>
+
+<section class="tool-section">
+    <div class="container">
+        <div class="tool-container reveal">
+            
+<div class="tool-input-group">
+    <label for="rnpNames">Enter Names (one per line)</label>
+    <textarea id="rnpNames" placeholder="John&#10;Sarah&#10;Michael&#10;Emma&#10;David" style="min-height:150px;resize:vertical"></textarea>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:12px">
+    <div class="tool-input-group">
+        <label for="rnpWinners">Number of Winners</label>
+        <input type="number" id="rnpWinners" value="1" min="1" max="100">
+    </div>
+    <div class="tool-input-group">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-top:28px">
+            <input type="checkbox" id="rnpUnique" checked style="accent-color:var(--aged-brass)"> Pick unique names only
+        </label>
+    </div>
+</div>
+<button class="tool-btn" onclick="pickNames()" style="margin-top:16px">Pick Random Name(s)</button>
+<div class="error-msg" id="rnpError">Please enter at least one name.</div>
+<div class="tool-result" id="rnpResult" style="text-align:center">
+    <div class="tool-result-label">Selected</div>
+    <div class="tool-result-value" id="rnpWinner" style="font-size:32px;color:var(--aged-brass)"></div>
+</div>
+
+        </div>
+    </div>
+</section>
+
+<section class="info-section-page">
+    <div class="container">
+        <h2 class="reveal">What Is the Random Name Picker?</h2>
+        <p class="reveal">The Random Name Picker is a fair, unbiased, free online tool that selects random names from a list you provide. In situations where you need to choose winners for giveaways, select team members, pick classroom volunteers, or make impartial group decisions, having a truly random selection method is essential to ensure fairness and eliminate accusations of favoritism. Our Random Name Picker uses JavaScript's built-in random number generation to provide unbiased selections every time. Simply enter your list of names, specify how many winners you want to pick, and click the button. The tool supports picking anywhere from 1 to 100 winners, with an optional unique mode that prevents the same name from being selected twice in a single draw.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Why Use a Random Name Picker?</h2>
+        <p class="reveal">Human beings are naturally bad at being random. When we try to pick randomly, we unconsciously favor certain names, avoid recently picked names, or follow patterns we are not even aware of. This undermines the fairness of contests, team selections, and decision-making processes. A computerized random picker eliminates all human bias, ensuring every name in your list has an equal chance of being selected. Our tool is particularly valuable for social media giveaways where transparency is crucial, classroom settings where fairness impacts student morale, workplace scenarios where unbiased selection prevents conflicts, and family situations where random selection settles disputes amicably. With its simple interface and immediate results, the Random Name Picker makes fair selection effortless.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Key Features</h2>
+        <ul>
+            <li class="reveal"><strong>Simple List Input</strong> - Paste or type names, one per line, in the text area</li>
+            <li class="reveal"><strong>Variable Winner Count</strong> - Pick from 1 to 100 winners in a single draw</li>
+            <li class="reveal"><strong>Unique Selection Mode</strong> - Optional setting prevents duplicate winners</li>
+            <li class="reveal"><strong>Truly Random</strong> - Uses JavaScript's pseudo-random algorithm for unbiased selection</li>
+            <li class="reveal"><strong>Instant Results</strong> - Winners displayed immediately with clear formatting</li>
+            <li class="reveal"><strong>Error Handling</strong> - Validates input and provides clear error messages</li>
+            <li class="reveal"><strong>Unlimited Names</strong> - Works with lists of any practical length</li>
+            <li class="reveal"><strong>Free and Private</strong> - No registration, no data storage, completely client-side</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">How the Tool Works</h2>
+        <p class="reveal">The Random Name Picker uses JavaScript to perform random selection entirely within your browser. When you enter names and click the pick button, the tool first validates that your list is not empty and that the number of requested unique winners does not exceed the number of available names. It then splits your input by line breaks to create an array of names, trimming whitespace and filtering out empty lines. For the selection process, it uses Math.random() to generate a random index between 0 and the array length minus 1. If unique mode is enabled, selected names are removed from the pool using the splice method to prevent duplicates. If unique mode is disabled, the full pool is used for each draw, allowing the same name to be picked multiple times. The results are displayed prominently with font size adjustment for readability when many winners are selected.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Step-by-Step Guide to Using the Tool</h2>
+        <p class="reveal"><strong>Step 1:</strong> Navigate to the Random Name Picker page. You will see a text area for names and configuration options.</p>
+        <p class="reveal"><strong>Step 2:</strong> Enter your list of names in the text area, with each name on a separate line. You can type them manually or paste from a spreadsheet, document, or other source.</p>
+        <p class="reveal"><strong>Step 3:</strong> Enter the number of winners you want to pick in the "Number of Winners" field (default is 1).</p>
+        <p class="reveal"><strong>Step 4:</strong> Decide whether to keep "Pick unique names only" checked. Leave it checked if each person can only win once. Uncheck it if the same person can win multiple prizes.</p>
+        <p class="reveal"><strong>Step 5:</strong> Click the "Pick Random Name(s)" button.</p>
+        <p class="reveal"><strong>Step 6:</strong> The selected name or names appear in the result area below the button.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Real-Life Use Cases</h2>
+        <p class="reveal"><strong>Social Media Giveaways:</strong> Instagram, Facebook, and YouTube creators use the Random Name Picker to fairly select giveaway winners from commenters or followers. Simply collect usernames and paste them into the tool.</p>
+        <p class="reveal"><strong>Classroom Activities:</strong> Teachers use the picker to select students for answering questions, forming groups, choosing presentation order, or picking classroom helpers. This ensures every student has an equal opportunity.</p>
+        <p class="reveal"><strong>Office and Team Building:</strong> Managers use the tool to randomly assign tasks, select meeting facilitators, form project teams, or pick who brings snacks for the next meeting.</p>
+        <p class="reveal"><strong>Raffles and Fundraisers:</strong> Non-profits and community organizations draw raffle winners fairly by entering all ticket holder names and letting the tool make the unbiased selection.</p>
+        <p class="reveal"><strong>Family Decision Making:</strong> Families use the picker to decide who chooses the movie, who does which chore, or who goes first in a game. Random selection eliminates arguments.</p>
+        <p class="reveal"><strong>Conference and Event Organization:</strong> Event planners randomly select speakers, assign booth locations, or choose door prize winners from attendee lists.</p>
+        <p class="reveal"><strong>Sports and Competitions:</strong> Coaches and organizers use the picker to create random brackets, assign starting positions, or form balanced teams.</p>
+        <p class="reveal"><strong>Research and Sampling:</strong> Researchers can randomly select participants from a pool for surveys, focus groups, or studies where unbiased selection is methodologically important.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Benefits of Using This Tool</h2>
+        <ul>
+            <li class="reveal"><strong>Guaranteed Fairness</strong> - Every name has an equal chance, eliminating human bias</li>
+            <li class="reveal"><strong>Transparent Process</strong> - Results are immediate and verifiable</li>
+            <li class="reveal"><strong>Saves Time</strong> - No need to write names on paper, cut them out, and draw from a hat</li>
+            <li class="reveal"><strong>Professional Results</strong> - Clean output suitable for screenshotting and sharing</li>
+            <li class="reveal"><strong>Flexible Configuration</strong> - Pick one winner or many, with or without duplicates</li>
+            <li class="reveal"><strong>Private and Secure</strong> - Name lists are never transmitted or stored</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">Tips for Best Results</h2>
+        <p class="reveal"><strong>Tip 1:</strong> Clean your name list before pasting. Remove duplicates, blank lines, and extra spaces for accurate results.</p>
+        <p class="reveal"><strong>Tip 2:</strong> For giveaways, require a specific action (like commenting a keyword) and only include names that completed the action.</p>
+        <p class="reveal"><strong>Tip 3:</strong> When picking multiple winners for ranked prizes (1st, 2nd, 3rd), the order of selection matters. The first name picked is 1st place, second is 2nd place, and so on.</p>
+        <p class="reveal"><strong>Tip 4:</strong> Screenshot the results for transparency, especially for public giveaways. Share the screenshot to prove the selection was fair and random.</p>
+        <p class="reveal"><strong>Tip 5:</strong> If you have a very large list (1000+ names), the tool still works but consider breaking into smaller groups for multiple rounds of selection.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Common Mistakes to Avoid</h2>
+        <p class="reveal"><strong>Mistake 1:</strong> Including empty lines or spaces in the name list. These are filtered out but can be confusing if you are expecting a specific count.</p>
+        <p class="reveal"><strong>Mistake 2:</strong> Requesting more unique winners than there are names. The tool will display an error. Either reduce the winner count or disable unique mode.</p>
+        <p class="reveal"><strong>Mistake 3:</strong> Not checking for duplicate names in the input. If "John Smith" appears three times, he has three times the chance of being selected.</p>
+        <p class="reveal"><strong>Mistake 4:</strong> Forgetting to enable unique mode when giving away multiple different prizes to different people.</p>
+        <p class="reveal"><strong>Mistake 5:</strong> Using this tool for legally regulated lotteries or gambling. This is a utility for casual selection, not a certified random number generator for legal gambling purposes.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Safety, Privacy, and Data Security</h2>
+        <p class="reveal">The Random Name Picker processes all data entirely within your web browser. Your name lists are never uploaded to any server, stored in any database, or transmitted over the internet. This means you can safely use the tool with sensitive information, employee names, customer data, or any other private lists without privacy concerns. Once you close or refresh the page, all entered data is cleared from memory. We do not track your selections, do not use cookies for the tool functionality, and do not collect any analytics on the names you enter.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Comparison with Traditional Methods</h2>
+        <p class="reveal">Traditional random selection methods include drawing names from a hat (time-consuming, requires physical materials, hard to verify), rolling dice or using random number charts (impractical for large lists), asking someone to pick randomly (inherently biased), and using spreadsheet functions like RANDBETWEEN (requires software knowledge and setup). Our Random Name Picker improves on all these methods by being instant, requiring no physical materials, providing verifiable results, eliminating human bias, and being accessible from any device. For most selection scenarios, it is the fastest, fairest, and most convenient option available.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Frequently Asked Questions (FAQs)</h2>
+        <h3 class="reveal">Can I pick multiple winners at once?</h3>
+        <p class="reveal">Yes, simply enter the desired number of winners in the "Number of Winners" field. You can pick anywhere from 1 to 100 winners in a single draw. The selected names are displayed together in the result area.</p>
+        <h3 class="reveal">What happens if I request more winners than names?</h3>
+        <p class="reveal">If unique mode is enabled (the "Pick unique names only" checkbox is checked), and you request more winners than there are names in your list, the tool will display an error message explaining that it cannot pick more unique winners than available names. To fix this, either add more names to your list, reduce the number of winners, or disable unique mode to allow duplicate selections.</p>
+        <h3 class="reveal">Is the selection truly random?</h3>
+        <p class="reveal">Yes, each name has an equal probability of being selected on each draw. The tool uses JavaScript's Math.random() function, which generates pseudo-random numbers suitable for casual selection purposes. For each draw, a random index is generated and the corresponding name is selected. This process is unbiased and gives every name the same chance of being picked.</p>
+        <h3 class="reveal">How many names can I enter?</h3>
+        <p class="reveal">There is no practical limit on the number of names you can enter. The tool works with lists of any reasonable length, from a few names to thousands. However, extremely long lists (tens of thousands of names) may cause minor performance delays depending on your device.</p>
+        <h3 class="reveal">What is the difference between unique and non-unique mode?</h3>
+        <p class="reveal">In unique mode, once a name is selected, it is removed from the pool and cannot be picked again in the same draw. This ensures each winner is a different person. In non-unique mode, the full list is used for every draw, meaning the same name can be selected multiple times. Use unique mode when giving different prizes to different people, and non-unique mode when the same person can win multiple prizes.</p>
+        <h3 class="reveal">Can I save my name list?</h3>
+        <p class="reveal">The tool does not have a built-in save feature. However, you can keep your name list in a text file, spreadsheet, or document and paste it into the tool whenever needed. This approach gives you full control over your lists.</p>
+        <h3 class="reveal">Does the tool work on mobile devices?</h3>
+        <p class="reveal">Yes, the Random Name Picker is fully responsive and works perfectly on smartphones and tablets. Use it at events, in classrooms, or anywhere you need to make a random selection on the go.</p>
+        <h3 class="reveal">Can I use this for official lottery drawings?</h3>
+        <p class="reveal">This tool is designed for casual selection purposes such as giveaways, classroom activities, and team building. It is not suitable for legally regulated lotteries, gambling, or situations requiring certified random number generation. For those purposes, use officially approved randomization systems.</p>
+        <h3 class="reveal">Why does the result font size change?</h3>
+        <p class="reveal">When many winners are selected (more than 3), the font size automatically decreases to ensure all names fit clearly in the result area. This ensures readability regardless of how many winners you pick.</p>
+        <h3 class="reveal">Can I weight certain names to have a better chance?</h3>
+        <p class="reveal">Currently, all names have equal probability. To give certain names a higher chance, you can add duplicate entries of those names to your list. Each duplicate entry counts as a separate chance.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Expert Tips and Best Practices</h2>
+        <p class="reveal"><strong>For Giveaways:</strong> Establish clear rules before picking. Specify entry requirements, deadline, number of prizes, and whether winners must respond within a timeframe to claim.</p>
+        <p class="reveal"><strong>For Classrooms:</strong> Use the picker regularly so students see the process as fair. Consider keeping a history of selected students to ensure everyone gets equal opportunities over time.</p>
+        <p class="reveal"><strong>For Teams:</strong> When forming groups, run the picker multiple times with decreasing numbers to form balanced teams of desired sizes.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Troubleshooting Common Issues</h2>
+        <p class="reveal"><strong>Issue:</strong> Error message says to enter at least one name.</p>
+        <p class="reveal"><strong>Solution:</strong> Ensure you have typed or pasted names into the text area, with each name on a separate line. Blank entries alone will not work.</p>
+        <p class="reveal"><strong>Issue:</strong> Cannot pick as many unique winners as requested.</p>
+        <p class="reveal"><strong>Solution:</strong> Either reduce the number of winners, add more names to your list, or uncheck the "Pick unique names only" option.</p>
+        <p class="reveal"><strong>Issue:</strong> Result area is blank after clicking.</p>
+        <p class="reveal"><strong>Solution:</strong> Make sure JavaScript is enabled in your browser. Try refreshing the page and re-entering your names.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Conclusion</h2>
+        <p class="reveal">The Random Name Picker is the fairest, fastest, and most convenient way to make random selections from a list of names. Whether you are running a social media giveaway, managing a classroom, organizing a team activity, or simply deciding who goes first, this free tool ensures unbiased results every time. With support for multiple winners, unique selection mode, unlimited list sizes, and complete privacy through client-side processing, it is the ultimate utility for any scenario requiring fair random selection. Bookmark it today and use it whenever you need to let chance decide.</p>
+    </div>
+</section>
+
+<section class="info-section-page alt">
+    <div class="container">
+        <h2 class="reveal">Related Tools</h2>
+        <div class="related-grid">
+            <a href="random-number-generator.html" class="related-card reveal"><div class="related-card-title">Random Number Generator</div><div class="related-card-desc">Generate numbers</div></a><a href="password-generator.html" class="related-card reveal"><div class="related-card-title">Password Generator</div><div class="related-card-desc">Create passwords</div></a><a href="color-palette-generator.html" class="related-card reveal"><div class="related-card-title">Color Palette Generator</div><div class="related-card-desc">Color schemes</div></a><a href="qr-code-generator.html" class="related-card reveal"><div class="related-card-title">QR Code Generator</div><div class="related-card-desc">Create QR codes</div></a>
+        </div>
+    </div>
+</section>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">Mega-<span>Store.in</span></div>
+                    <p class="footer-desc">Your one-stop destination for 25+ free online tools. Calculators, generators, converters, and utilities designed to simplify your daily tasks.</p>
+                    <p class="footer-email">megastoresupport@gmail.com</p>
+                </div>
+                <div>
+                    <div class="footer-col-title">Tools</div>
+                    <ul class="footer-links">
+                        <li><a href="emi-calculator.html">EMI Calculator</a></li>
+                        <li><a href="password-generator.html">Password Generator</a></li>
+                        <li><a href="word-counter.html">Word Counter</a></li>
+                        <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+                        <li><a href="qr-code-generator.html">QR Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms and Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="cookie.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                &copy; 2026 Mega-Store.in All rights reserved. All tools are free to use.
+            </div>
+        </div>
+    </footer>
+    
+
+<script>
+
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        function openMobileNav() {
+            mobileNav.classList.add('open');
+            mobileOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileNav() {
+            mobileNav.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if(hamburger){ hamburger.addEventListener('click', openMobileNav); }
+        if(mobileClose){ mobileClose.addEventListener('click', closeMobileNav); }
+        if(mobileOverlay){ mobileOverlay.addEventListener('click', closeMobileNav); }
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active nav link
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.navbar-links a, .mobile-nav a').forEach(link => {
+            if(link.getAttribute('href') === currentPath || (currentPath === '' && link.getAttribute('href') === 'index.html')){
+                link.classList.add('active');
+            }
+        });
+    
+
+function pickNames() {
+    const names = document.getElementById('rnpNames').value.split('\n').map(n => n.trim()).filter(n => n);
+    const count = parseInt(document.getElementById('rnpWinners').value);
+    const unique = document.getElementById('rnpUnique').checked;
+    const err = document.getElementById('rnpError');
+
+    if(names.length === 0) { err.classList.add('show'); return; }
+    if(unique && count > names.length) {
+        err.textContent = 'Cannot pick ' + count + ' unique names from ' + names.length + ' names.';
+        err.classList.add('show'); return;
+    }
+    err.classList.remove('show');
+
+    const winners = [];
+    const pool = [...names];
+    for(let i = 0; i < count && pool.length > 0; i++) {
+        const idx = Math.floor(Math.random() * pool.length);
+        winners.push(pool[idx]);
+        if(unique) pool.splice(idx, 1);
+    }
+
+    const el = document.getElementById('rnpWinner');
+    el.textContent = winners.join(', ');
+    el.style.fontSize = winners.length > 3 ? '18px' : '32px';
+    document.getElementById('rnpResult').classList.add('show');
+}
+
+</script>
+
+</body>
+</html>

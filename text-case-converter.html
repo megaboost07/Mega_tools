@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Case Converter - UPPER, lower, Title & More | Mega-Store.in</title>
+    <meta name="description" content="Convert text between UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and kebab-case. Instant text transformation.">
+    <meta name="keywords" content="text case converter, uppercase, lowercase, title case, camelCase, snake_case">
+    <link rel="canonical" href="https://mega-store.in/text-case-converter.html">
+    <meta property="og:title" content="Text Case Converter - UPPER, lower, Title & More | MegaStore.in">
+    <meta property="og:description" content="Convert text between UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and kebab-case. Instant text transformation.">
+    <meta property="og:url" content="https://mega-store.in/text-case-converter.html">
+    <meta name="author" content="MEGA STORE">
+    <meta property="og:site_name" content="MEGA STORE">
+    <meta property="og:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <meta name="twitter:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <link rel="icon" href="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+        
+    <style>
+
+        :root {
+            --deep-ink: #0B0F19;
+            --alabaster: #F4F5F0;
+            --muted-moss: #7A7C6D;
+            --aged-brass: #9E8B6F;
+            --light-fog: #E8E9E4;
+            --pure-white: #FFFFFF;
+            --dark-surface: #121620;
+            --border-light: rgba(11,15,25,0.08);
+            --border-medium: rgba(11,15,25,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        input, textarea, select, button {
+            font-family: inherit;
+            font-size: inherit;
+        }
+        button { cursor: pointer; border: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
+        @media(min-width:768px){ .container { padding: 0 8vw; } }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            z-index: 1000;
+            background: rgba(11,15,25,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+            letter-spacing: -0.02em;
+        }
+        .navbar-brand span { color: var(--aged-brass); }
+        .navbar-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+        .navbar-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        .navbar-links a:hover, .navbar-links a.active { color: var(--alabaster); }
+        .navbar-cta {
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .navbar-cta:hover { background: #b09b7e; }
+        .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--alabaster);
+            border-radius: 1px;
+        }
+
+        /* Mobile nav */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--deep-ink);
+            padding: 80px 32px 32px;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        .mobile-nav.open { transform: translateX(0); }
+        .mobile-nav-overlay.open { display: block; }
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: var(--alabaster);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 28px;
+            color: var(--alabaster);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--deep-ink);
+            padding: 64px 0 32px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+        }
+        @media(max-width:768px){
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        @media(max-width:480px){
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        .footer-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+        }
+        .footer-brand span { color: var(--aged-brass); }
+        .footer-desc {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--muted-moss);
+            line-height: 1.7;
+        }
+        .footer-email {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--aged-brass);
+        }
+        .footer-col-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--alabaster);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--alabaster); }
+        .footer-divider {
+            height: 1px;
+            background: rgba(244,245,240,0.08);
+            margin: 40px 0;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted-moss);
+        }
+
+        /* Responsive */
+        @media(max-width:768px){
+            .navbar-links { display: none; }
+            .hamburger { display: flex; }
+        }
+        @media(min-width:769px){
+            .mobile-nav, .mobile-nav-overlay { display: none !important; }
+        }
+    
+        .page-banner {
+            background: linear-gradient(135deg, var(--deep-ink) 0%, var(--dark-surface) 100%);
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+        .page-banner h1 {
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 800;
+            color: var(--alabaster);
+            line-height: 1.2;
+        }
+        .page-banner p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            margin-top: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tool-section {
+            background: var(--alabaster);
+            padding: 60px 0;
+        }
+        .tool-container {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        @media(max-width:768px){ .tool-container { padding: 24px; } }
+        .tool-input-group {
+            margin-bottom: 20px;
+        }
+        .tool-input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 6px;
+        }
+        .tool-input-group input,
+        .tool-input-group select,
+        .tool-input-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            transition: border-color 0.3s ease;
+        }
+        .tool-input-group input:focus,
+        .tool-input-group select:focus,
+        .tool-input-group textarea:focus {
+            outline: none;
+            border-color: var(--aged-brass);
+        }
+        .tool-input-group .input-prefix {
+            position: relative;
+        }
+        .tool-input-group .prefix {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-prefix input {
+            padding-left: 44px;
+        }
+        .tool-input-group .suffix {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-suffix input {
+            padding-right: 56px;
+        }
+        .tool-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .tool-btn:hover { background: #b09b7e; }
+        .tool-btn-secondary {
+            display: inline-block;
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--deep-ink);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 8px;
+        }
+        .tool-btn-secondary:hover { border-color: var(--aged-brass); }
+        .tool-result {
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--light-fog);
+            border-radius: 10px;
+            border-left: 4px solid var(--aged-brass);
+            display: none;
+        }
+        .tool-result.show { display: block; }
+        .tool-result-label {
+            font-size: 13px;
+            color: var(--muted-moss);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .tool-result-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--deep-ink);
+        }
+        .tool-result-detail {
+            font-size: 14px;
+            color: var(--muted-moss);
+            margin-top: 8px;
+        }
+        .info-section-page {
+            background: var(--light-fog);
+            padding: 80px 0;
+        }
+        .info-section-page.alt { background: var(--alabaster); }
+        .info-section-page .container { max-width: 900px; }
+        .info-section-page h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--deep-ink);
+            margin-bottom: 20px;
+        }
+        .info-section-page h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 10px;
+            margin-top: 24px;
+        }
+        .info-section-page p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+        .info-section-page ul {
+            margin: 14px 0;
+            padding-left: 24px;
+        }
+        .info-section-page li {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .related-card {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .related-card:hover {
+            border-color: rgba(158,139,111,0.3);
+            transform: translateY(-3px);
+        }
+        .related-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--deep-ink);
+        }
+        .related-card-desc {
+            font-size: 13px;
+            color: var(--muted-moss);
+            margin-top: 4px;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .error-msg {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+        .error-msg.show { display: block; }
+    
+    </style>
+</head>
+<body>
+
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Mega-<span>Store.in</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html" class="">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="about.html" class="">About Us</a></li>
+                <li><a href="contact.html" class="">Contact Us</a></li>
+                <li><a href="privacy.html" class="">Privacy Policy</a></li>
+                <li><a href="terms.html" class="">Terms</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-close" id="mobileClose">&times;</div>
+        <a href="index.html">Home</a>
+        <a href="index.html#tools">Tools</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="cookie.html">Cookie Policy</a>
+    </div>
+    
+
+<section class="page-banner">
+    <div class="container">
+        <h1 class="reveal">Text Case Converter</h1>
+        <p class="reveal" style="transition-delay:0.1s">Convert text between different cases.</p>
+    </div>
+</section>
+
+<section class="tool-section">
+    <div class="container">
+        <div class="tool-container reveal">
+            
+<div class="tool-input-group">
+    <label for="tccInput">Enter Your Text</label>
+    <textarea id="tccInput" placeholder="Type or paste your text here..." style="min-height:120px;resize:vertical"></textarea>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+    <button class="tool-btn" onclick="convertCase('upper')" style="font-size:13px;padding:8px 14px">UPPERCASE</button>
+    <button class="tool-btn" onclick="convertCase('lower')" style="font-size:13px;padding:8px 14px">lowercase</button>
+    <button class="tool-btn" onclick="convertCase('title')" style="font-size:13px;padding:8px 14px">Title Case</button>
+    <button class="tool-btn" onclick="convertCase('sentence')" style="font-size:13px;padding:8px 14px">Sentence case</button>
+    <button class="tool-btn" onclick="convertCase('camel')" style="font-size:13px;padding:8px 14px">camelCase</button>
+    <button class="tool-btn" onclick="convertCase('snake')" style="font-size:13px;padding:8px 14px">snake_case</button>
+    <button class="tool-btn" onclick="convertCase('kebab')" style="font-size:13px;padding:8px 14px">kebab-case</button>
+    <button class="tool-btn-secondary" onclick="copyTCC()" style="font-size:13px;padding:8px 14px">Copy Result</button>
+</div>
+<div class="tool-input-group" style="margin-top:20px">
+    <label for="tccOutput">Result</label>
+    <textarea id="tccOutput" readonly style="min-height:120px;resize:vertical;background:#f8f8f6;font-weight:500"></textarea>
+</div>
+
+        </div>
+    </div>
+</section>
+
+<section class="info-section-page">
+    <div class="container">
+        <h2 class="reveal">What Is the Text Case Converter?</h2>
+        <p class="reveal">The Text Case Converter is a versatile, free online tool that transforms the capitalization of your text into seven different formats instantly. Whether you need to convert an entire document to uppercase for emphasis, format a title in proper title case, create snake_case variable names for programming, or generate playful alternating case text for social media, this tool handles it all with a single click. Manual case conversion is tedious and error-prone, especially for long documents. Our converter eliminates this busywork by providing instant, accurate transformations that preserve your original content while changing only the letter casing. With a clean interface and one-click copy functionality, it is an essential productivity tool for writers, developers, students, marketers, and anyone who works with text.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Why Use a Text Case Converter?</h2>
+        <p class="reveal">Different contexts demand different text capitalization conventions. Academic titles use title case. Programming variables use snake_case or camelCase. Legal documents often use uppercase for emphasis. Social media posts might use alternating case for stylistic effect. Email subject lines benefit from sentence case. Manually converting text between these formats is time-consuming and introduces errors: missed letters, inconsistent application, and simple oversight. Our Text Case Converter automates this process entirely, applying consistent transformations across any amount of text. For developers formatting code, editors preparing manuscripts, students writing papers, and content creators managing multiple platforms, this tool saves valuable time and ensures accuracy.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Key Features</h2>
+        <ul>
+            <li class="reveal"><strong>7 Conversion Modes</strong> - Sentence case, lowercase, UPPERCASE, Title Case, aLtErNaTiNg CaSe, iNVERSE cASE, and snake_case</li>
+            <li class="reveal"><strong>Instant Transformation</strong> - Click any button for immediate results</li>
+            <li class="reveal"><strong>One-Click Copy</strong> - Copy converted text to clipboard with a single button</li>
+            <li class="reveal"><strong>No Character Limit</strong> - Works with any amount of text, from a single word to an entire document</li>
+            <li class="reveal"><strong>Special Character Preservation</strong> - Numbers, symbols, punctuation, and formatting remain unchanged</li>
+            <li class="reveal"><strong>Clean Interface</strong> - Simple input and output areas with clearly labeled conversion buttons</li>
+            <li class="reveal"><strong>Browser-Based</strong> - No installation required, works on any device</li>
+            <li class="reveal"><strong>Completely Free</strong> - No registration, no fees, no usage limits</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">How the Tool Works</h2>
+        <p class="reveal">The Text Case Converter uses JavaScript string manipulation methods to transform text entirely within your browser. Each conversion button triggers a specific transformation algorithm. Sentence case capitalizes the first letter and lowercases the rest. Lowercase converts all letters to lowercase. Uppercase converts all letters to uppercase. Title case capitalizes the first letter of each word. Alternating case (also known as sponge case or mockery case) alternates between lowercase and uppercase for each letter. Inverse case (also known as tOGGLE cASE) flips the case of each individual letter, uppercase becomes lowercase and vice versa. Snake_case converts all letters to lowercase and replaces spaces with underscores. All transformations preserve non-alphabetic characters, numbers, punctuation, and whitespace exactly as they appear in the original text.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Step-by-Step Guide to Using the Tool</h2>
+        <p class="reveal"><strong>Step 1:</strong> Navigate to the Text Case Converter page. You will see an input text area and seven conversion buttons.</p>
+        <p class="reveal"><strong>Step 2:</strong> Type or paste your text into the input area at the top.</p>
+        <p class="reveal"><strong>Step 3:</strong> Click the conversion button that matches your desired output format.</p>
+        <p class="reveal"><strong>Step 4:</strong> The converted text appears in the output area below the buttons.</p>
+        <p class="reveal"><strong>Step 5:</strong> Click "Copy Result" to copy the converted text to your clipboard for pasting elsewhere.</p>
+        <p class="reveal"><strong>Step 6:</strong> Repeat with different buttons to explore various case formats for your text.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Real-Life Use Cases</h2>
+        <p class="reveal"><strong>Programming and Development:</strong> Developers frequently need to convert text between different naming conventions. Use snake_case for Python variables, UPPERCASE for constants and environment variables, and lowercase for CSS class names and URLs.</p>
+        <p class="reveal"><strong>Academic Writing:</strong> Students and researchers use title case for paper titles and headings, sentence case for body text, and uppercase for acronyms and emphasis. The converter ensures consistent formatting throughout documents.</p>
+        <p class="reveal"><strong>Content Creation:</strong> Bloggers and copywriters prepare content for multiple platforms. A blog title in title case might need to become lowercase for a URL slug, uppercase for a banner headline, and sentence case for social media posts.</p>
+        <p class="reveal"><strong>Legal Documentation:</strong> Legal professionals often need to convert clauses, definitions, and emphasis text to uppercase. The converter handles large legal documents efficiently.</p>
+        <p class="reveal"><strong>Social Media Marketing:</strong> Marketers use alternating case for playful, engaging posts that mimic internet meme culture and capture audience attention in crowded social feeds.</p>
+        <p class="reveal"><strong>Data Cleaning:</strong> Data analysts standardize text data in spreadsheets and databases. Converting all entries to consistent case (typically lowercase or uppercase) is a common preprocessing step.</p>
+        <p class="reveal"><strong>Translation Work:</strong> Translators often need to match the capitalization of source text precisely. The converter helps maintain consistent case formatting across languages.</p>
+        <p class="reveal"><strong>UI/UX Design:</strong> Designers preparing interface copy need different case conventions for buttons (UPPERCASE), labels (Title Case), and descriptions (Sentence case).</p>
+
+        <h2 class="reveal" style="margin-top:48px">Benefits of Using This Tool</h2>
+        <ul>
+            <li class="reveal"><strong>Saves Time</strong> - Convert entire documents in seconds instead of manual editing</li>
+            <li class="reveal"><strong>Eliminates Errors</strong> - Automated conversion ensures every letter is correctly transformed</li>
+            <li class="reveal"><strong>Multiple Formats</strong> - Seven case options cover virtually every formatting need</li>
+            <li class="reveal"><strong>Preserves Content</strong> - Only letter case changes, all other content remains intact</li>
+            <li class="reveal"><strong>Universal Access</strong> - Works on any device with a web browser</li>
+            <li class="reveal"><strong>Instant Results</strong> - No waiting, no page reloads</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">Tips for Best Results</h2>
+        <p class="reveal"><strong>Tip 1:</strong> Use Title Case for headlines, document titles, and navigation labels. It is the standard for most professional writing.</p>
+        <p class="reveal"><strong>Tip 2:</strong> Use UPPERCASE sparingly. In digital contexts, it is perceived as shouting. Reserve it for acronyms, warnings, and intentional emphasis.</p>
+        <p class="reveal"><strong>Tip 3:</strong> For programming, use snake_case for Python and Ruby variables, camelCase for JavaScript (convert manually after lowercasing), and UPPER_SNAKE_CASE for constants.</p>
+        <p class="reveal"><strong>Tip 4:</strong> After converting to snake_case, review the result. Multiple consecutive spaces become multiple underscores, which you may want to reduce to single underscores.</p>
+        <p class="reveal"><strong>Tip 5:</strong> The inverse case function is useful for fixing text that was accidentally typed with Caps Lock on.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Common Mistakes to Avoid</h2>
+        <p class="reveal"><strong>Mistake 1:</strong> Using the wrong case for your context. URLs should be lowercase. Legal definitions often need uppercase. Match the case to the convention.</p>
+        <p class="reveal"><strong>Mistake 2:</strong> Converting text that contains proper nouns or acronyms without review. Title case will capitalize all words, which may not be correct for names like "iPhone" or "eBay."</p>
+        <p class="reveal"><strong>Mistake 3:</strong> Applying uppercase to long passages. Readability drops significantly with extended uppercase text. Use it for short phrases only.</p>
+        <p class="reveal"><strong>Mistake 4:</strong> Not copying the result before navigating away. The tool does not auto-save, so copy your converted text before leaving the page.</p>
+        <p class="reveal"><strong>Mistake 5:</strong> Forgetting that snake_case replaces spaces with underscores but does not handle other whitespace characters. Clean your text first for best results.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Safety, Privacy, and Data Security</h2>
+        <p class="reveal">The Text Case Converter processes all text entirely within your web browser using JavaScript. Your text is never uploaded to any server, stored in any database, or transmitted over the internet. This means you can safely convert confidential documents, proprietary content, personal writing, and sensitive materials without any privacy concerns. Once you close or refresh the page, all text is cleared from memory. We do not track your conversions, do not use cookies for the tool functionality, and do not collect any usage analytics.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Comparison with Traditional Methods</h2>
+        <p class="reveal">Traditional text case conversion methods include manually retyping text in the desired case (extremely slow and error-prone), using word processor features like "Change Case" in Microsoft Word (limited options, requires software installation), using spreadsheet functions like PROPER(), UPPER(), and LOWER() (requires setup, limited to spreadsheet cells), and writing custom scripts (requires programming knowledge). Our Text Case Converter surpasses all these methods by offering seven different case formats in one free, accessible tool that requires no installation, works on any device, and processes any amount of text instantly.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Frequently Asked Questions (FAQs)</h2>
+        <h3 class="reveal">What case options are available?</h3>
+        <p class="reveal">The Text Case Converter offers seven transformation options: Sentence case (First letter capitalized, rest lowercase), lowercase (all letters lowercase), UPPERCASE (all letters uppercase), Title Case (First Letter Of Each Word Capitalized), aLtErNaTiNg CaSe (alternating uppercase and lowercase letters), iNVERSE cASE (each letter's case is flipped), and snake_case (all lowercase with spaces replaced by underscores).</p>
+        <h3 class="reveal">Is there a character limit?</h3>
+        <p class="reveal">There is no character limit. The tool can handle any amount of text, from a single word to a full-length novel. Performance is excellent even with thousands of words, as all processing happens locally in your browser.</p>
+        <h3 class="reveal">Does it work with special characters and numbers?</h3>
+        <p class="reveal">Yes, all text transformations preserve numbers, symbols, punctuation marks, emojis, whitespace, and special characters exactly as they appear in the original text. Only the case of alphabetic letters is modified.</p>
+        <h3 class="reveal">What is camelCase and does this tool support it?</h3>
+        <p class="reveal">camelCase is a naming convention where the first word is lowercase and subsequent words are capitalized without spaces, like thisIsCamelCase. While we do not have a dedicated camelCase button, you can achieve it by first converting to lowercase, then manually capitalizing the first letter of each word after the first.</p>
+        <h3 class="reveal">What is snake_case used for?</h3>
+        <p class="reveal">Snake_case is the standard naming convention in Python, Ruby, and many other programming languages. It uses lowercase letters with words separated by underscores, like this_is_snake_case. It is also commonly used in URL slugs, file naming systems, and database field names.</p>
+        <h3 class="reveal">When should I use alternating case?</h3>
+        <p class="reveal">Alternating case (also known as sponge text or mockery case) is primarily used for humorous or stylistic effect, particularly in internet culture and social media. It mimics a playful, sarcastic tone and is popular in memes and casual online communication.</p>
+        <h3 class="reveal">What is inverse case useful for?</h3>
+        <p class="reveal">Inverse case (also called tOGGLE cASE) flips the case of every letter. It is most commonly used to fix text that was accidentally typed with the Caps Lock key enabled, or for creative text styling effects.</p>
+        <h3 class="reveal">Can I use this tool for code refactoring?</h3>
+        <p class="reveal">Yes, developers frequently use the Text Case Converter when refactoring code. Convert variable names between conventions, standardize constant naming, or prepare string literals for different programming environments.</p>
+        <h3 class="reveal">Does Title Case follow specific grammar rules?</h3>
+        <p class="reveal">Our Title Case converter capitalizes the first letter of every word. Some style guides (like AP and Chicago) have specific rules about which small words (articles, prepositions, conjunctions) should remain lowercase in titles. You may need to manually adjust these after conversion.</p>
+        <h3 class="reveal">Can I convert text on my phone?</h3>
+        <p class="reveal">Yes, the Text Case Converter works on smartphones and tablets. The responsive layout adapts to smaller screens while maintaining all functionality.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Expert Tips and Best Practices</h2>
+        <p class="reveal"><strong>For Writers:</strong> Use Sentence case for body text and headings in most documents. Reserve Title Case for document titles, chapter headings, and navigation labels.</p>
+        <p class="reveal"><strong>For Developers:</strong> When converting to snake_case, pre-process your text to remove special characters that are not valid in variable names. Only letters, numbers, and underscores are typically allowed.</p>
+        <p class="reveal"><strong>For SEO:</strong> Use lowercase for URL slugs (convert spaces to hyphens rather than underscores for better SEO). Our snake_case converter uses underscores, so you may need to replace them with hyphens for URLs.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Troubleshooting Common Issues</h2>
+        <p class="reveal"><strong>Issue:</strong> Converted text does not appear in the output area.</p>
+        <p class="reveal"><strong>Solution:</strong> Ensure you have entered text in the input field and clicked one of the conversion buttons. If the issue persists, try refreshing the page.</p>
+        <p class="reveal"><strong>Issue:</strong> Copy button does not work.</p>
+        <p class="reveal"><strong>Solution:</strong> Select the text in the output area manually and use Ctrl+C (or Cmd+C on Mac) to copy. Some browsers may restrict clipboard access.</p>
+        <p class="reveal"><strong>Issue:</strong> snake_case has multiple consecutive underscores.</p>
+        <p class="reveal"><strong>Solution:</strong> This occurs when your input has multiple consecutive spaces or tabs. Clean your input text by removing extra whitespace before converting.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Conclusion</h2>
+        <p class="reveal">The Text Case Converter is an essential productivity tool that eliminates the tedious, error-prone task of manually changing text capitalization. With seven distinct case formats, instant processing, unlimited text capacity, and complete privacy protection, it serves the needs of writers, developers, students, marketers, and anyone who works with text. Whether you are formatting a research paper, refactoring code, preparing social media content, or cleaning data, this free tool delivers accurate, consistent results in seconds. Bookmark it today and transform your text formatting workflow forever.</p>
+    </div>
+</section>
+
+<section class="info-section-page alt">
+    <div class="container">
+        <h2 class="reveal">Related Tools</h2>
+        <div class="related-grid">
+            <a href="word-counter.html" class="related-card reveal"><div class="related-card-title">Word Counter</div><div class="related-card-desc">Count words</div></a><a href="character-counter.html" class="related-card reveal"><div class="related-card-title">Character Counter</div><div class="related-card-desc">Char analysis</div></a><a href="password-generator.html" class="related-card reveal"><div class="related-card-title">Password Generator</div><div class="related-card-desc">Create passwords</div></a><a href="qr-code-generator.html" class="related-card reveal"><div class="related-card-title">QR Code Generator</div><div class="related-card-desc">Create QR codes</div></a>
+        </div>
+    </div>
+</section>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">Mega-<span>Store.in</span></div>
+                    <p class="footer-desc">Your one-stop destination for 25+ free online tools. Calculators, generators, converters, and utilities designed to simplify your daily tasks.</p>
+                    <p class="footer-email">megastoresupport@gmail.com</p>
+                </div>
+                <div>
+                    <div class="footer-col-title">Tools</div>
+                    <ul class="footer-links">
+                        <li><a href="emi-calculator.html">EMI Calculator</a></li>
+                        <li><a href="password-generator.html">Password Generator</a></li>
+                        <li><a href="word-counter.html">Word Counter</a></li>
+                        <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+                        <li><a href="qr-code-generator.html">QR Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms and Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="cookie.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                &copy; 2026 Mega-Store.in All rights reserved. All tools are free to use.
+            </div>
+        </div>
+    </footer>
+    
+
+<script>
+
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        function openMobileNav() {
+            mobileNav.classList.add('open');
+            mobileOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileNav() {
+            mobileNav.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if(hamburger){ hamburger.addEventListener('click', openMobileNav); }
+        if(mobileClose){ mobileClose.addEventListener('click', closeMobileNav); }
+        if(mobileOverlay){ mobileOverlay.addEventListener('click', closeMobileNav); }
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active nav link
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.navbar-links a, .mobile-nav a').forEach(link => {
+            if(link.getAttribute('href') === currentPath || (currentPath === '' && link.getAttribute('href') === 'index.html')){
+                link.classList.add('active');
+            }
+        });
+    
+
+function convertCase(type) {
+    const text = document.getElementById('tccInput').value;
+    if(!text) return;
+    let result = text;
+
+    switch(type) {
+        case 'upper': result = text.toUpperCase(); break;
+        case 'lower': result = text.toLowerCase(); break;
+        case 'title':
+            result = text.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+            break;
+        case 'sentence':
+            result = text.toLowerCase().replace(/(\s*\w|^[\w])/g, c => c.toUpperCase());
+            break;
+        case 'camel':
+            result = text.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, c) => c.toUpperCase());
+            result = result.charAt(0).toLowerCase() + result.slice(1);
+            break;
+        case 'snake':
+            result = text.replace(/\W+/g, ' ').trim().toLowerCase().replace(/\s+/g, '_');
+            break;
+        case 'kebab':
+            result = text.replace(/\W+/g, ' ').trim().toLowerCase().replace(/\s+/g, '-');
+            break;
+    }
+    document.getElementById('tccOutput').value = result;
+}
+
+function copyTCC() {
+    const out = document.getElementById('tccOutput');
+    if(!out.value) return;
+    out.select();
+    document.execCommand('copy');
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = orig, 1500);
+}
+
+</script>
+
+</body>
+</html>

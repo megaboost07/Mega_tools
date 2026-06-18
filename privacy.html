@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Mega-Store.in | Data Protection & User Privacy</title>
+    <meta name="description" content="MegaStore.in Privacy Policy - Learn how we protect your data. All tool processing happens in your browser. We do not collect or store personal information.">
+    <meta name="keywords" content="MegaStore privacy policy, data protection, user privacy, cookie policy">
+    <link rel="canonical" href="https://mega-store.in/privacy.html">
+    <meta name="author" content="MEGA STORE">
+    <meta property="og:site_name" content="MEGA STORE">
+    <meta property="og:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <meta name="twitter:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <link rel="icon" href="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+        
+    <style>
+
+        :root {
+            --deep-ink: #0B0F19;
+            --alabaster: #F4F5F0;
+            --muted-moss: #7A7C6D;
+            --aged-brass: #9E8B6F;
+            --light-fog: #E8E9E4;
+            --pure-white: #FFFFFF;
+            --dark-surface: #121620;
+            --border-light: rgba(11,15,25,0.08);
+            --border-medium: rgba(11,15,25,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        input, textarea, select, button {
+            font-family: inherit;
+            font-size: inherit;
+        }
+        button { cursor: pointer; border: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
+        @media(min-width:768px){ .container { padding: 0 8vw; } }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            z-index: 1000;
+            background: rgba(11,15,25,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+            letter-spacing: -0.02em;
+        }
+        .navbar-brand span { color: var(--aged-brass); }
+        .navbar-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+        .navbar-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        .navbar-links a:hover, .navbar-links a.active { color: var(--alabaster); }
+        .navbar-cta {
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .navbar-cta:hover { background: #b09b7e; }
+        .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--alabaster);
+            border-radius: 1px;
+        }
+
+        /* Mobile nav */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--deep-ink);
+            padding: 80px 32px 32px;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        .mobile-nav.open { transform: translateX(0); }
+        .mobile-nav-overlay.open { display: block; }
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: var(--alabaster);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 28px;
+            color: var(--alabaster);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--deep-ink);
+            padding: 64px 0 32px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+        }
+        @media(max-width:768px){
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        @media(max-width:480px){
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        .footer-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+        }
+        .footer-brand span { color: var(--aged-brass); }
+        .footer-desc {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--muted-moss);
+            line-height: 1.7;
+        }
+        .footer-email {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--aged-brass);
+        }
+        .footer-col-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--alabaster);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--alabaster); }
+        .footer-divider {
+            height: 1px;
+            background: rgba(244,245,240,0.08);
+            margin: 40px 0;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted-moss);
+        }
+
+        /* Responsive */
+        @media(max-width:768px){
+            .navbar-links { display: none; }
+            .hamburger { display: flex; }
+        }
+        @media(min-width:769px){
+            .mobile-nav, .mobile-nav-overlay { display: none !important; }
+        }
+    
+        .page-banner {
+            background: linear-gradient(135deg, var(--deep-ink) 0%, var(--dark-surface) 100%);
+            padding: 140px 0 80px;
+            text-align: center;
+        }
+        .page-banner h1 {
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 800;
+            color: var(--alabaster);
+        }
+        .page-banner p {
+            font-size: 17px;
+            color: var(--muted-moss);
+            margin-top: 12px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .content-section {
+            background: var(--alabaster);
+            padding: 80px 0;
+        }
+        .content-section .container {
+            max-width: 800px;
+        }
+        .content-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--deep-ink);
+            margin-bottom: 16px;
+            margin-top: 48px;
+        }
+        .content-section h2:first-child {
+            margin-top: 0;
+        }
+        .content-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 10px;
+            margin-top: 28px;
+        }
+        .content-section p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+        .content-section ul {
+            margin: 14px 0;
+            padding-left: 24px;
+        }
+        .content-section li {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .content-section strong {
+            color: var(--deep-ink);
+            font-weight: 600;
+        }
+        .highlight-box {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-left: 4px solid var(--aged-brass);
+            border-radius: 10px;
+            padding: 28px;
+            margin: 28px 0;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Mega-<span>Store.in</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html" class="">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="about.html" class="">About Us</a></li>
+                <li><a href="contact.html" class="">Contact Us</a></li>
+                <li><a href="privacy.html" class="active">Privacy Policy</a></li>
+                <li><a href="terms.html" class="">Terms</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-close" id="mobileClose">&times;</div>
+        <a href="index.html">Home</a>
+        <a href="index.html#tools">Tools</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="cookie.html">Cookie Policy</a>
+    </div>
+    
+
+<section class="page-banner">
+    <div class="container">
+        <h1 class="reveal">Privacy Policy</h1>
+        <p class="reveal" style="transition-delay:0.1s">Last updated: may 1, 2026</p>
+    </div>
+</section>
+
+<section class="content-section">
+    <div class="container">
+        <div class="highlight-box reveal">
+            <p><strong>Privacy Summary:</strong> Mega-Store.in is a privacy-first platform. All tool processing happens entirely in your browser. We do not collect, store, or transmit your personal data or tool inputs to any server. Your data never leaves your device.</p>
+        </div>
+
+        <h2 class="reveal">1. Introduction</h2>
+        <p class="reveal">Welcome to Mega-Store.in. We respect your privacy and are committed to protecting it through our compliance with this policy. This Privacy Policy describes the types of information we may collect from you or that you may provide when you visit our website, and our practices for collecting, using, maintaining, protecting, and disclosing that information.</p>
+        <p class="reveal">Please read this policy carefully to understand our policies and practices regarding your information and how we will treat it. By accessing or using this website, you agree to this privacy policy.</p>
+
+        <h2 class="reveal">2. Information We Collect</h2>
+        <h3 class="reveal">2.1 Information You Provide to Us</h3>
+        <p class="reveal">When you contact us through our contact form, we collect the information you voluntarily provide, including your name, email address, subject, and message content. This information is used solely to respond to your inquiry and is never shared with third parties.</p>
+
+        <h3 class="reveal">2.2 Information We Do NOT Collect</h3>
+        <p class="reveal">Importantly, Mega-Store.in does not collect or store any data you input into our tools. All calculations, conversions, and processing happen entirely within your web browser. When you use our EMI calculator, password generator, word counter, or any other tool, your input data is processed locally and never transmitted to our servers.</p>
+
+        <h3 class="reveal">2.3 Automatically Collected Information</h3>
+        <p class="reveal">Like most websites, we may collect certain information automatically when you visit our site, including:</p>
+        <ul>
+            <li class="reveal">Your IP address (anonymized)</li>
+            <li class="reveal">Browser type and version</li>
+            <li class="reveal">Operating system</li>
+            <li class="reveal">Pages visited and time spent</li>
+            <li class="reveal">Referring website addresses</li>
+            <li class="reveal">Device type (desktop, mobile, tablet)</li>
+        </ul>
+        <p class="reveal">This information is collected solely for the purpose of improving our website and user experience. We do not use this information to identify individual users.</p>
+
+        <h2 class="reveal">3. Cookies and Similar Technologies</h2>
+        <p class="reveal">MegaStore.in uses cookies and similar tracking technologies to enhance your browsing experience. Cookies are small data files that are placed on your device when you visit a website.</p>
+
+        <h3 class="reveal">3.1 Types of Cookies We Use</h3>
+        <p class="reveal"><strong>Essential Cookies:</strong> These cookies are necessary for the website to function properly. They enable core functionality such as page navigation and access to secure areas. The website cannot function properly without these cookies.</p>
+        <p class="reveal"><strong>Analytics Cookies:</strong> We use analytics cookies to understand how visitors interact with our website. These cookies help us analyze data about webpage traffic and improve our website. All data collected is aggregated and anonymous.</p>
+        <p class="reveal"><strong>Preference Cookies:</strong> These cookies allow the website to remember choices you make (such as your preferred language) and provide enhanced, more personal features.</p>
+
+        <h3 class="reveal">3.2 Managing Cookies</h3>
+        <p class="reveal">Most web browsers allow you to control cookies through their settings preferences. You can set your browser to refuse all or some browser cookies, or to alert you when websites set or access cookies. If you disable or refuse cookies, please note that some parts of this website may become inaccessible or not function properly.</p>
+
+        <h2 class="reveal">4. How We Use Your Information</h2>
+        <p class="reveal">We use the information we collect about you for the following purposes:</p>
+        <ul>
+            <li class="reveal">To provide, maintain, and improve our website and tools</li>
+            <li class="reveal">To respond to your inquiries and support requests</li>
+            <li class="reveal">To analyze usage patterns and optimize user experience</li>
+            <li class="reveal">To detect and prevent technical issues and security threats</li>
+            <li class="reveal">To communicate updates, improvements, or new tool announcements (if you have subscribed)</li>
+        </ul>
+
+        <h2 class="reveal">5. Analytics</h2>
+        <p class="reveal">We use third-party analytics services to help us understand how visitors engage with our website. These services may use cookies and similar technologies to collect and analyze information about your use of our site. The information collected is aggregated and does not identify individual users.</p>
+        <p class="reveal">Our analytics providers are committed to using the information they collect on our behalf only for the purposes described in this privacy policy. We do not share any personal information with analytics providers beyond the automatically collected technical data described above.</p>
+
+        <h2 class="reveal">6. Advertising</h2>
+        <p class="reveal">Mega-Store.in may display advertisements to support the free availability of our tools. We use third-party advertising companies to serve ads when you visit our website. These companies may use information about your visits to this and other websites to provide advertisements about goods and services of interest to you.</p>
+        <p class="reveal">We do not share any personally identifiable information with advertisers. All advertising is targeted based on anonymized browsing patterns and context (the page content you are viewing), not personal profiles.</p>
+        <p class="reveal">If you would like more information about this practice and to know your choices about not having this information used by these companies, please visit the Digital Advertising Alliance or Network Advertising Initiative websites.</p>
+
+        <h2 class="reveal">7. Third-Party Services</h2>
+        <p class="reveal">Our website may contain links to third-party websites, services, or resources that are not owned or controlled by MegaStore.in. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services.</p>
+        <p class="reveal">We strongly advise you to review the privacy policy of every site you visit. We are not responsible for any damage or loss caused by or in connection with the use of any third-party content, goods, or services.</p>
+
+        <h2 class="reveal">8. Data Security</h2>
+        <p class="reveal">We implement appropriate technical and organizational measures to protect the information we collect and maintain. However, please be aware that no method of transmission over the internet or method of electronic storage is 100% secure.</p>
+        <p class="reveal">Given our privacy-first architecture where tool data never leaves your browser, the security risks associated with using our tools are minimal. We cannot access, and therefore cannot lose or misuse, any data you enter into our calculators and generators.</p>
+
+        <h2 class="reveal">9. Data Retention</h2>
+        <p class="reveal">We retain any information collected through our contact form for as long as necessary to respond to your inquiry and for a reasonable period thereafter for record-keeping purposes. Analytics data is retained in aggregated form indefinitely.</p>
+        <p class="reveal">As we do not collect tool input data, there is no data retention policy applicable to tool usage. All tool inputs are ephemeral and exist only in your browser during your session.</p>
+
+        <h2 class="reveal">10. Children's Privacy</h2>
+        <p class="reveal">Our website is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact us at megastoresupport@gmail.com.</p>
+        <p class="reveal">If we become aware that we have collected personal information from children under 13 without verification of parental consent, we take steps to remove that information from our servers.</p>
+
+        <h2 class="reveal">11. Your Rights</h2>
+        <p class="reveal">Depending on your location, you may have certain rights regarding your personal information, including:</p>
+        <ul>
+            <li class="reveal"><strong>Right to Access:</strong> You have the right to request copies of your personal information.</li>
+            <li class="reveal"><strong>Right to Rectification:</strong> You have the right to request that we correct any information you believe is inaccurate.</li>
+            <li class="reveal"><strong>Right to Erasure:</strong> You have the right to request that we erase your personal information.</li>
+            <li class="reveal"><strong>Right to Restrict Processing:</strong> You have the right to request that we restrict the processing of your personal information.</li>
+            <li class="reveal"><strong>Right to Object:</strong> You have the right to object to our processing of your personal information.</li>
+            <li class="reveal"><strong>Right to Data Portability:</strong> You have the right to request that we transfer the data we have collected to another organization.</li>
+        </ul>
+        <p class="reveal">To exercise any of these rights, please contact us at megastoresupport@gmail.com.</p>
+
+        <h2 class="reveal">12. International Data Transfers</h2>
+        <p class="reveal">Your information may be transferred to and maintained on computers located outside of your state, province, country, or other governmental jurisdiction where data protection laws may differ. If you are located outside India and choose to provide information to us, please note that we transfer the data to India and process it there.</p>
+
+        <h2 class="reveal">13. Changes to This Privacy Policy</h2>
+        <p class="reveal">We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date at the top of this policy.</p>
+        <p class="reveal">You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
+
+        <h2 class="reveal">14. Contact Us</h2>
+        <p class="reveal">If you have any questions about this Privacy Policy, please contact us:</p>
+        <ul>
+            <li class="reveal">By email: megastoresupport@gmail.com</li>
+            <li class="reveal">By visiting our contact page: <a href="contact.html" style="color:var(--aged-brass)">mega-store.in/contact</a></li>
+        </ul>
+    </div>
+</section>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">Mega-<span>Store.in</span></div>
+                    <p class="footer-desc">Your one-stop destination for 25+ free online tools. Calculators, generators, converters, and utilities designed to simplify your daily tasks.</p>
+                    <p class="footer-email">megastoresupport@gmail.com</p>
+                </div>
+                <div>
+                    <div class="footer-col-title">Tools</div>
+                    <ul class="footer-links">
+                        <li><a href="emi-calculator.html">EMI Calculator</a></li>
+                        <li><a href="password-generator.html">Password Generator</a></li>
+                        <li><a href="word-counter.html">Word Counter</a></li>
+                        <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+                        <li><a href="qr-code-generator.html">QR Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms and Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="cookie.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                &copy; 2026 Mega-Store.in All rights reserved. All tools are free to use.
+            </div>
+        </div>
+    </footer>
+    
+
+<script>
+
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        function openMobileNav() {
+            mobileNav.classList.add('open');
+            mobileOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileNav() {
+            mobileNav.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if(hamburger){ hamburger.addEventListener('click', openMobileNav); }
+        if(mobileClose){ mobileClose.addEventListener('click', closeMobileNav); }
+        if(mobileOverlay){ mobileOverlay.addEventListener('click', closeMobileNav); }
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active nav link
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.navbar-links a, .mobile-nav a').forEach(link => {
+            if(link.getAttribute('href') === currentPath || (currentPath === '' && link.getAttribute('href') === 'index.html')){
+                link.classList.add('active');
+            }
+        });
+    
+</script>
+
+</body>
+</html>

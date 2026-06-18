@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter - Count Words, Characters & More | Mega-Store.in</title>
+    <meta name="description" content="Count words, characters, sentences, and paragraphs in real-time. Includes reading time estimate. Perfect for writers, students, and content creators.">
+    <meta name="keywords" content="word counter, count words, character counter, text counter, reading time">
+    <link rel="canonical" href="https://mega-store.in/word-counter.html">
+    <meta property="og:title" content="Word Counter - Count Words, Characters & More | MegaStore.in">
+    <meta property="og:description" content="Count words, characters, sentences, and paragraphs in real-time. Includes reading time estimate. Perfect for writers, students, and content creators.">
+    <meta property="og:url" content="https://mega-store.in/word-counter.html">
+    <meta name="author" content="MEGA STORE">
+    <meta property="og:site_name" content="MEGA STORE">
+    <meta property="og:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <meta name="twitter:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <link rel="icon" href="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+        
+    <style>
+
+        :root {
+            --deep-ink: #0B0F19;
+            --alabaster: #F4F5F0;
+            --muted-moss: #7A7C6D;
+            --aged-brass: #9E8B6F;
+            --light-fog: #E8E9E4;
+            --pure-white: #FFFFFF;
+            --dark-surface: #121620;
+            --border-light: rgba(11,15,25,0.08);
+            --border-medium: rgba(11,15,25,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        input, textarea, select, button {
+            font-family: inherit;
+            font-size: inherit;
+        }
+        button { cursor: pointer; border: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
+        @media(min-width:768px){ .container { padding: 0 8vw; } }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            z-index: 1000;
+            background: rgba(11,15,25,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+            letter-spacing: -0.02em;
+        }
+        .navbar-brand span { color: var(--aged-brass); }
+        .navbar-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+        .navbar-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        .navbar-links a:hover, .navbar-links a.active { color: var(--alabaster); }
+        .navbar-cta {
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .navbar-cta:hover { background: #b09b7e; }
+        .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--alabaster);
+            border-radius: 1px;
+        }
+
+        /* Mobile nav */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--deep-ink);
+            padding: 80px 32px 32px;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        .mobile-nav.open { transform: translateX(0); }
+        .mobile-nav-overlay.open { display: block; }
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: var(--alabaster);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 28px;
+            color: var(--alabaster);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--deep-ink);
+            padding: 64px 0 32px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+        }
+        @media(max-width:768px){
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        @media(max-width:480px){
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        .footer-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+        }
+        .footer-brand span { color: var(--aged-brass); }
+        .footer-desc {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--muted-moss);
+            line-height: 1.7;
+        }
+        .footer-email {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--aged-brass);
+        }
+        .footer-col-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--alabaster);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--alabaster); }
+        .footer-divider {
+            height: 1px;
+            background: rgba(244,245,240,0.08);
+            margin: 40px 0;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted-moss);
+        }
+
+        /* Responsive */
+        @media(max-width:768px){
+            .navbar-links { display: none; }
+            .hamburger { display: flex; }
+        }
+        @media(min-width:769px){
+            .mobile-nav, .mobile-nav-overlay { display: none !important; }
+        }
+    
+        .page-banner {
+            background: linear-gradient(135deg, var(--deep-ink) 0%, var(--dark-surface) 100%);
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+        .page-banner h1 {
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 800;
+            color: var(--alabaster);
+            line-height: 1.2;
+        }
+        .page-banner p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            margin-top: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tool-section {
+            background: var(--alabaster);
+            padding: 60px 0;
+        }
+        .tool-container {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        @media(max-width:768px){ .tool-container { padding: 24px; } }
+        .tool-input-group {
+            margin-bottom: 20px;
+        }
+        .tool-input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 6px;
+        }
+        .tool-input-group input,
+        .tool-input-group select,
+        .tool-input-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            transition: border-color 0.3s ease;
+        }
+        .tool-input-group input:focus,
+        .tool-input-group select:focus,
+        .tool-input-group textarea:focus {
+            outline: none;
+            border-color: var(--aged-brass);
+        }
+        .tool-input-group .input-prefix {
+            position: relative;
+        }
+        .tool-input-group .prefix {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-prefix input {
+            padding-left: 44px;
+        }
+        .tool-input-group .suffix {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-suffix input {
+            padding-right: 56px;
+        }
+        .tool-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .tool-btn:hover { background: #b09b7e; }
+        .tool-btn-secondary {
+            display: inline-block;
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--deep-ink);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 8px;
+        }
+        .tool-btn-secondary:hover { border-color: var(--aged-brass); }
+        .tool-result {
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--light-fog);
+            border-radius: 10px;
+            border-left: 4px solid var(--aged-brass);
+            display: none;
+        }
+        .tool-result.show { display: block; }
+        .tool-result-label {
+            font-size: 13px;
+            color: var(--muted-moss);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .tool-result-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--deep-ink);
+        }
+        .tool-result-detail {
+            font-size: 14px;
+            color: var(--muted-moss);
+            margin-top: 8px;
+        }
+        .info-section-page {
+            background: var(--light-fog);
+            padding: 80px 0;
+        }
+        .info-section-page.alt { background: var(--alabaster); }
+        .info-section-page .container { max-width: 900px; }
+        .info-section-page h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--deep-ink);
+            margin-bottom: 20px;
+        }
+        .info-section-page h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 10px;
+            margin-top: 24px;
+        }
+        .info-section-page p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+        .info-section-page ul {
+            margin: 14px 0;
+            padding-left: 24px;
+        }
+        .info-section-page li {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .related-card {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .related-card:hover {
+            border-color: rgba(158,139,111,0.3);
+            transform: translateY(-3px);
+        }
+        .related-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--deep-ink);
+        }
+        .related-card-desc {
+            font-size: 13px;
+            color: var(--muted-moss);
+            margin-top: 4px;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .error-msg {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+        .error-msg.show { display: block; }
+    
+    </style>
+</head>
+<body>
+
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Mega-<span>Store.in</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html" class="">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="about.html" class="">About Us</a></li>
+                <li><a href="contact.html" class="">Contact Us</a></li>
+                <li><a href="privacy.html" class="">Privacy Policy</a></li>
+                <li><a href="terms.html" class="">Terms</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-close" id="mobileClose">&times;</div>
+        <a href="index.html">Home</a>
+        <a href="index.html#tools">Tools</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="cookie.html">Cookie Policy</a>
+    </div>
+    
+
+<section class="page-banner">
+    <div class="container">
+        <h1 class="reveal">Word Counter</h1>
+        <p class="reveal" style="transition-delay:0.1s">Count words, characters, sentences, and paragraphs.</p>
+    </div>
+</section>
+
+<section class="tool-section">
+    <div class="container">
+        <div class="tool-container reveal">
+            
+<div class="tool-input-group">
+    <label for="wcText">Enter Your Text</label>
+    <textarea id="wcText" placeholder="Type or paste your text here..." style="min-height:180px;resize:vertical" oninput="countWords()"></textarea>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-top:20px">
+    <div style="text-align:center;padding:16px;background:var(--alabaster);border-radius:10px">
+        <div style="font-size:28px;font-weight:800;color:var(--aged-brass)" id="wordCount">0</div>
+        <div style="font-size:12px;color:var(--muted-moss);text-transform:uppercase;letter-spacing:0.05em">Words</div>
+    </div>
+    <div style="text-align:center;padding:16px;background:var(--alabaster);border-radius:10px">
+        <div style="font-size:28px;font-weight:800;color:var(--aged-brass)" id="charCount">0</div>
+        <div style="font-size:12px;color:var(--muted-moss);text-transform:uppercase;letter-spacing:0.05em">Characters</div>
+    </div>
+    <div style="text-align:center;padding:16px;background:var(--alabaster);border-radius:10px">
+        <div style="font-size:28px;font-weight:800;color:var(--aged-brass)" id="charNoSpace">0</div>
+        <div style="font-size:12px;color:var(--muted-moss);text-transform:uppercase;letter-spacing:0.05em">No Spaces</div>
+    </div>
+    <div style="text-align:center;padding:16px;background:var(--alabaster);border-radius:10px">
+        <div style="font-size:28px;font-weight:800;color:var(--aged-brass)" id="sentenceCount">0</div>
+        <div style="font-size:12px;color:var(--muted-moss);text-transform:uppercase;letter-spacing:0.05em">Sentences</div>
+    </div>
+    <div style="text-align:center;padding:16px;background:var(--alabaster);border-radius:10px">
+        <div style="font-size:28px;font-weight:800;color:var(--aged-brass)" id="paraCount">0</div>
+        <div style="font-size:12px;color:var(--muted-moss);text-transform:uppercase;letter-spacing:0.05em">Paragraphs</div>
+    </div>
+    <div style="text-align:center;padding:16px;background:var(--alabaster);border-radius:10px">
+        <div style="font-size:28px;font-weight:800;color:var(--aged-brass)" id="readingTime">0s</div>
+        <div style="font-size:12px;color:var(--muted-moss);text-transform:uppercase;letter-spacing:0.05em">Read Time</div>
+    </div>
+</div>
+
+        </div>
+    </div>
+</section>
+
+<section class="info-section-page">
+    <div class="container">
+        <h2 class="reveal">What Is the Word Counter Tool?</h2>
+        <p class="reveal">The Word Counter is a comprehensive, free online text analysis tool that provides detailed statistics about your writing. Unlike basic word processors that only show a simple word count, this tool delivers a full breakdown of your text including word count, sentence count, paragraph count, estimated reading time, and speaking time. Whether you are a student writing an essay with a word limit, a blogger optimizing article length, a speechwriter timing a presentation, an author tracking manuscript progress, or a social media manager crafting posts within platform constraints, this tool gives you the precise metrics you need. With real-time analysis as you type, an intuitive clean interface, and complete privacy protection, the Word Counter is an indispensable writing companion.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Why Use a Word Counter?</h2>
+        <p class="reveal">Word counts matter in virtually every form of writing. Academic assignments specify minimum and maximum word limits that affect grades. SEO-optimized blog posts perform best within specific length ranges. Social media platforms impose character and word limits that determine what you can publish. Publishers and literary agents expect manuscripts within genre-appropriate word count ranges. Speakers need to know how long their script will take to deliver. Advertisers pay by the word. Our Word Counter not only tells you how many words you have written but also estimates reading time (crucial for web content) and speaking time (essential for presentations), giving you a complete picture of your text's dimensions. This multi-metric approach helps you tailor your writing precisely to your audience and medium.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Key Features</h2>
+        <ul>
+            <li class="reveal"><strong>Word Count</strong> - Accurate count of all words in your text, updated in real time as you type</li>
+            <li class="reveal"><strong>Sentence Count</strong> - Automatically counts sentences based on terminal punctuation (periods, exclamation marks, question marks)</li>
+            <li class="reveal"><strong>Paragraph Count</strong> - Counts paragraphs by detecting line breaks and blank lines</li>
+            <li class="reveal"><strong>Reading Time</strong> - Estimates how long an average reader will take to read your text, based on the standard 200 words per minute rate</li>
+            <li class="reveal"><strong>Speaking Time</strong> - Estimates presentation duration based on a speaking rate of 130 words per minute, appropriate for professional speeches</li>
+            <li class="reveal"><strong>Real-Time Processing</strong> - All metrics update instantly as you type or paste text</li>
+            <li class="reveal"><strong>Clean Interface</strong> - Distraction-free design focused on your writing and metrics</li>
+            <li class="reveal"><strong>Complete Privacy</strong> - All processing happens locally in your browser, text never leaves your device</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">How the Tool Works</h2>
+        <p class="reveal">The Word Counter uses JavaScript to analyze your text entirely within the browser. Word counting is performed by splitting the text on whitespace and filtering out empty strings, then counting the remaining tokens. Sentence counting uses a regular expression that matches terminal punctuation marks (periods, exclamation points, and question marks) followed by spaces or end of text. Paragraph counting splits the text on line breaks and counts non-empty segments. Reading time is calculated by dividing the word count by 200, the widely accepted average adult reading speed in words per minute. Speaking time divides the word count by 130, a standard rate for professional presentations that accounts for pauses and emphasis. All calculations happen in real time on every input event, providing immediate feedback as you write.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Step-by-Step Guide to Using the Tool</h2>
+        <p class="reveal"><strong>Step 1:</strong> Navigate to the Word Counter page. You will see a large text area and five metric cards displaying zero values.</p>
+        <p class="reveal"><strong>Step 2:</strong> Type your text directly into the text area or paste content from another source using Ctrl+V (Cmd+V on Mac).</p>
+        <p class="reveal"><strong>Step 3:</strong> Watch the statistics update in real time. Five metric cards display your word count, sentence count, paragraph count, reading time, and speaking time.</p>
+        <p class="reveal"><strong>Step 4:</strong> Continue writing or editing. All metrics update automatically to reflect changes.</p>
+        <p class="reveal"><strong>Step 5:</strong> Use the reading time and speaking time estimates to ensure your content fits your delivery medium.</p>
+        <p class="reveal"><strong>Step 6:</strong> When finished, select and copy your text from the text area for use in your final document.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Real-Life Use Cases</h2>
+        <p class="reveal"><strong>Academic Writing:</strong> Students use the Word Counter to ensure essays, reports, and assignments meet specified word count requirements. The sentence and paragraph counts help assess essay structure and organization.</p>
+        <p class="reveal"><strong>Blogging and Content Marketing:</strong> Bloggers optimize article length for SEO (typically 1,500-2,500 words for best search performance). The reading time estimate helps writers create content that matches audience attention spans.</p>
+        <p class="reveal"><strong>Speech Writing:</strong> Speechwriters use the speaking time estimate to ensure presentations fit within allocated time slots. A 10-minute speech should be approximately 1,300 words at the standard speaking rate.</p>
+        <p class="reveal"><strong>Social Media Management:</strong> Social media managers check word counts to ensure posts fit platform constraints and optimize for engagement. Different platforms favor different content lengths.</p>
+        <p class="reveal"><strong>Novel and Manuscript Writing:</strong> Authors track manuscript progress against genre expectations (novels typically 50,000-100,000+ words). The paragraph count helps monitor pacing and structure.</p>
+        <p class="reveal"><strong>Journalism:</strong> Reporters write articles to fit publication word limits. News articles typically range from 300-800 words, while feature pieces may extend to 2,000+ words.</p>
+        <p class="reveal"><strong>Legal Writing:</strong> Lawyers and paralegals draft briefs, motions, and contracts that often have court-imposed page or word limits. Precise counting ensures compliance.</p>
+        <p class="reveal"><strong>Translation Work:</strong> Translators use word counts to estimate project scope and pricing. Many translation services charge per word, making accurate counts essential for quotes.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Benefits of Using This Tool</h2>
+        <ul>
+            <li class="reveal"><strong>Multi-Metric Analysis</strong> - Five different metrics give you a complete picture of your text</li>
+            <li class="reveal"><strong>Real-Time Feedback</strong> - Watch counts update as you type without any delay</li>
+            <li class="reveal"><strong>Time Estimates</strong> - Reading and speaking times help you tailor content to your medium</li>
+            <li class="reveal"><strong>Zero Distractions</strong> - Clean interface keeps you focused on writing</li>
+            <li class="reveal"><strong>Universal Access</strong> - Works on any device with a web browser</li>
+            <li class="reveal"><strong>Complete Privacy</strong> - Your writing never leaves your device</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">Tips for Best Results</h2>
+        <p class="reveal"><strong>Tip 1:</strong> For SEO blog posts, aim for 1,500-2,500 words. This length performs best in search engine rankings while remaining readable.</p>
+        <p class="reveal"><strong>Tip 2:</strong> When writing speeches, plan for 130 words per minute. A 5-minute speech should be approximately 650 words, and a 20-minute keynote around 2,600 words.</p>
+        <p class="reveal"><strong>Tip 3:</strong> Average reading time of 200 WPM assumes focused reading. For dense technical or academic content, readers may slow to 150 WPM or less.</p>
+        <p class="reveal"><strong>Tip 4:</strong> The paragraph count helps assess visual readability for web content. Aim for paragraphs of 2-4 sentences for online audiences.</p>
+        <p class="reveal"><strong>Tip 5:</strong> Use the sentence count to check writing variety. Average sentence length of 15-20 words is considered good for most audiences.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Common Mistakes to Avoid</h2>
+        <p class="reveal"><strong>Mistake 1:</strong> Confusing word count with character count. Word count counts words separated by spaces. Character count counts every letter, space, and punctuation mark. Use our Character Counter if you need character-level analysis.</p>
+        <p class="reveal"><strong>Mistake 2:</strong> Ignoring reading time for web content. A 3,000-word article requires 15 minutes to read. Many web visitors spend less than 2 minutes on a page, so consider breaking long content into sections.</p>
+        <p class="reveal"><strong>Mistake 3:</strong> Assuming speaking time equals reading time. People read silently much faster (200 WPM) than they speak (130 WPM). Always use the appropriate estimate for your context.</p>
+        <p class="reveal"><strong>Mistake 4:</strong> Not accounting for pauses in speeches. The 130 WPM speaking rate includes brief pauses, but dramatic pauses, audience interaction, and Q&A sessions add significant time.</p>
+        <p class="reveal"><strong>Mistake 5:</strong> Forgetting that different languages have different word lengths. The reading time estimate is calibrated for English text and may not be accurate for other languages.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Safety, Privacy, and Data Security</h2>
+        <p class="reveal">The Word Counter processes all text entirely within your web browser using JavaScript. Your writing is never uploaded to any server, stored in any database, or transmitted over the internet. This means you can confidently use the tool for sensitive documents, confidential business communications, personal journaling, academic work, and proprietary content without any privacy concerns. Once you close or refresh the page, all text is cleared from memory. We do not track your word counts, do not use cookies for the tool functionality, and do not collect any usage analytics on your writing.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Comparison with Traditional Methods</h2>
+        <p class="reveal">Traditional word counting methods include using Microsoft Word's built-in word count (requires software installation, limited metrics), Google Docs word count (requires account and internet, limited metrics), manual counting (impractical and inaccurate), and command-line tools (requires technical knowledge). Our Word Counter offers advantages over all these methods: it provides more metrics than most alternatives (words, sentences, paragraphs, reading time, speaking time), requires no software installation or account, works on any device, processes everything locally for privacy, and updates in real time as you type. For writers who need comprehensive text analytics in a simple, accessible format, our tool is the ideal solution.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Frequently Asked Questions (FAQs)</h2>
+        <h3 class="reveal">How is the word count calculated?</h3>
+        <p class="reveal">The word count is calculated by splitting your text on whitespace characters (spaces, tabs, and line breaks) and counting the resulting non-empty tokens. This method accurately counts words across all standard text formats and handles multiple spaces and line breaks correctly.</p>
+        <h3 class="reveal">How are sentences counted?</h3>
+        <p class="reveal">Sentences are counted by detecting terminal punctuation marks (periods, exclamation points, and question marks) that are followed by a space or the end of the text. Abbreviations like "Dr." or "U.S.A." followed by spaces may be counted as sentence endings. For most standard writing, the count is highly accurate.</p>
+        <h3 class="reveal">How are paragraphs counted?</h3>
+        <p class="reveal">Paragraphs are counted by splitting the text on line break characters and counting the non-empty resulting segments. A blank line typically indicates a new paragraph. Single line breaks within a paragraph (word wrap) do not create new paragraph counts.</p>
+        <h3 class="reveal">How accurate are the reading and speaking time estimates?</h3>
+        <p class="reveal">Reading time is based on the widely accepted average adult reading speed of 200 words per minute. Speaking time uses 130 words per minute, which is a standard rate for professional presentations that includes natural pauses. These are averages; individual speeds vary based on content complexity, familiarity with the topic, and personal reading/speaking habits.</p>
+        <h3 class="reveal">Is there a word limit for this tool?</h3>
+        <p class="reveal">There is no hardcoded word limit. The tool can handle any practical amount of text, from a single word to an entire novel manuscript. Extremely large texts (hundreds of thousands of words) may cause minor browser performance impacts but will still process correctly.</p>
+        <h3 class="reveal">Does the tool count numbers as words?</h3>
+        <p class="reveal">Yes, number sequences separated by whitespace are counted as words. For example, "The year 2024" contains three words: "The", "year", and "2024".</p>
+        <h3 class="reveal">What is the difference between this and the Character Counter?</h3>
+        <p class="reveal">The Word Counter focuses on high-level text structure: words, sentences, paragraphs, and time estimates. It is ideal for writers, bloggers, and speakers. The Character Counter focuses on individual characters, their types (letters, digits, spaces, special), and frequency analysis. It is ideal for developers, social media managers dealing with character limits, and data analysts.</p>
+        <h3 class="reveal">Can I use this tool offline?</h3>
+        <p class="reveal">Yes, once the page is loaded, all processing happens locally in your browser. You can disconnect from the internet and continue using the tool without any issues.</p>
+        <h3 class="reveal">Does the tool work with non-English text?</h3>
+        <p class="reveal">Yes, the word counting algorithm works with any language that uses whitespace to separate words. Languages like Chinese, Japanese, and Thai that do not use spaces between words may not count accurately. The reading time estimate is calibrated for English and may need adjustment for other languages.</p>
+        <h3 class="reveal">Is my text saved or stored?</h3>
+        <p class="reveal">No. Your text is processed entirely in your browser and is never saved, stored, or transmitted. Once you close or refresh the page, all text is permanently cleared from memory.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Expert Tips and Best Practices</h2>
+        <p class="reveal"><strong>For Bloggers:</strong> The ideal blog post length for SEO is 1,500-2,500 words. Use the reading time estimate in your meta description ("5-minute read") to set reader expectations and improve click-through rates.</p>
+        <p class="reveal"><strong>For Students:</strong> Write 10-15% over your word limit initially, then edit down. It is easier to cut excess than to expand thin content. Aim for your final draft to be within 5% of the target.</p>
+        <p class="reveal"><strong>For Speakers:</strong> Always time yourself practicing the speech, do not rely solely on the estimate. Personal speaking rates vary significantly. Record yourself and adjust the script accordingly.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Troubleshooting Common Issues</h2>
+        <p class="reveal"><strong>Issue:</strong> Word count seems incorrect.</p>
+        <p class="reveal"><strong>Solution:</strong> Ensure there are no hidden characters or formatting codes in pasted text. Copy your text into a plain text editor first, then paste it here.</p>
+        <p class="reveal"><strong>Issue:</strong> Reading time estimate seems too fast or slow.</p>
+        <p class="reveal"><strong>Solution:</strong> The 200 WPM estimate is an average. Technical content may require 150 WPM, while light fiction can be read at 250+ WPM. Adjust proportionally for your content type.</p>
+        <p class="reveal"><strong>Issue:</strong> Tool is slow with very large text.</p>
+        <p class="reveal"><strong>Solution:</strong> For manuscripts over 50,000 words, consider working in chapters and using the tool on sections rather than the entire document at once.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Conclusion</h2>
+        <p class="reveal">The Word Counter is far more than a simple word counting utility. It is a comprehensive text analysis tool that provides writers, students, bloggers, speakers, and professionals with the multi-dimensional metrics they need to craft content that meets precise specifications. By offering word count, sentence count, paragraph count, reading time, and speaking time in a single, clean interface, it eliminates the need for multiple tools and calculations. With real-time processing, complete privacy protection, and universal accessibility, this free tool deserves a permanent place in every writer's digital toolkit. Whether you are meeting an academic deadline, optimizing a blog post for search engines, rehearsing a keynote presentation, or tracking your novel's progress, the Word Counter provides the insights you need to succeed. Bookmark it today and elevate your writing workflow.</p>
+    </div>
+</section>
+
+<section class="info-section-page alt">
+    <div class="container">
+        <h2 class="reveal">Related Tools</h2>
+        <div class="related-grid">
+            <a href="character-counter.html" class="related-card reveal"><div class="related-card-title">Character Counter</div><div class="related-card-desc">Detailed char analysis</div></a><a href="text-case-converter.html" class="related-card reveal"><div class="related-card-title">Text Case Converter</div><div class="related-card-desc">Change text case</div></a><a href="password-generator.html" class="related-card reveal"><div class="related-card-title">Password Generator</div><div class="related-card-desc">Create passwords</div></a><a href="qr-code-generator.html" class="related-card reveal"><div class="related-card-title">QR Code Generator</div><div class="related-card-desc">Create QR codes</div></a>
+        </div>
+    </div>
+</section>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">Mega-<span>Store.in</span></div>
+                    <p class="footer-desc">Your one-stop destination for 25+ free online tools. Calculators, generators, converters, and utilities designed to simplify your daily tasks.</p>
+                    <p class="footer-email">megastoresupport@gmail.com</p>
+                </div>
+                <div>
+                    <div class="footer-col-title">Tools</div>
+                    <ul class="footer-links">
+                        <li><a href="emi-calculator.html">EMI Calculator</a></li>
+                        <li><a href="password-generator.html">Password Generator</a></li>
+                        <li><a href="word-counter.html">Word Counter</a></li>
+                        <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+                        <li><a href="qr-code-generator.html">QR Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms and Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="cookie.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                &copy; 2026 Mega-Store.in All rights reserved. All tools are free to use.
+            </div>
+        </div>
+    </footer>
+    
+
+<script>
+
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        function openMobileNav() {
+            mobileNav.classList.add('open');
+            mobileOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileNav() {
+            mobileNav.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if(hamburger){ hamburger.addEventListener('click', openMobileNav); }
+        if(mobileClose){ mobileClose.addEventListener('click', closeMobileNav); }
+        if(mobileOverlay){ mobileOverlay.addEventListener('click', closeMobileNav); }
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active nav link
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.navbar-links a, .mobile-nav a').forEach(link => {
+            if(link.getAttribute('href') === currentPath || (currentPath === '' && link.getAttribute('href') === 'index.html')){
+                link.classList.add('active');
+            }
+        });
+    
+
+function countWords() {
+    const text = document.getElementById('wcText').value;
+    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+    const chars = text.length;
+    const noSpace = text.replace(/\s/g, '').length;
+    const sentences = text.trim() ? text.split(/[.!?]+/).filter(s => s.trim()).length : 0;
+    const paras = text.trim() ? text.split(/\n\s*\n/).filter(p => p.trim()).length : 0;
+    const mins = Math.ceil(words / 200);
+
+    document.getElementById('wordCount').textContent = words.toLocaleString();
+    document.getElementById('charCount').textContent = chars.toLocaleString();
+    document.getElementById('charNoSpace').textContent = noSpace.toLocaleString();
+    document.getElementById('sentenceCount').textContent = sentences.toLocaleString();
+    document.getElementById('paraCount').textContent = paras.toLocaleString();
+    document.getElementById('readingTime').textContent = words < 200 ? (Math.round(words / 200 * 60) || '<1') + 's' : mins + ' min' + (mins > 1 ? 's' : '');
+}
+
+</script>
+
+</body>
+</html>

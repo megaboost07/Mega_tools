@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Resizer - Resize Images Online | Mega-Store.in</title>
+    <meta name="description" content="Resize any image to exact dimensions. Lock aspect ratio or set custom width and height. Includes preset sizes for common use cases.">
+    <meta name="keywords" content="image resizer, resize image, image dimensions, photo resizer, online image resize">
+    <link rel="canonical" href="https://mega-store.in/image-resizer.html">
+    <meta property="og:title" content="Image Resizer - Resize Images Online | Mega-Store.in">
+    <meta property="og:description" content="Resize any image to exact dimensions. Lock aspect ratio or set custom width and height. Includes preset sizes for common use cases.">
+    <meta property="og:url" content="https://mega-store.in/image-resizer.html">
+    <meta name="author" content="MEGA STORE">
+    <meta property="og:site_name" content="MEGA STORE">
+    <meta property="og:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <meta name="twitter:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <link rel="icon" href="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+         
+   <style>
+
+        :root {
+            --deep-ink: #0B0F19;
+            --alabaster: #F4F5F0;
+            --muted-moss: #7A7C6D;
+            --aged-brass: #9E8B6F;
+            --light-fog: #E8E9E4;
+            --pure-white: #FFFFFF;
+            --dark-surface: #121620;
+            --border-light: rgba(11,15,25,0.08);
+            --border-medium: rgba(11,15,25,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        input, textarea, select, button {
+            font-family: inherit;
+            font-size: inherit;
+        }
+        button { cursor: pointer; border: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
+        @media(min-width:768px){ .container { padding: 0 8vw; } }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            z-index: 1000;
+            background: rgba(11,15,25,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+            letter-spacing: -0.02em;
+        }
+        .navbar-brand span { color: var(--aged-brass); }
+        .navbar-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+        .navbar-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        .navbar-links a:hover, .navbar-links a.active { color: var(--alabaster); }
+        .navbar-cta {
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .navbar-cta:hover { background: #b09b7e; }
+        .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--alabaster);
+            border-radius: 1px;
+        }
+
+        /* Mobile nav */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--deep-ink);
+            padding: 80px 32px 32px;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        .mobile-nav.open { transform: translateX(0); }
+        .mobile-nav-overlay.open { display: block; }
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: var(--alabaster);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 28px;
+            color: var(--alabaster);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--deep-ink);
+            padding: 64px 0 32px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+        }
+        @media(max-width:768px){
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        @media(max-width:480px){
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        .footer-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+        }
+        .footer-brand span { color: var(--aged-brass); }
+        .footer-desc {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--muted-moss);
+            line-height: 1.7;
+        }
+        .footer-email {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--aged-brass);
+        }
+        .footer-col-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--alabaster);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--alabaster); }
+        .footer-divider {
+            height: 1px;
+            background: rgba(244,245,240,0.08);
+            margin: 40px 0;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted-moss);
+        }
+
+        /* Responsive */
+        @media(max-width:768px){
+            .navbar-links { display: none; }
+            .hamburger { display: flex; }
+        }
+        @media(min-width:769px){
+            .mobile-nav, .mobile-nav-overlay { display: none !important; }
+        }
+    
+        .page-banner {
+            background: linear-gradient(135deg, var(--deep-ink) 0%, var(--dark-surface) 100%);
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+        .page-banner h1 {
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 800;
+            color: var(--alabaster);
+            line-height: 1.2;
+        }
+        .page-banner p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            margin-top: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tool-section {
+            background: var(--alabaster);
+            padding: 60px 0;
+        }
+        .tool-container {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        @media(max-width:768px){ .tool-container { padding: 24px; } }
+        .tool-input-group {
+            margin-bottom: 20px;
+        }
+        .tool-input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 6px;
+        }
+        .tool-input-group input,
+        .tool-input-group select,
+        .tool-input-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            transition: border-color 0.3s ease;
+        }
+        .tool-input-group input:focus,
+        .tool-input-group select:focus,
+        .tool-input-group textarea:focus {
+            outline: none;
+            border-color: var(--aged-brass);
+        }
+        .tool-input-group .input-prefix {
+            position: relative;
+        }
+        .tool-input-group .prefix {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-prefix input {
+            padding-left: 44px;
+        }
+        .tool-input-group .suffix {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-suffix input {
+            padding-right: 56px;
+        }
+        .tool-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .tool-btn:hover { background: #b09b7e; }
+        .tool-btn-secondary {
+            display: inline-block;
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--deep-ink);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 8px;
+        }
+        .tool-btn-secondary:hover { border-color: var(--aged-brass); }
+        .tool-result {
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--light-fog);
+            border-radius: 10px;
+            border-left: 4px solid var(--aged-brass);
+            display: none;
+        }
+        .tool-result.show { display: block; }
+        .tool-result-label {
+            font-size: 13px;
+            color: var(--muted-moss);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .tool-result-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--deep-ink);
+        }
+        .tool-result-detail {
+            font-size: 14px;
+            color: var(--muted-moss);
+            margin-top: 8px;
+        }
+        .info-section-page {
+            background: var(--light-fog);
+            padding: 80px 0;
+        }
+        .info-section-page.alt { background: var(--alabaster); }
+        .info-section-page .container { max-width: 900px; }
+        .info-section-page h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--deep-ink);
+            margin-bottom: 20px;
+        }
+        .info-section-page h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 10px;
+            margin-top: 24px;
+        }
+        .info-section-page p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+        .info-section-page ul {
+            margin: 14px 0;
+            padding-left: 24px;
+        }
+        .info-section-page li {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .related-card {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .related-card:hover {
+            border-color: rgba(158,139,111,0.3);
+            transform: translateY(-3px);
+        }
+        .related-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--deep-ink);
+        }
+        .related-card-desc {
+            font-size: 13px;
+            color: var(--muted-moss);
+            margin-top: 4px;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .error-msg {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+        .error-msg.show { display: block; }
+    
+    </style>
+</head>
+<body>
+
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Mega-<span>Store.in</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html" class="">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="about.html" class="">About Us</a></li>
+                <li><a href="contact.html" class="">Contact Us</a></li>
+                <li><a href="privacy.html" class="">Privacy Policy</a></li>
+                <li><a href="terms.html" class="">Terms</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-close" id="mobileClose">&times;</div>
+        <a href="index.html">Home</a>
+        <a href="index.html#tools">Tools</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="cookie.html">Cookie Policy</a>
+    </div>
+    
+
+<section class="page-banner">
+    <div class="container">
+        <h1 class="reveal">Image Resizer</h1>
+        <p class="reveal" style="transition-delay:0.1s">Resize images to any dimension.</p>
+    </div>
+</section>
+
+<section class="tool-section">
+    <div class="container">
+        <div class="tool-container reveal">
+            
+<div style="border:2px dashed var(--border-medium);border-radius:12px;padding:40px 24px;text-align:center;cursor:pointer" id="dropZoneR" ondragover="event.preventDefault();this.style.borderColor='var(--aged-brass)'" ondragleave="this.style.borderColor='var(--border-medium)'" ondrop="handleRDrop(event)">
+    <svg viewBox="0 0 24 24" style="width:48px;height:48px;stroke:var(--aged-brass);fill:none;stroke-width:1.5;margin:0 auto;display:block"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    <p style="margin-top:12px;font-size:15px;color:var(--deep-ink);font-weight:500">Drop an image here or click to browse</p>
+    <input type="file" id="imgInputR" accept="image/*" style="display:none" onchange="handleRFile(this.files[0])">
+    <button class="tool-btn" style="margin-top:12px" onclick="document.getElementById('imgInputR').click()">Choose Image</button>
+</div>
+<div id="resizeControls" style="display:none;margin-top:20px">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+        <div class="tool-input-group">
+            <label for="rWidth">Width (px)</label>
+            <input type="number" id="rWidth" placeholder="800" min="1" max="10000" oninput="resizeImg()">
+        </div>
+        <div class="tool-input-group">
+            <label for="rHeight">Height (px)</label>
+            <input type="number" id="rHeight" placeholder="600" min="1" max="10000" oninput="resizeImg()">
+        </div>
+        <div class="tool-input-group">
+            <label style="display:flex;align-items:center;gap:8px;margin-top:28px">
+                <input type="checkbox" id="rLockRatio" checked style="accent-color:var(--aged-brass)"> Lock Aspect Ratio
+            </label>
+        </div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
+        <button class="tool-btn-secondary" onclick="setPreset(1920,1080)" style="font-size:12px">HD (1920x1080)</button>
+        <button class="tool-btn-secondary" onclick="setPreset(1280,720)" style="font-size:12px">720p</button>
+        <button class="tool-btn-secondary" onclick="setPreset(800,600)" style="font-size:12px">800x600</button>
+        <button class="tool-btn-secondary" onclick="setPreset(640,480)" style="font-size:12px">640x480</button>
+        <button class="tool-btn-secondary" onclick="setPreset(300,300)" style="font-size:12px">300x300</button>
+    </div>
+    <div style="margin-top:20px;text-align:center">
+        <img id="rPreview" style="max-width:100%;max-height:250px;border-radius:8px;border:1px solid var(--border-light)">
+        <div id="rDimDisplay" style="font-size:13px;color:var(--muted-moss);margin-top:8px"></div>
+        <button class="tool-btn" onclick="downloadResized()" style="margin-top:12px">Download Resized Image</button>
+    </div>
+</div>
+<canvas id="rCanvas" style="display:none"></canvas>
+
+        </div>
+    </div>
+</section>
+
+<section class="info-section-page">
+    <div class="container">
+        <h2 class="reveal">What Is the Image Resizer Tool?</h2>
+        <p class="reveal">The Image Resizer is a versatile, free online tool that allows you to change the dimensions of any image to exact pixel specifications. In a world where different platforms demand different image sizes, having a reliable resizer is essential. Social media platforms, websites, e-commerce stores, email templates, and print materials all have specific dimensional requirements. Our Image Resizer makes it effortless to meet these requirements with precision. Featuring custom width and height inputs, an aspect ratio lock to prevent distortion, preset sizes for common use cases, and a live preview, this tool gives you complete control over your image dimensions while maintaining the highest possible quality.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Why Use an Image Resizer?</h2>
+        <p class="reveal">Every digital platform has its own optimal image dimensions. Instagram posts work best at 1080x1080 pixels, while Facebook cover photos require 820x312 pixels. Website headers, blog featured images, product thumbnails, and email banners all have different size requirements. Uploading incorrectly sized images results in poor display quality, slow loading times, and unprofessional appearance. Our Image Resizer eliminates these problems by letting you set exact dimensions before uploading. Whether you are creating thumbnails for a YouTube channel, resizing product photos for an online store, or preparing images for a presentation, this tool ensures your visuals look perfect on every platform.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Key Features</h2>
+        <ul>
+            <li class="reveal"><strong>Custom Dimensions</strong> - Set exact width and height in pixels from 1 to 10,000</li>
+            <li class="reveal"><strong>Aspect Ratio Lock</strong> - Maintain proportions to prevent image distortion</li>
+            <li class="reveal"><strong>Quick Presets</strong> - One-click buttons for HD (1920x1080), 720p, 800x600, 640x480, and 300x300</li>
+            <li class="reveal"><strong>Live Preview</strong> - See the resized image before downloading</li>
+            <li class="reveal"><strong>Drag and Drop Upload</strong> - Quick and intuitive image loading</li>
+            <li class="reveal"><strong>Multiple Format Support</strong> - Works with JPG, PNG, GIF, WebP, and BMP</li>
+            <li class="reveal"><strong>PNG Output</strong> - Downloads resized images in high-quality PNG format</li>
+            <li class="reveal"><strong>Original Dimensions Display</strong> - See both original and new dimensions for reference</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">How the Tool Works</h2>
+        <p class="reveal">The Image Resizer uses HTML5 Canvas technology to process images entirely within your browser. When you upload an image, the tool reads the file and creates an Image object to determine its original dimensions. When you specify new dimensions, the tool creates a Canvas element with those exact pixel dimensions and draws the original image onto it using the Canvas drawImage method. If the aspect ratio lock is enabled, changing one dimension automatically calculates the other to maintain the original proportions, preventing distortion. If the lock is disabled, you can set independent width and height values, which will stretch or compress the image as specified. The final result is exported as a high-quality PNG data URL that you can download directly.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Step-by-Step Guide to Using the Tool</h2>
+        <p class="reveal"><strong>Step 1:</strong> Load the Image Resizer page. You will see a drag-and-drop upload zone.</p>
+        <p class="reveal"><strong>Step 2:</strong> Upload your image by dragging it onto the drop zone or clicking "Choose Image" to browse your files.</p>
+        <p class="reveal"><strong>Step 3:</strong> Once uploaded, the resize controls appear with the original dimensions pre-filled.</p>
+        <p class="reveal"><strong>Step 4:</strong> Enter your desired width and height in the input fields, or click a preset button for common sizes.</p>
+        <p class="reveal"><strong>Step 5:</strong> Ensure the "Lock Aspect Ratio" checkbox is checked if you want to maintain proportions, or uncheck it for custom stretching.</p>
+        <p class="reveal"><strong>Step 6:</strong> View the live preview of your resized image.</p>
+        <p class="reveal"><strong>Step 7:</strong> Click "Download Resized Image" to save the PNG file to your device.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Real-Life Use Cases</h2>
+        <p class="reveal"><strong>Social Media Content:</strong> Resize photos to exact platform specifications. Instagram posts (1080x1080), Twitter headers (1500x500), LinkedIn banners (1584x396), and Pinterest pins (1000x1500) all require specific dimensions.</p>
+        <p class="reveal"><strong>E-Commerce Product Photos:</strong> Online marketplaces like Amazon, eBay, and Etsy have strict image dimension requirements. Use our presets or enter exact dimensions to ensure your product photos display correctly.</p>
+        <p class="reveal"><strong>Website Development:</strong> Web developers resize images to fit specific layout containers, hero sections, card components, and thumbnail galleries. Properly sized images improve page load speed and visual consistency.</p>
+        <p class="reveal"><strong>Blog Publishing:</strong> Bloggers resize featured images to match their theme's recommended dimensions, ensuring images display correctly across desktop and mobile layouts.</p>
+        <p class="reveal"><strong>Email Design:</strong> Email templates typically use images between 600-800 pixels wide. Resizing images to these dimensions ensures they render correctly across all email clients.</p>
+        <p class="reveal"><strong>Document Creation:</strong> Resize images for inclusion in Word documents, PowerPoint presentations, PDFs, and reports where specific dimensions are needed.</p>
+        <p class="reveal"><strong>Thumbnail Creation:</strong> YouTubers and content creators resize screenshots and photos to the standard 1280x720 thumbnail size for maximum platform compatibility.</p>
+        <p class="reveal"><strong>Profile Pictures:</strong> Resize photos to exact avatar dimensions for various platforms, typically between 200x200 and 500x500 pixels.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Benefits of Using This Tool</h2>
+        <ul>
+            <li class="reveal"><strong>Exact Precision</strong> - Set dimensions to the exact pixel, no approximations</li>
+            <li class="reveal"><strong>No Distortion</strong> - Aspect ratio lock keeps images looking natural</li>
+            <li class="reveal"><strong>Time Saving</strong> - Preset buttons eliminate manual entry for common sizes</li>
+            <li class="reveal"><strong>High Quality Output</strong> - PNG format preserves image clarity</li>
+            <li class="reveal"><strong>Private Processing</strong> - Images never leave your browser</li>
+            <li class="reveal"><strong>Universal Format Support</strong> - Works with all major image formats</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">Tips for Best Results</h2>
+        <p class="reveal"><strong>Tip 1:</strong> Always start with the highest resolution original possible. Resizing a small image larger will result in pixelation and quality loss.</p>
+        <p class="reveal"><strong>Tip 2:</strong> Keep aspect ratio locked unless you specifically need to stretch an image. Distorted images look unprofessional.</p>
+        <p class="reveal"><strong>Tip 3:</strong> Use the 300x300 preset for quick avatar creation, 1920x1080 for desktop wallpapers, and 640x480 for standard web images.</p>
+        <p class="reveal"><strong>Tip 4:</strong> After resizing, use our Image Compressor tool to further optimize file size while maintaining quality.</p>
+        <p class="reveal"><strong>Tip 5:</strong> For print materials, calculate dimensions at 300 DPI. A 4x6 inch print requires 1200x1800 pixels for sharp output.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Common Mistakes to Avoid</h2>
+        <p class="reveal"><strong>Mistake 1:</strong> Upscaling low-resolution images. You cannot add detail that does not exist. Always start with the highest quality source.</p>
+        <p class="reveal"><strong>Mistake 2:</strong> Forgetting to lock aspect ratio. This results in stretched, distorted images that look unprofessional.</p>
+        <p class="reveal"><strong>Mistake 3:</strong> Not checking the preview. Always verify the resized image looks acceptable before downloading.</p>
+        <p class="reveal"><strong>Mistake 4:</strong> Using web dimensions for print. Print requires much higher resolution (300 DPI) than screen display (72 DPI).</p>
+        <p class="reveal"><strong>Mistake 5:</strong> Resizing compressed images. Resize from the original uncompressed file, then compress the final resized version.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Safety, Privacy, and Data Security</h2>
+        <p class="reveal">The Image Resizer processes all images entirely within your web browser. No image data is transmitted to external servers, stored in databases, or accessible to anyone else. Your images are loaded into your browser's memory, processed using HTML5 Canvas, and then discarded when you close or refresh the page. This client-side approach ensures complete privacy and makes the tool safe for resizing sensitive photographs, confidential documents, proprietary designs, and any other images you would not want uploaded to the internet.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Comparison with Traditional Methods</h2>
+        <p class="reveal">Traditional image resizing methods include using Photoshop or GIMP (powerful but expensive or complex), built-in OS tools (basic and limited), other online resizers (often upload to servers, creating privacy risks), and command-line tools (intimidating for non-technical users). Our Image Resizer combines the best aspects of these alternatives: it is free like OS tools, precise like Photoshop, accessible from any device like online tools, and completely private unlike server-based alternatives. For quick, accurate resizing without software installation, no tool offers a better combination of features and convenience.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Frequently Asked Questions (FAQs)</h2>
+        <h3 class="reveal">Will resizing reduce image quality?</h3>
+        <p class="reveal">Reducing an image's dimensions (making it smaller) generally maintains excellent quality. However, enlarging an image beyond its original size will cause pixelation and blurriness because the tool must interpolate pixels that do not exist. For best results, always start with a larger image than your target size and scale down. If you need a significantly larger image, consider finding a higher-resolution source rather than upscaling.</p>
+        <h3 class="reveal">What image formats are supported?</h3>
+        <p class="reveal">The Image Resizer supports all major image formats including JPG, JPEG, PNG, GIF, WebP, and BMP. The output is always in PNG format, which provides lossless quality preservation. If you need the resized image in a different format, you can use our Image Format Converter tool after resizing.</p>
+        <h3 class="reveal">Is there a file size limit?</h3>
+        <p class="reveal">There is no hardcoded file size limit. However, extremely large images (hundreds of megabytes) may exceed your browser's available memory and cause performance issues. For most practical purposes, including RAW camera files and high-resolution scans, the tool handles resizing smoothly.</p>
+        <h3 class="reveal">What does "Lock Aspect Ratio" mean?</h3>
+        <p class="reveal">When aspect ratio is locked, changing the width automatically adjusts the height proportionally (and vice versa) to maintain the image's original proportions. This prevents distortion, stretching, or squishing. If you unlock the ratio, you can set independent width and height values, which will distort the image. Keep it locked unless you have a specific reason to stretch the image.</p>
+        <h3 class="reveal">Can I resize images on my phone?</h3>
+        <p class="reveal">Yes, the Image Resizer is fully responsive and works on smartphones and tablets. You can upload images from your device's photo gallery and resize them on the go.</p>
+        <h3 class="reveal">Why is the output always PNG?</h3>
+        <p class="reveal">PNG is used as the output format because it is lossless, meaning no quality is lost during the resize operation. This gives you the highest quality result. If you need a smaller file size, you can convert the PNG to JPG using our Image Format Converter or compress it with our Image Compressor.</p>
+        <h3 class="reveal">What is the largest dimension I can set?</h3>
+        <p class="reveal">You can enter dimensions up to 10,000 pixels in either width or height. However, creating extremely large images may cause memory issues depending on your device. Most use cases require dimensions well within this limit.</p>
+        <h3 class="reveal">Can I batch resize multiple images?</h3>
+        <p class="reveal">Currently, the tool processes one image at a time. For multiple images, you will need to resize each one individually. We are evaluating batch processing features based on user demand.</p>
+        <h3 class="reveal">Will my resized image have a watermark?</h3>
+        <p class="reveal">No. The resized image is clean and contains no watermarks, branding, or modifications beyond the dimensional changes you requested.</p>
+        <h3 class="reveal">Is there a difference between resizing and compressing?</h3>
+        <p class="reveal">Yes. Resizing changes the pixel dimensions (width and height) of an image. Compressing reduces the file size without changing dimensions by applying quality reduction. For maximum optimization, resize to the needed dimensions first, then compress the result.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Expert Tips and Best Practices</h2>
+        <p class="reveal"><strong>For Web Developers:</strong> Create responsive image sets by resizing the same image to multiple dimensions (small, medium, large) and using the srcset attribute to serve the appropriate size to each device.</p>
+        <p class="reveal"><strong>For Social Media:</strong> Each platform crops images differently. Resize to the recommended dimensions and keep important content centered to avoid awkward cropping.</p>
+        <p class="reveal"><strong>For Print:</strong> Calculate your required pixel dimensions by multiplying the print size in inches by 300 (for 300 DPI). A 5x7 inch print needs 1500x2100 pixels.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Troubleshooting Common Issues</h2>
+        <p class="reveal"><strong>Issue:</strong> The uploaded image does not display.</p>
+        <p class="reveal"><strong>Solution:</strong> Ensure the file is a valid image format (JPG, PNG, GIF, WebP, BMP). Try a different browser if the problem persists.</p>
+        <p class="reveal"><strong>Issue:</strong> Resized image looks blurry or pixelated.</p>
+        <p class="reveal"><strong>Solution:</strong> You are likely upscaling beyond the original resolution. Reduce the target dimensions or find a higher-resolution source image.</p>
+        <p class="reveal"><strong>Issue:</strong> Downloaded image has different dimensions than specified.</p>
+        <p class="reveal"><strong>Solution:</strong> Check that aspect ratio lock is configured as expected. When locked, entering one dimension auto-adjusts the other to maintain proportions.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Conclusion</h2>
+        <p class="reveal">The Image Resizer is an indispensable tool for anyone who works with digital images across multiple platforms. Its precise dimensional control, aspect ratio protection, convenient presets, and live preview make it the ideal solution for preparing images for social media, websites, e-commerce, email, print, and presentations. With complete privacy through client-side processing, support for all major image formats, and high-quality PNG output, this free tool streamlines a task that would otherwise require expensive software or compromise your privacy with server-based alternatives. Whether you are a professional designer or simply resizing photos for personal use, bookmark the Image Resizer and make it part of your regular image preparation workflow.</p>
+    </div>
+</section>
+
+<section class="info-section-page alt">
+    <div class="container">
+        <h2 class="reveal">Related Tools</h2>
+        <div class="related-grid">
+            <a href="image-compressor.html" class="related-card reveal"><div class="related-card-title">Image Compressor</div><div class="related-card-desc">Compress images</div></a><a href="image-cropper.html" class="related-card reveal"><div class="related-card-title">Image Cropper</div><div class="related-card-desc">Crop images</div></a><a href="image-format-converter.html" class="related-card reveal"><div class="related-card-title">Image Format Converter</div><div class="related-card-desc">Convert formats</div></a><a href="image-to-pdf.html" class="related-card reveal"><div class="related-card-title">Image to PDF</div><div class="related-card-desc">Convert to PDF</div></a>
+        </div>
+    </div>
+</section>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">Mega-<span>Store.in</span></div>
+                    <p class="footer-desc">Your one-stop destination for 25+ free online tools. Calculators, generators, converters, and utilities designed to simplify your daily tasks.</p>
+                    <p class="footer-email">megastoresupport@gmail.com</p>
+                </div>
+                <div>
+                    <div class="footer-col-title">Tools</div>
+                    <ul class="footer-links">
+                        <li><a href="emi-calculator.html">EMI Calculator</a></li>
+                        <li><a href="password-generator.html">Password Generator</a></li>
+                        <li><a href="word-counter.html">Word Counter</a></li>
+                        <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+                        <li><a href="qr-code-generator.html">QR Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms and Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="cookie.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                &copy; 2026 Mega-Store.in All rights reserved. All tools are free to use.
+            </div>
+        </div>
+    </footer>
+    
+
+<script>
+
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        function openMobileNav() {
+            mobileNav.classList.add('open');
+            mobileOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileNav() {
+            mobileNav.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if(hamburger){ hamburger.addEventListener('click', openMobileNav); }
+        if(mobileClose){ mobileClose.addEventListener('click', closeMobileNav); }
+        if(mobileOverlay){ mobileOverlay.addEventListener('click', closeMobileNav); }
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active nav link
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.navbar-links a, .mobile-nav a').forEach(link => {
+            if(link.getAttribute('href') === currentPath || (currentPath === '' && link.getAttribute('href') === 'index.html')){
+                link.classList.add('active');
+            }
+        });
+    
+
+let rImage = null, rOriginalW = 0, rOriginalH = 0, rRatio = 1;
+
+function handleRDrop(e) { e.preventDefault(); e.currentTarget.style.borderColor='var(--border-medium)'; const f=e.dataTransfer.files[0]; if(f&&f.type.startsWith('image/')) handleRFile(f); }
+function handleRFile(file) { if(!file) return; const r=new FileReader(); r.onload=function(e){ const img=new Image(); img.onload=function(){ rImage=img; rOriginalW=img.width; rOriginalH=img.height; rRatio=img.width/img.height; document.getElementById('rWidth').value=img.width; document.getElementById('rHeight').value=img.height; document.getElementById('resizeControls').style.display='block'; resizeImg(); }; img.src=e.target.result; }; r.readAsDataURL(file); }
+
+function resizeImg() {
+    if(!rImage) return;
+    const w=parseInt(document.getElementById('rWidth').value)||rOriginalW;
+    const lock=document.getElementById('rLockRatio').checked;
+    let h=parseInt(document.getElementById('rHeight').value)||rOriginalH;
+    if(lock) { if(document.activeElement.id==='rWidth') h=Math.round(w/rRatio); else { const nw=Math.round(h*rRatio); if(nw!==w) document.getElementById('rWidth').value=nw; } document.getElementById('rHeight').value=h; }
+    const c=document.getElementById('rCanvas'); c.width=w; c.height=h; const ctx=c.getContext('2d'); ctx.drawImage(rImage,0,0,w,h);
+    document.getElementById('rPreview').src=c.toDataURL('image/png');
+    document.getElementById('rDimDisplay').textContent=w+' x '+h+' px (original: '+rOriginalW+' x '+rOriginalH+' px)';
+}
+function setPreset(w,h) { document.getElementById('rWidth').value=w; document.getElementById('rLockRatio').checked=false; document.getElementById('rHeight').value=h; resizeImg(); }
+function downloadResized() { const c=document.getElementById('rCanvas'); const link=document.createElement('a'); link.download='resized.png'; link.href=c.toDataURL('image/png'); link.click(); }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percentage Calculator - Fast Percent Calculations | Mega-Store.in</title>
+    <meta name="description" content="Calculate percentages, percentage values, and percentage increase/decrease. Three built-in calculators for all your percentage needs.">
+    <meta name="keywords" content="percentage calculator, percent calculator, calculate percentage, percentage increase">
+    <link rel="canonical" href="https://mega-store.in/percentage-calculator.html">
+    <meta property="og:title" content="Percentage Calculator - Fast Percent Calculations | MegaStore.in">
+    <meta property="og:description" content="Calculate percentages, percentage values, and percentage increase/decrease. Three built-in calculators for all your percentage needs.">
+    <meta property="og:url" content="https://mega-store.in/percentage-calculator.html">
+    <meta name="author" content="MEGA STORE">
+    <meta property="og:site_name" content="MEGA STORE">
+    <meta property="og:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <meta name="twitter:image" content="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+    <link rel="icon" href="https://i.supaimg.com/b2b073ad-af1b-43d5-893f-f82f74e90511.png">
+         
+   <style>
+
+        :root {
+            --deep-ink: #0B0F19;
+            --alabaster: #F4F5F0;
+            --muted-moss: #7A7C6D;
+            --aged-brass: #9E8B6F;
+            --light-fog: #E8E9E4;
+            --pure-white: #FFFFFF;
+            --dark-surface: #121620;
+            --border-light: rgba(11,15,25,0.08);
+            --border-medium: rgba(11,15,25,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        input, textarea, select, button {
+            font-family: inherit;
+            font-size: inherit;
+        }
+        button { cursor: pointer; border: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
+        @media(min-width:768px){ .container { padding: 0 8vw; } }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            z-index: 1000;
+            background: rgba(11,15,25,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+            letter-spacing: -0.02em;
+        }
+        .navbar-brand span { color: var(--aged-brass); }
+        .navbar-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+        .navbar-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        .navbar-links a:hover, .navbar-links a.active { color: var(--alabaster); }
+        .navbar-cta {
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .navbar-cta:hover { background: #b09b7e; }
+        .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--alabaster);
+            border-radius: 1px;
+        }
+
+        /* Mobile nav */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--deep-ink);
+            padding: 80px 32px 32px;
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        .mobile-nav.open { transform: translateX(0); }
+        .mobile-nav-overlay.open { display: block; }
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            font-size: 16px;
+            color: var(--alabaster);
+            border-bottom: 1px solid rgba(244,245,240,0.08);
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 28px;
+            color: var(--alabaster);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--deep-ink);
+            padding: 64px 0 32px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+        }
+        @media(max-width:768px){
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        @media(max-width:480px){
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        .footer-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--alabaster);
+        }
+        .footer-brand span { color: var(--aged-brass); }
+        .footer-desc {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--muted-moss);
+            line-height: 1.7;
+        }
+        .footer-email {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--aged-brass);
+        }
+        .footer-col-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--alabaster);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a {
+            font-size: 14px;
+            color: var(--muted-moss);
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--alabaster); }
+        .footer-divider {
+            height: 1px;
+            background: rgba(244,245,240,0.08);
+            margin: 40px 0;
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted-moss);
+        }
+
+        /* Responsive */
+        @media(max-width:768px){
+            .navbar-links { display: none; }
+            .hamburger { display: flex; }
+        }
+        @media(min-width:769px){
+            .mobile-nav, .mobile-nav-overlay { display: none !important; }
+        }
+    
+        .page-banner {
+            background: linear-gradient(135deg, var(--deep-ink) 0%, var(--dark-surface) 100%);
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+        .page-banner h1 {
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 800;
+            color: var(--alabaster);
+            line-height: 1.2;
+        }
+        .page-banner p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            margin-top: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tool-section {
+            background: var(--alabaster);
+            padding: 60px 0;
+        }
+        .tool-container {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        @media(max-width:768px){ .tool-container { padding: 24px; } }
+        .tool-input-group {
+            margin-bottom: 20px;
+        }
+        .tool-input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 6px;
+        }
+        .tool-input-group input,
+        .tool-input-group select,
+        .tool-input-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--deep-ink);
+            background: var(--alabaster);
+            transition: border-color 0.3s ease;
+        }
+        .tool-input-group input:focus,
+        .tool-input-group select:focus,
+        .tool-input-group textarea:focus {
+            outline: none;
+            border-color: var(--aged-brass);
+        }
+        .tool-input-group .input-prefix {
+            position: relative;
+        }
+        .tool-input-group .prefix {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-prefix input {
+            padding-left: 44px;
+        }
+        .tool-input-group .suffix {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-moss);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tool-input-group .input-suffix input {
+            padding-right: 56px;
+        }
+        .tool-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--aged-brass);
+            color: var(--deep-ink);
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .tool-btn:hover { background: #b09b7e; }
+        .tool-btn-secondary {
+            display: inline-block;
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--deep-ink);
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 8px;
+        }
+        .tool-btn-secondary:hover { border-color: var(--aged-brass); }
+        .tool-result {
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--light-fog);
+            border-radius: 10px;
+            border-left: 4px solid var(--aged-brass);
+            display: none;
+        }
+        .tool-result.show { display: block; }
+        .tool-result-label {
+            font-size: 13px;
+            color: var(--muted-moss);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .tool-result-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--deep-ink);
+        }
+        .tool-result-detail {
+            font-size: 14px;
+            color: var(--muted-moss);
+            margin-top: 8px;
+        }
+        .info-section-page {
+            background: var(--light-fog);
+            padding: 80px 0;
+        }
+        .info-section-page.alt { background: var(--alabaster); }
+        .info-section-page .container { max-width: 900px; }
+        .info-section-page h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--deep-ink);
+            margin-bottom: 20px;
+        }
+        .info-section-page h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--deep-ink);
+            margin-bottom: 10px;
+            margin-top: 24px;
+        }
+        .info-section-page p {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+        .info-section-page ul {
+            margin: 14px 0;
+            padding-left: 24px;
+        }
+        .info-section-page li {
+            font-size: 16px;
+            color: var(--muted-moss);
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .related-card {
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .related-card:hover {
+            border-color: rgba(158,139,111,0.3);
+            transform: translateY(-3px);
+        }
+        .related-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--deep-ink);
+        }
+        .related-card-desc {
+            font-size: 13px;
+            color: var(--muted-moss);
+            margin-top: 4px;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .error-msg {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+        .error-msg.show { display: block; }
+    
+    </style>
+</head>
+<body>
+
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Mega-<span>Store.in</span></a>
+            <ul class="navbar-links">
+                <li><a href="index.html" class="">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="about.html" class="">About Us</a></li>
+                <li><a href="contact.html" class="">Contact Us</a></li>
+                <li><a href="privacy.html" class="">Privacy Policy</a></li>
+                <li><a href="terms.html" class="">Terms</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-close" id="mobileClose">&times;</div>
+        <a href="index.html">Home</a>
+        <a href="index.html#tools">Tools</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="cookie.html">Cookie Policy</a>
+    </div>
+    
+
+<section class="page-banner">
+    <div class="container">
+        <h1 class="reveal">Percentage Calculator</h1>
+        <p class="reveal" style="transition-delay:0.1s">Fast and accurate percentage calculations.</p>
+    </div>
+</section>
+
+<section class="tool-section">
+    <div class="container">
+        <div class="tool-container reveal">
+            
+<div style="margin-bottom:24px;padding:20px;background:var(--alabaster);border-radius:10px">
+    <h4 style="font-size:16px;font-weight:600;color:var(--deep-ink);margin-bottom:12px">Calculate Percentage Value</h4>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span style="color:var(--muted-moss)">What is</span>
+        <input type="number" id="pct1" placeholder="20" style="width:80px;padding:10px 12px;border:1px solid var(--border-medium);border-radius:6px;font-size:15px">
+        <span style="color:var(--muted-moss)">% of</span>
+        <input type="number" id="pct2" placeholder="500" style="width:100px;padding:10px 12px;border:1px solid var(--border-medium);border-radius:6px;font-size:15px">
+        <span style="color:var(--muted-moss)">?</span>
+        <button class="tool-btn" onclick="calcPctValue()" style="padding:10px 20px;font-size:14px">=</button>
+    </div>
+    <div id="pctValueResult" style="margin-top:12px;font-size:20px;font-weight:700;color:var(--deep-ink);display:none"></div>
+</div>
+
+<div style="margin-bottom:24px;padding:20px;background:var(--alabaster);border-radius:10px">
+    <h4 style="font-size:16px;font-weight:600;color:var(--deep-ink);margin-bottom:12px">Calculate Percentage</h4>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <input type="number" id="pct3" placeholder="50" style="width:80px;padding:10px 12px;border:1px solid var(--border-medium);border-radius:6px;font-size:15px">
+        <span style="color:var(--muted-moss)">is what % of</span>
+        <input type="number" id="pct4" placeholder="200" style="width:100px;padding:10px 12px;border:1px solid var(--border-medium);border-radius:6px;font-size:15px">
+        <span style="color:var(--muted-moss)">?</span>
+        <button class="tool-btn" onclick="calcPct()" style="padding:10px 20px;font-size:14px">=</button>
+    </div>
+    <div id="pctResult" style="margin-top:12px;font-size:20px;font-weight:700;color:var(--deep-ink);display:none"></div>
+</div>
+
+<div style="padding:20px;background:var(--alabaster);border-radius:10px">
+    <h4 style="font-size:16px;font-weight:600;color:var(--deep-ink);margin-bottom:12px">Percentage Increase/Decrease</h4>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span style="color:var(--muted-moss)">From</span>
+        <input type="number" id="pct5" placeholder="100" style="width:80px;padding:10px 12px;border:1px solid var(--border-medium);border-radius:6px;font-size:15px">
+        <span style="color:var(--muted-moss)">to</span>
+        <input type="number" id="pct6" placeholder="150" style="width:80px;padding:10px 12px;border:1px solid var(--border-medium);border-radius:6px;font-size:15px">
+        <button class="tool-btn" onclick="calcPctChange()" style="padding:10px 20px;font-size:14px">=</button>
+    </div>
+    <div id="pctChangeResult" style="margin-top:12px;font-size:20px;font-weight:700;display:none"></div>
+</div>
+
+        </div>
+    </div>
+</section>
+
+<section class="info-section-page">
+    <div class="container">
+        <h2 class="reveal">What Is the Percentage Calculator?</h2>
+        <p class="reveal">The Percentage Calculator is a comprehensive, free online tool that handles all your percentage calculation needs through three integrated calculators. Whether you are calculating a discount during a sale, determining what percentage a value represents, or analyzing the percentage change between two numbers, this tool provides instant, accurate results. Percentages are fundamental to countless everyday scenarios, from shopping and finance to academics and data analysis. Our calculator eliminates the need for manual computation or searching for formulas, giving you three powerful calculation modes in one clean, easy-to-use interface. With color-coded results that clearly indicate increases (green) and decreases (red), you can interpret your calculations at a glance.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Why Use a Percentage Calculator?</h2>
+        <p class="reveal">Percentage calculations are among the most common mathematical operations people perform, yet they are also among the most frequently miscalculated. Whether you are a student working on math homework, a shopper comparing discounts, a business owner analyzing profit margins, or an investor tracking portfolio performance, accurate percentage calculations are essential. Manual calculations using formulas are prone to errors, especially under time pressure. Calculator apps often require multiple steps and do not provide context. Our Percentage Calculator solves these problems by providing dedicated calculators for the three most common percentage operations, with instant results, clear visual feedback, and no learning curve. Simply enter your values and click equals.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Key Features</h2>
+        <ul>
+            <li class="reveal"><strong>Three Integrated Calculators</strong> - Percentage value, percentage proportion, and percentage change</li>
+            <li class="reveal"><strong>Instant Results</strong> - Calculations update immediately with no page reload</li>
+            <li class="reveal"><strong>Color-Coded Output</strong> - Green for increases, red for decreases, clear visual feedback</li>
+            <li class="reveal"><strong>Precise Decimal Handling</strong> - Percentage change results shown to 2 decimal places</li>
+            <li class="reveal"><strong>Intuitive Interface</strong> - Natural language layout that matches how you think about percentages</li>
+            <li class="reveal"><strong>Works Offline</strong> - Functions after the page loads without internet connection</li>
+            <li class="reveal"><strong>Mobile Friendly</strong> - Fully responsive design for smartphones and tablets</li>
+            <li class="reveal"><strong>Completely Free</strong> - No registration, no ads, no limitations</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">How the Tool Works</h2>
+        <p class="reveal">The Percentage Calculator uses JavaScript to perform precise arithmetic operations entirely within your browser. Calculator 1 (Calculate Percentage Value) uses the formula: value = (percentage / 100) * number, answering questions like "What is 20% of 500?" Calculator 2 (Calculate Percentage) uses the formula: percentage = (part / whole) * 100, answering questions like "50 is what percent of 200?" Calculator 3 (Percentage Change) uses the formula: change = ((new_value - original_value) / original_value) * 100, with positive results displayed in green indicating an increase and negative results in red indicating a decrease. All calculations use JavaScript's floating-point arithmetic, with the change calculator applying toFixed(2) for clean two-decimal output.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Step-by-Step Guide to Using the Tool</h2>
+        <p class="reveal"><strong>For Finding a Percentage of a Number:</strong></p>
+        <p class="reveal"><strong>Step 1:</strong> Go to the first calculator labeled "Calculate Percentage Value."</p>
+        <p class="reveal"><strong>Step 2:</strong> Enter the percentage you want to calculate (e.g., 20) in the first field.</p>
+        <p class="reveal"><strong>Step 3:</strong> Enter the number you want to find the percentage of (e.g., 500) in the second field.</p>
+        <p class="reveal"><strong>Step 4:</strong> Click the "=" button. The result appears below (e.g., "20% of 500 = 100").</p>
+        <p class="reveal"><strong>For Finding What Percentage One Number Is of Another:</strong></p>
+        <p class="reveal"><strong>Step 1:</strong> Use the second calculator labeled "Calculate Percentage."</p>
+        <p class="reveal"><strong>Step 2:</strong> Enter the part value (e.g., 50) in the first field.</p>
+        <p class="reveal"><strong>Step 3:</strong> Enter the whole value (e.g., 200) in the second field.</p>
+        <p class="reveal"><strong>Step 4:</strong> Click "=" to see the result (e.g., "50 is 25% of 200").</p>
+        <p class="reveal"><strong>For Finding Percentage Increase or Decrease:</strong></p>
+        <p class="reveal"><strong>Step 1:</strong> Use the third calculator labeled "Percentage Increase/Decrease."</p>
+        <p class="reveal"><strong>Step 2:</strong> Enter the original value (e.g., 100) in the "From" field.</p>
+        <p class="reveal"><strong>Step 3:</strong> Enter the new value (e.g., 150) in the "to" field.</p>
+        <p class="reveal"><strong>Step 4:</strong> Click "=" to see the percentage change (e.g., "+50% increase" in green, or a decrease in red).</p>
+
+        <h2 class="reveal" style="margin-top:48px">Real-Life Use Cases</h2>
+        <p class="reveal"><strong>Shopping and Discounts:</strong> A jacket originally priced at $89.99 is on sale for 30% off. Use Calculator 1 to find the discount amount ($27.00) and the final price ($62.99). Compare multiple discount offers to find the best deal.</p>
+        <p class="reveal"><strong>Academic Grading:</strong> A student scored 42 out of 50 on an exam. Use Calculator 2 to determine this is 84%. Teachers can quickly calculate class averages and grade distributions.</p>
+        <p class="reveal"><strong>Business and Finance:</strong> A company's revenue grew from $125,000 to $158,000. Use Calculator 3 to find this represents a 26.4% increase. Analyze profit margins, cost changes, and growth rates.</p>
+        <p class="reveal"><strong>Health and Fitness:</strong> Track body weight changes, body fat percentage shifts, and workout performance improvements over time. Calculate what percentage of your daily calorie goal you have consumed.</p>
+        <p class="reveal"><strong>Real Estate:</strong> Calculate property value appreciation, commission percentages, down payment amounts, and mortgage rate changes.</p>
+        <p class="reveal"><strong>Cooking and Recipes:</strong> Scale recipes by calculating ingredient percentages. If a recipe serves 4 and you need to serve 6, calculate the 50% increase in each ingredient.</p>
+        <p class="reveal"><strong>Investment Tracking:</strong> Determine portfolio performance by calculating percentage gains and losses. Compare returns across different investment vehicles.</p>
+        <p class="reveal"><strong>Tax Calculations:</strong> Compute sales tax amounts, income tax brackets, tip percentages at restaurants, and withholding amounts.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Benefits of Using This Tool</h2>
+        <ul>
+            <li class="reveal"><strong>Error-Free Calculations</strong> - Eliminates manual arithmetic mistakes</li>
+            <li class="reveal"><strong>Three Tools in One</strong> - Covers all common percentage scenarios</li>
+            <li class="reveal"><strong>Instant Results</strong> - No waiting, no page reloads</li>
+            <li class="reveal"><strong>Visual Clarity</strong> - Color coding makes increases and decreases immediately obvious</li>
+            <li class="reveal"><strong>No Math Knowledge Required</strong> - Natural language interface anyone can use</li>
+            <li class="reveal"><strong>Accessible Anywhere</strong> - Works on any device with a browser</li>
+        </ul>
+
+        <h2 class="reveal" style="margin-top:48px">Tips for Best Results</h2>
+        <p class="reveal"><strong>Tip 1:</strong> For shopping discounts, remember that the percentage calculator gives you the discount amount. Subtract this from the original price to get the final price.</p>
+        <p class="reveal"><strong>Tip 2:</strong> When comparing percentage increases and decreases, note that a 50% increase followed by a 50% decrease does not return to the original value. Always recalculate.</p>
+        <p class="reveal"><strong>Tip 3:</strong> For tip calculations, use Calculator 1. A 15% tip on a $65 bill is 15% of 65 = $9.75.</p>
+        <p class="reveal"><strong>Tip 4:</strong> The percentage change calculator uses the first number as the base. "From 100 to 150" gives +50%, but "From 150 to 100" gives -33.33%.</p>
+        <p class="reveal"><strong>Tip 5:</strong> For compound percentage changes (like compound interest), calculate each period sequentially rather than adding percentages.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Common Mistakes to Avoid</h2>
+        <p class="reveal"><strong>Mistake 1:</strong> Confusing percentage points with percentage change. An increase from 10% to 15% is a 5 percentage point increase, but a 50% percentage increase.</p>
+        <p class="reveal"><strong>Mistake 2:</strong> Adding percentages that apply to different bases. A 20% increase in revenue and a 20% decrease in costs do not cancel out.</p>
+        <p class="reveal"><strong>Mistake 3:</strong> Forgetting that percentage changes are not symmetric. A 50% loss requires a 100% gain to break even.</p>
+        <p class="reveal"><strong>Mistake 4:</strong> Using the wrong calculator mode. Make sure you are using Calculator 1 for "what is X% of Y", Calculator 2 for "X is what % of Y", and Calculator 3 for "change from X to Y".</p>
+        <p class="reveal"><strong>Mistake 5:</strong> Rounding intermediate results. Keep full precision through multi-step calculations and round only the final answer.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Safety, Privacy, and Data Security</h2>
+        <p class="reveal">The Percentage Calculator processes all calculations entirely within your web browser using JavaScript. No numbers you enter, calculations you perform, or results you generate are transmitted to any server, stored in any database, or logged in any way. This means you can confidently use the tool for sensitive financial calculations, business data analysis, and personal computations without any privacy concerns. The tool does not use cookies, does not track your activity, and requires no personal information or account creation.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Comparison with Traditional Methods</h2>
+        <p class="reveal">Traditional percentage calculation methods include mental math (fast but error-prone), handheld calculators (require knowing the correct formula), spreadsheet software (powerful but overkill for simple calculations), and calculator apps on phones (often lack dedicated percentage functions). Our Percentage Calculator offers the best combination of speed, accuracy, and convenience. Unlike mental math, it eliminates errors. Unlike spreadsheets, it requires no setup. Unlike general calculators, it presents the three most common percentage operations in an intuitive, natural-language interface that matches how people actually think about percentages.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Frequently Asked Questions (FAQs)</h2>
+        <h3 class="reveal">How do I calculate a discount amount?</h3>
+        <p class="reveal">Use the first calculator ("Calculate Percentage Value"). Enter the discount percentage in the first field and the original price in the second field. Click "=" to see the discount amount. For example, entering 20 and 500 shows that 20% of 500 is 100, meaning you save $100 on a $500 item.</p>
+        <h3 class="reveal">Can I calculate percentage decrease as well as increase?</h3>
+        <p class="reveal">Yes, the third calculator ("Percentage Increase/Decrease") handles both automatically. If the new value is higher than the original, it shows a green percentage increase. If the new value is lower, it shows a red percentage decrease. No manual adjustment is needed.</p>
+        <h3 class="reveal">Are results rounded?</h3>
+        <p class="reveal">The percentage change calculator displays results to 2 decimal places for precision (e.g., +26.40%). The other two calculators show exact results as whole numbers or decimals as appropriate, without rounding.</p>
+        <h3 class="reveal">Can I use this tool on my phone?</h3>
+        <p class="reveal">Yes, the Percentage Calculator is fully responsive and works perfectly on smartphones and tablets. Use it while shopping to compare discounts, at restaurants to calculate tips, or anywhere you need quick percentage calculations.</p>
+        <h3 class="reveal">What happens if I enter zero?</h3>
+        <p class="reveal">The tool handles zero inputs appropriately. Entering 0% in Calculator 1 returns 0. In Calculator 3, if the original value is 0, the calculation is mathematically undefined (division by zero), so the tool will not produce a result.</p>
+        <h3 class="reveal">Can I calculate negative percentages?</h3>
+        <p class="reveal">You can enter negative numbers in the input fields. A negative percentage in Calculator 1 will calculate a negative value (useful for representing reductions or losses).</p>
+        <h3 class="reveal">Is there a limit on the size of numbers I can enter?</h3>
+        <p class="reveal">There is no practical limit. JavaScript handles numbers up to approximately 9 quadrillion (9,007,199,254,740,991) with full precision. For everyday percentage calculations, you will never encounter a limit.</p>
+        <h3 class="reveal">Does this tool work offline?</h3>
+        <p class="reveal">Yes, once the page is loaded, all calculations happen locally in your browser. You can disconnect from the internet and continue using the tool without any issues.</p>
+        <h3 class="reveal">How is this different from a regular calculator?</h3>
+        <p class="reveal">A regular calculator requires you to know and enter the correct formula manually (e.g., 20 / 100 * 500). Our tool provides dedicated calculators with natural language prompts, eliminating the need to remember formulas and reducing the chance of input errors.</p>
+        <h3 class="reveal">Can I use this for financial advice?</h3>
+        <p class="reveal">While the calculator provides accurate mathematical results, it is a general-purpose tool and not a substitute for professional financial advice. Always consult a qualified financial advisor for investment, tax, or major financial decisions.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Expert Tips and Best Practices</h2>
+        <p class="reveal"><strong>For Shoppers:</strong> When comparing discounts, use Calculator 1 to find the actual dollar savings, not just the percentage. A 30% discount on a $50 item ($15 off) may be better than a 40% discount on a $30 item ($12 off), even though 40% sounds bigger.</p>
+        <p class="reveal"><strong>For Students:</strong> Use Calculator 2 to track your grades throughout the semester. Knowing that you scored 38/45 on a quiz (84.4%) helps you understand where you stand.</p>
+        <p class="reveal"><strong>For Business Owners:</strong> Use Calculator 3 monthly to track key metrics like revenue growth, customer acquisition changes, and expense variations. Consistent tracking reveals trends that single data points cannot show.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Troubleshooting Common Issues</h2>
+        <p class="reveal"><strong>Issue:</strong> Calculator does not produce a result.</p>
+        <p class="reveal"><strong>Solution:</strong> Ensure both input fields contain valid numbers. Check that you have not entered text, special characters, or left a field blank.</p>
+        <p class="reveal"><strong>Issue:</strong> Result seems incorrect.</p>
+        <p class="reveal"><strong>Solution:</strong> Double-check that you are using the correct calculator for your question. "What is X% of Y" uses Calculator 1, while "X is what % of Y" uses Calculator 2.</p>
+        <p class="reveal"><strong>Issue:</strong> Percentage change shows "undefined" or no result.</p>
+        <p class="reveal"><strong>Solution:</strong> Ensure the original value ("From" field) is not zero, as percentage change from zero is mathematically undefined.</p>
+
+        <h2 class="reveal" style="margin-top:48px">Conclusion</h2>
+        <p class="reveal">The Percentage Calculator is an indispensable tool for anyone who regularly works with percentages, which is essentially everyone. Its three integrated calculators cover the vast majority of percentage calculation scenarios you will encounter in daily life, from shopping and tipping to academics and business analysis. By providing instant, accurate results through an intuitive natural-language interface, it eliminates calculation errors and saves valuable time. The color-coded output, precise decimal handling, and complete privacy protection make it superior to manual calculation, spreadsheet software, and general-purpose calculators for percentage-specific tasks. Bookmark this page and use it whenever percentages come into play, which, as you will discover, is more often than you might think.</p>
+    </div>
+</section>
+
+<section class="info-section-page alt">
+    <div class="container">
+        <h2 class="reveal">Related Tools</h2>
+        <div class="related-grid">
+            <a href="emi-calculator.html" class="related-card reveal"><div class="related-card-title">EMI Calculator</div><div class="related-card-desc">Calculate EMI</div></a><a href="gst-calculator.html" class="related-card reveal"><div class="related-card-title">GST Calculator</div><div class="related-card-desc">Tax calculations</div></a><a href="sip-calculator.html" class="related-card reveal"><div class="related-card-title">SIP Calculator</div><div class="related-card-desc">Investment returns</div></a><a href="loan-calculator.html" class="related-card reveal"><div class="related-card-title">Loan Calculator</div><div class="related-card-desc">Loan payments</div></a>
+        </div>
+    </div>
+</section>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">Mega-<span>Store.in</span></div>
+                    <p class="footer-desc">Your one-stop destination for 25+ free online tools. Calculators, generators, converters, and utilities designed to simplify your daily tasks.</p>
+                    <p class="footer-email">megastoresupport@gmail.com</p>
+                </div>
+                <div>
+                    <div class="footer-col-title">Tools</div>
+                    <ul class="footer-links">
+                        <li><a href="emi-calculator.html">EMI Calculator</a></li>
+                        <li><a href="password-generator.html">Password Generator</a></li>
+                        <li><a href="word-counter.html">Word Counter</a></li>
+                        <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+                        <li><a href="qr-code-generator.html">QR Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms and Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="cookie.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                &copy; 2026 Mega-Store.in All rights reserved. All tools are free to use.
+            </div>
+        </div>
+    </footer>
+    
+
+<script>
+
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        function openMobileNav() {
+            mobileNav.classList.add('open');
+            mobileOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileNav() {
+            mobileNav.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if(hamburger){ hamburger.addEventListener('click', openMobileNav); }
+        if(mobileClose){ mobileClose.addEventListener('click', closeMobileNav); }
+        if(mobileOverlay){ mobileOverlay.addEventListener('click', closeMobileNav); }
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active nav link
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.navbar-links a, .mobile-nav a').forEach(link => {
+            if(link.getAttribute('href') === currentPath || (currentPath === '' && link.getAttribute('href') === 'index.html')){
+                link.classList.add('active');
+            }
+        });
+    
+
+function calcPctValue() {
+    const pct = parseFloat(document.getElementById('pct1').value);
+    const val = parseFloat(document.getElementById('pct2').value);
+    if(!pct || !val) return;
+    const res = document.getElementById('pctValueResult');
+    res.textContent = pct + '% of ' + val + ' = ' + (val * pct / 100).toLocaleString();
+    res.style.display = 'block';
+}
+function calcPct() {
+    const part = parseFloat(document.getElementById('pct3').value);
+    const whole = parseFloat(document.getElementById('pct4').value);
+    if(!part || !whole) return;
+    const res = document.getElementById('pctResult');
+    res.textContent = part + ' is ' + ((part/whole)*100).toFixed(2) + '% of ' + whole;
+    res.style.display = 'block';
+}
+function calcPctChange() {
+    const from = parseFloat(document.getElementById('pct5').value);
+    const to = parseFloat(document.getElementById('pct6').value);
+    if(from === undefined || to === undefined || from === 0) return;
+    const change = ((to - from) / from) * 100;
+    const res = document.getElementById('pctChangeResult');
+    res.textContent = (change >= 0 ? '+' : '') + change.toFixed(2) + '% ' + (change >= 0 ? 'increase' : 'decrease');
+    res.style.color = change >= 0 ? '#22c55e' : '#dc2626';
+    res.style.display = 'block';
+}
+
+</script>
+
+</body>
+</html>
